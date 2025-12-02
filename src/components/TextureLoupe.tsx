@@ -10,8 +10,8 @@ interface TextureLoupeProps {
 const TextureLoupe = ({ imageSrc, isActive, containerRef }: TextureLoupeProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
-  const loupeSize = 140;
-  const zoomLevel = 1.8;
+  const loupeSize = 160;
+  const zoomLevel = 10;
 
   useEffect(() => {
     if (!isActive || !containerRef.current) return;
