@@ -10,6 +10,7 @@ interface TextureLoupeProps {
 const TextureLoupe = ({ imageSrc, isActive, containerRef }: TextureLoupeProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [isOverButton, setIsOverButton] = useState(false);
   const loupeSize = 160;
   const zoomLevel = 10;
 
@@ -29,6 +30,11 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef }: TextureLoupeProps) =
       const percentX = (x / rect.width) * 100;
       const percentY = (y / rect.height) * 100;
       setImagePosition({ x: percentX, y: percentY });
+      
+      // Check if hovering over interactive elements
+      const target = e.target as HTMLElement;
+      const isInteractive = target.closest('button, a, [role="button"]') !== null;
+      setIsOverButton(isInteractive);
     };
 
     container.addEventListener('mousemove', handleMouseMove);
@@ -36,12 +42,14 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef }: TextureLoupeProps) =
   }, [isActive, containerRef]);
 
   if (!isActive) return null;
+  
+  const shouldShow = !isOverButton;
 
   return (
     <motion.div
       className="fixed pointer-events-none z-50"
       initial={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
+      animate={{ opacity: shouldShow ? 1 : 0, scale: shouldShow ? 1 : 0.8 }}
       exit={{ opacity: 0, scale: 0.5 }}
       transition={{ duration: 0.2 }}
       style={{
