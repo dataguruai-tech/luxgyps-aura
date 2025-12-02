@@ -16,8 +16,8 @@ const transformations = [
     year: "2024",
     architect: "Studio Rodriguez",
     description: "Complete corridor transformation with custom LED-backlit 3D gypsum wave ceiling panels",
-    before: corridorBefore,
-    after: corridorAfter,
+    before: corridorAfter,
+    after: corridorBefore,
     specs: {
       area: "2,400 sq ft",
       duration: "6 weeks",
@@ -31,8 +31,8 @@ const transformations = [
     year: "2024",
     architect: "Architectural Partners LLC",
     description: "Luxury condominium entrance renovation with decorative gypsum relief panels",
-    before: entranceBefore,
-    after: entranceAfter,
+    before: entranceAfter,
+    after: entranceBefore,
     specs: {
       area: "800 sq ft",
       duration: "4 weeks",
