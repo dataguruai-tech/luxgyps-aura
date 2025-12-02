@@ -1,7 +1,8 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import TextureLoupe from './TextureLoupe';
 
 // Gallery images
 import quiltedPanel from '@/assets/gallery/quilted-panel.jpg';
@@ -110,6 +111,16 @@ const works = [
 const FeaturedWorks = () => {
   const { isGallery } = useMode();
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+  const containerRefs = useRef<Map<number, HTMLElement>>(new Map());
+
+  const setContainerRef = (id: number, el: HTMLElement | null) => {
+    if (el) {
+      containerRefs.current.set(id, el);
+    } else {
+      containerRefs.current.delete(id);
+    }
+  };
 
   return (
     <section id="portfolio" className="py-24 md:py-32 bg-background relative overflow-hidden">
@@ -155,7 +166,8 @@ const FeaturedWorks = () => {
             
             return (
               <motion.article
-                key={work.id}
+                key={`${work.id}-${index}`}
+                ref={(el) => setContainerRef(index, el)}
                 className={`group relative overflow-hidden rounded-lg cursor-pointer ${
                   isLarge ? 'md:col-span-2 lg:col-span-2' : ''
                 }`}
@@ -163,8 +175,16 @@ const FeaturedWorks = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                onMouseEnter={() => setHoveredId(work.id)}
-                onMouseLeave={() => setHoveredId(null)}
+                onMouseEnter={() => {
+                  setHoveredId(work.id);
+                  if (isGallery) {
+                    setHoveredImage(work.image);
+                  }
+                }}
+                onMouseLeave={() => {
+                  setHoveredId(null);
+                  setHoveredImage(null);
+                }}
               >
                 <div className={`relative overflow-hidden ${
                   isLarge ? 'aspect-[16/9]' : 'aspect-[4/3]'
@@ -243,6 +263,17 @@ const FeaturedWorks = () => {
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>
+
+                  {/* Texture Loupe - only in Gallery mode */}
+                  <AnimatePresence>
+                    {isGallery && hoveredId === work.id && containerRefs.current.get(index) && (
+                      <TextureLoupe
+                        imageSrc={work.image}
+                        isActive={true}
+                        containerRef={{ current: containerRefs.current.get(index)! }}
+                      />
+                    )}
+                  </AnimatePresence>
                 </div>
               </motion.article>
             );
