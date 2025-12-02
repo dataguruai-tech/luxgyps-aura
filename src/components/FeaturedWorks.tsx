@@ -14,6 +14,7 @@ import goldenWave from '@/assets/gallery/golden-wave.jpg';
 import crocodile from '@/assets/gallery/crocodile.jpg';
 import africanQueen from '@/assets/gallery/african-queen.jpg';
 import whiteRays from '@/assets/gallery/white-rays.jpg';
+import bronzeLiving from '@/assets/gallery/bronze-living.jpg';
 
 const works = [
   {
@@ -42,6 +43,14 @@ const works = [
   },
   {
     id: 4,
+    title: "Bronze Living",
+    category: "Interior Installation",
+    description: "Luxurious quilted bronze panel with LED frame in contemporary living space",
+    image: bronzeLiving,
+    size: "large",
+  },
+  {
+    id: 5,
     title: "Rhino Breakthrough",
     category: "3D Installation",
     description: "Dramatic wildlife sculpture emerging through architectural elements",
@@ -49,7 +58,7 @@ const works = [
     size: "large",
   },
   {
-    id: 5,
+    id: 6,
     title: "Renaissance Swirl",
     category: "Monumental Relief",
     description: "Complex multi-figure sculptural composition in classical style",
@@ -57,7 +66,7 @@ const works = [
     size: "medium",
   },
   {
-    id: 6,
+    id: 7,
     title: "Hex Matrix",
     category: "LED Panel",
     description: "Geometric 3D wall with dynamic amber backlighting",
@@ -65,7 +74,7 @@ const works = [
     size: "small",
   },
   {
-    id: 7,
+    id: 8,
     title: "The Submerged Hunter",
     category: "High Relief",
     description: "Hyper-realistic crocodile emerging from turbulent waters",
@@ -73,7 +82,7 @@ const works = [
     size: "medium",
   },
   {
-    id: 8,
+    id: 9,
     title: "African Queen",
     category: "Portrait Relief",
     description: "Serene feminine form with intricate tribal patterns",
@@ -81,7 +90,7 @@ const works = [
     size: "small",
   },
   {
-    id: 9,
+    id: 10,
     title: "Quilted Geometry",
     category: "Wall Panel",
     description: "Soft organic forms in warm bronze with LED frame",
