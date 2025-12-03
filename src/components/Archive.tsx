@@ -277,7 +277,7 @@ const Archive = () => {
               transition={{ duration: 0.4, ease: 'easeInOut' }}
               className="overflow-hidden"
             >
-              <div className="pt-8">
+              <div className="pt-8 px-12">
                 <Carousel
                   opts={{
                     align: 'start',
@@ -335,14 +335,14 @@ const Archive = () => {
                     ))}
                   </CarouselContent>
                   <CarouselPrevious
-                    className={`left-2 ${
+                    className={`-left-10 ${
                       isGallery
                         ? 'bg-gold/20 border-gold/40 text-gold hover:bg-gold/30'
                         : 'bg-background border-border'
                     }`}
                   />
                   <CarouselNext
-                    className={`right-2 ${
+                    className={`-right-10 ${
                       isGallery
                         ? 'bg-gold/20 border-gold/40 text-gold hover:bg-gold/30'
                         : 'bg-background border-border'
