@@ -43,6 +43,16 @@ import corinthianColumns from '@/assets/archive/corinthian-columns.jpg';
 import ceilingRosette from '@/assets/archive/ceiling-rosette.jpg';
 import fountainSculpture from '@/assets/archive/fountain-sculpture.jpg';
 import goldInterior from '@/assets/archive/gold-interior.jpg';
+import archedCeiling from '@/assets/archive/arched-ceiling.jpg';
+import goldPilasters from '@/assets/archive/gold-pilasters.jpg';
+import chandelierCeiling from '@/assets/archive/chandelier-ceiling.jpg';
+import marbleFireplace from '@/assets/archive/marble-fireplace.jpg';
+import palaceConstruction from '@/assets/archive/palace-construction.jpg';
+import domeInterior from '@/assets/archive/dome-interior.jpg';
+import statueFountain from '@/assets/archive/statue-fountain.jpg';
+import floralCeiling from '@/assets/archive/floral-ceiling.jpg';
+import grandColumns from '@/assets/archive/grand-columns.jpg';
+import rotundaDome from '@/assets/archive/rotunda-dome.jpg';
 
 const archiveWorks = [
   { id: 100, title: 'Horses Relief', titleEs: 'Relieve de Caballos', category: 'Archive', description: 'Sculptural horse relief', image: horsesRelief },
@@ -75,6 +85,16 @@ const archiveWorks = [
   { id: 127, title: 'Ceiling Rosette', titleEs: 'Roseta de Techo', category: 'Archive', description: 'Ornate ceiling rosette with spiral staircase', image: ceilingRosette },
   { id: 128, title: 'Fountain Sculpture', titleEs: 'Escultura Fuente', category: 'Archive', description: 'Classical fountain with Atlas figures', image: fountainSculpture },
   { id: 129, title: 'Gold Interior', titleEs: 'Interior Dorado', category: 'Archive', description: 'Luxurious interior with gold moldings', image: goldInterior },
+  { id: 130, title: 'Arched Ceiling', titleEs: 'Techo Arqueado', category: 'Archive', description: 'Ornate arched ceiling with gold accents', image: archedCeiling },
+  { id: 131, title: 'Gold Pilasters', titleEs: 'Pilastras Doradas', category: 'Archive', description: 'Corinthian pilasters with gold leaf details', image: goldPilasters },
+  { id: 132, title: 'Chandelier Ceiling', titleEs: 'Techo con Lámpara', category: 'Archive', description: 'Crystal chandelier with gold molding ceiling', image: chandelierCeiling },
+  { id: 133, title: 'Marble Fireplace', titleEs: 'Chimenea de Mármol', category: 'Archive', description: 'Classic marble fireplace in construction', image: marbleFireplace },
+  { id: 134, title: 'Palace Construction', titleEs: 'Construcción de Palacio', category: 'Archive', description: 'Grand entrance with gold ornaments', image: palaceConstruction },
+  { id: 135, title: 'Dome Interior', titleEs: 'Interior con Cúpula', category: 'Archive', description: 'Palatial interior with glass dome', image: domeInterior },
+  { id: 136, title: 'Statue Fountain', titleEs: 'Fuente con Estatua', category: 'Archive', description: 'Classical statue niche with fountain', image: statueFountain },
+  { id: 137, title: 'Floral Ceiling', titleEs: 'Techo Floral', category: 'Archive', description: 'Textured floral ceiling pattern', image: floralCeiling },
+  { id: 138, title: 'Grand Columns', titleEs: 'Grandes Columnas', category: 'Archive', description: 'Monumental column entrance', image: grandColumns },
+  { id: 139, title: 'Rotunda Dome', titleEs: 'Cúpula Rotonda', category: 'Archive', description: 'Elegant rotunda with skylight dome', image: rotundaDome },
 ];
 
 const Archive = () => {
