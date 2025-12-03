@@ -178,7 +178,7 @@ const archiveWorks = [
 ];
 
 const Archive = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const [selectedWork, setSelectedWork] = useState<typeof archiveWorks[0] | null>(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const { isGallery } = useMode();
