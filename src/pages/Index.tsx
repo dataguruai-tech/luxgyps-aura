@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import Chatbot from '@/components/Chatbot';
 import SampleKitModal from '@/components/SampleKitModal';
 import LookbookPopup from '@/components/LookbookPopup';
+import Archive from '@/components/Archive';
 
 const Index = () => {
   const [isSampleKitOpen, setIsSampleKitOpen] = useState(false);
@@ -22,6 +23,7 @@ const Index = () => {
         <Hero onSampleKitClick={() => setIsSampleKitOpen(true)} />
         <Stats />
         <FeaturedWorks />
+        <Archive />
         <VideoGallery />
         <BeforeAfter />
         <About />
