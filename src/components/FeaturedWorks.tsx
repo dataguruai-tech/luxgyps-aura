@@ -237,7 +237,7 @@ const FeaturedWorks = () => {
                   <div className={`absolute inset-0 transition-opacity duration-500 ${
                     isGallery 
                       ? 'bg-gradient-to-t from-background via-background/30 to-transparent opacity-70 group-hover:opacity-90'
-                      : 'bg-gradient-to-t from-background via-background/60 to-background/20 opacity-80 group-hover:opacity-95'
+                      : 'bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-60 group-hover:opacity-80'
                   }`} />
                   
                   {/* Corner Accent */}
@@ -250,7 +250,7 @@ const FeaturedWorks = () => {
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                     {/* Text background for Pro mode */}
                     {!isGallery && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/40 to-transparent" />
                     )}
                     <div className="flex items-end justify-between gap-4 relative z-10">
                       <div className="flex-1">
