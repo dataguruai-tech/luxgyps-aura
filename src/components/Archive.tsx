@@ -335,14 +335,14 @@ const Archive = () => {
                     ))}
                   </CarouselContent>
                   <CarouselPrevious
-                    className={`-left-4 ${
+                    className={`left-2 ${
                       isGallery
                         ? 'bg-gold/20 border-gold/40 text-gold hover:bg-gold/30'
                         : 'bg-background border-border'
                     }`}
                   />
                   <CarouselNext
-                    className={`-right-4 ${
+                    className={`right-2 ${
                       isGallery
                         ? 'bg-gold/20 border-gold/40 text-gold hover:bg-gold/30'
                         : 'bg-background border-border'
