@@ -53,6 +53,16 @@ import statueFountain from '@/assets/archive/statue-fountain.jpg';
 import floralCeiling from '@/assets/archive/floral-ceiling.jpg';
 import grandColumns from '@/assets/archive/grand-columns.jpg';
 import rotundaDome from '@/assets/archive/rotunda-dome.jpg';
+import baroqueMedallion from '@/assets/archive/baroque-medallion.jpg';
+import rococoFrame from '@/assets/archive/rococo-frame.jpg';
+import muralPanels from '@/assets/archive/mural-panels.jpg';
+import geometricWall from '@/assets/archive/geometric-wall.jpg';
+import artisanWorkshop from '@/assets/archive/artisan-workshop.jpg';
+import mosaicFountain from '@/assets/archive/mosaic-fountain.jpg';
+import marblePilasters from '@/assets/archive/marble-pilasters.jpg';
+import clayRelief from '@/assets/archive/clay-relief.jpg';
+import litFence from '@/assets/archive/lit-fence.jpg';
+import fauxMarbleColumns from '@/assets/archive/faux-marble-columns.jpg';
 
 const archiveWorks = [
   { id: 100, title: 'Horses Relief', titleEs: 'Relieve de Caballos', category: 'Archive', description: 'Sculptural horse relief', image: horsesRelief },
@@ -95,6 +105,16 @@ const archiveWorks = [
   { id: 137, title: 'Floral Ceiling', titleEs: 'Techo Floral', category: 'Archive', description: 'Textured floral ceiling pattern', image: floralCeiling },
   { id: 138, title: 'Grand Columns', titleEs: 'Grandes Columnas', category: 'Archive', description: 'Monumental column entrance', image: grandColumns },
   { id: 139, title: 'Rotunda Dome', titleEs: 'Cúpula Rotonda', category: 'Archive', description: 'Elegant rotunda with skylight dome', image: rotundaDome },
+  { id: 140, title: 'Baroque Medallion', titleEs: 'Medallón Barroco', category: 'Archive', description: 'Ornate floral ceiling medallion with gold accents', image: baroqueMedallion },
+  { id: 141, title: 'Rococo Frame', titleEs: 'Marco Rococó', category: 'Archive', description: 'White rococo wall frame molding', image: rococoFrame },
+  { id: 142, title: 'Mural Panels', titleEs: 'Paneles Murales', category: 'Archive', description: 'Landscape mural panels with rococo frames', image: muralPanels },
+  { id: 143, title: 'Geometric Wall', titleEs: 'Pared Geométrica', category: 'Archive', description: 'Modern backlit geometric wall panels', image: geometricWall },
+  { id: 144, title: 'Artisan Workshop', titleEs: 'Taller Artesano', category: 'Archive', description: 'Master craftsman with curved molding', image: artisanWorkshop },
+  { id: 145, title: 'Mosaic Fountain', titleEs: 'Fuente Mosaico', category: 'Archive', description: 'Ornate tiered fountain with gold mosaic', image: mosaicFountain },
+  { id: 146, title: 'Marble Pilasters', titleEs: 'Pilastras de Mármol', category: 'Archive', description: 'Faux marble pilasters with green accents', image: marblePilasters },
+  { id: 147, title: 'Clay Relief', titleEs: 'Relieve en Arcilla', category: 'Archive', description: 'Classical figural relief in clay', image: clayRelief },
+  { id: 148, title: 'Lit Fence', titleEs: 'Cerca Iluminada', category: 'Archive', description: 'Decorative fence with night lighting', image: litFence },
+  { id: 149, title: 'Faux Marble Columns', titleEs: 'Columnas Mármol Falso', category: 'Archive', description: 'Fluted columns with faux marble finish', image: fauxMarbleColumns },
 ];
 
 const Archive = () => {
