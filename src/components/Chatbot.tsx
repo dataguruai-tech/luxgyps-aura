@@ -1,15 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useLanguage } from '@/context/LanguageContext';
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{ role: 'user' | 'bot'; content: string }[]>([
-    { role: 'bot', content: 'Здравствуйте! Чем могу помочь? Я расскажу о наших изделиях из гипса и помогу с выбором.' }
-  ]);
+  const { t, language } = useLanguage();
+  const [messages, setMessages] = useState<{ role: 'user' | 'bot'; content: string }[]>([]);
   const [input, setInput] = useState('');
+
+  // Reset greeting when language changes
+  useEffect(() => {
+    setMessages([{ role: 'bot', content: t.chat.greeting }]);
+  }, [language, t.chat.greeting]);
 
   const handleSend = () => {
     if (!input.trim()) return;
@@ -17,11 +22,10 @@ const Chatbot = () => {
     setMessages(prev => [...prev, { role: 'user', content: input }]);
     setInput('');
     
-    // Имитация ответа бота
     setTimeout(() => {
       setMessages(prev => [...prev, { 
         role: 'bot', 
-        content: 'Спасибо за ваш вопрос! Наш менеджер свяжется с вами в ближайшее время. Или позвоните нам: +1 754-300-1010' 
+        content: t.chat.autoReply
       }]);
     }, 1000);
   };
@@ -45,8 +49,8 @@ const Chatbot = () => {
                     <MessageCircle className="w-5 h-5 text-gold" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-foreground">LuxGyps</h3>
-                    <p className="text-xs text-muted-foreground">Онлайн консультант</p>
+                    <h3 className="font-semibold text-foreground">{t.chat.title}</h3>
+                    <p className="text-xs text-muted-foreground">{t.chat.subtitle}</p>
                   </div>
                 </div>
                 <Button
@@ -95,7 +99,7 @@ const Chatbot = () => {
                 <Input
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Введите сообщение..."
+                  placeholder={t.chat.placeholder}
                   className="flex-1 bg-background border-border"
                 />
                 <Button type="submit" size="icon" className="bg-gold hover:bg-gold/90 text-primary-foreground">
