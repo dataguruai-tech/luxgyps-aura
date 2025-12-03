@@ -126,6 +126,34 @@ interface Translations {
     privacy: string;
     terms: string;
   };
+  sampleKit: {
+    title: string;
+    subtitle: string;
+    description: string;
+    nameLabel: string;
+    namePlaceholder: string;
+    firmLabel: string;
+    firmPlaceholder: string;
+    emailLabel: string;
+    phoneLabel: string;
+    addressLabel: string;
+    addressPlaceholder: string;
+    submitButton: string;
+    freeShipping: string;
+    successTitle: string;
+    successMessage: string;
+    buttonText: string;
+  };
+  lookbook: {
+    badge: string;
+    title: string;
+    description: string;
+    placeholder: string;
+    button: string;
+    privacy: string;
+    successTitle: string;
+    successMessage: string;
+  };
 }
 
 const translations: Record<Language, Translations> = {
@@ -253,6 +281,34 @@ const translations: Record<Language, Translations> = {
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
     },
+    sampleKit: {
+      title: 'Miami Sample Box',
+      subtitle: 'For Design Professionals',
+      description: 'Request a curated box of our finest gypsum textures and finishes. Experience the quality firsthand before specifying for your project.',
+      nameLabel: 'Your Name',
+      namePlaceholder: 'John Smith',
+      firmLabel: 'Firm Name',
+      firmPlaceholder: 'Architecture Studio',
+      emailLabel: 'Email',
+      phoneLabel: 'Phone',
+      addressLabel: 'Shipping Address',
+      addressPlaceholder: '123 Design District, Miami, FL 33137',
+      submitButton: 'Request Sample Box',
+      freeShipping: 'Free shipping to all US addresses. Ships within 3-5 business days.',
+      successTitle: 'Request Received!',
+      successMessage: 'Your sample box will ship within 3-5 business days.',
+      buttonText: 'Order Sample Box',
+    },
+    lookbook: {
+      badge: 'Free Download',
+      title: 'Miami Gypsum Trends 2025',
+      description: 'Discover the hottest interior design trends featuring sculptural gypsum elements in Miami\'s most prestigious homes.',
+      placeholder: 'Enter your email',
+      button: 'Download Lookbook',
+      privacy: 'We respect your privacy. Unsubscribe anytime.',
+      successTitle: 'Check Your Inbox!',
+      successMessage: 'Your lookbook is on its way.',
+    },
   },
   es: {
     chat: {
@@ -377,6 +433,34 @@ const translations: Record<Language, Translations> = {
       rights: 'Todos los derechos reservados.',
       privacy: 'Política de Privacidad',
       terms: 'Términos de Servicio',
+    },
+    sampleKit: {
+      title: 'Caja de Muestras Miami',
+      subtitle: 'Para Profesionales del Diseño',
+      description: 'Solicite una caja curada con nuestras mejores texturas y acabados de yeso. Experimente la calidad de primera mano antes de especificar para su proyecto.',
+      nameLabel: 'Su Nombre',
+      namePlaceholder: 'Juan García',
+      firmLabel: 'Nombre de la Firma',
+      firmPlaceholder: 'Estudio de Arquitectura',
+      emailLabel: 'Correo Electrónico',
+      phoneLabel: 'Teléfono',
+      addressLabel: 'Dirección de Envío',
+      addressPlaceholder: '123 Design District, Miami, FL 33137',
+      submitButton: 'Solicitar Caja de Muestras',
+      freeShipping: 'Envío gratis a todas las direcciones de EE.UU. Envío en 3-5 días hábiles.',
+      successTitle: '¡Solicitud Recibida!',
+      successMessage: 'Su caja de muestras se enviará en 3-5 días hábiles.',
+      buttonText: 'Ordenar Caja de Muestras',
+    },
+    lookbook: {
+      badge: 'Descarga Gratis',
+      title: 'Tendencias de Yeso Miami 2025',
+      description: 'Descubra las tendencias de diseño interior más populares con elementos de yeso escultórico en las casas más prestigiosas de Miami.',
+      placeholder: 'Ingrese su correo',
+      button: 'Descargar Lookbook',
+      privacy: 'Respetamos su privacidad. Puede cancelar en cualquier momento.',
+      successTitle: '¡Revise su Bandeja!',
+      successMessage: 'Su lookbook está en camino.',
     },
   },
 };
