@@ -63,6 +63,16 @@ import marblePilasters from '@/assets/archive/marble-pilasters.jpg';
 import clayRelief from '@/assets/archive/clay-relief.jpg';
 import litFence from '@/assets/archive/lit-fence.jpg';
 import fauxMarbleColumns from '@/assets/archive/faux-marble-columns.jpg';
+import brickFireplace from '@/assets/archive/brick-fireplace.jpg';
+import artNouveauFacade from '@/assets/archive/art-nouveau-facade.jpg';
+import onyxColumn from '@/assets/archive/onyx-column.jpg';
+import balustradeFence from '@/assets/archive/balustrade-fence.jpg';
+import skyCeiling from '@/assets/archive/sky-ceiling.jpg';
+import outdoorKitchen from '@/assets/archive/outdoor-kitchen.jpg';
+import femaleSculpture from '@/assets/archive/female-sculpture.jpg';
+import ornateFacade from '@/assets/archive/ornate-facade.jpg';
+import cofferedAtrium from '@/assets/archive/coffered-atrium.jpg';
+import rusticFireplace from '@/assets/archive/rustic-fireplace.jpg';
 
 const archiveWorks = [
   { id: 100, title: 'Horses Relief', titleEs: 'Relieve de Caballos', category: 'Archive', description: 'Sculptural horse relief', image: horsesRelief },
@@ -115,6 +125,16 @@ const archiveWorks = [
   { id: 147, title: 'Clay Relief', titleEs: 'Relieve en Arcilla', category: 'Archive', description: 'Classical figural relief in clay', image: clayRelief },
   { id: 148, title: 'Lit Fence', titleEs: 'Cerca Iluminada', category: 'Archive', description: 'Decorative fence with night lighting', image: litFence },
   { id: 149, title: 'Faux Marble Columns', titleEs: 'Columnas Mármol Falso', category: 'Archive', description: 'Fluted columns with faux marble finish', image: fauxMarbleColumns },
+  { id: 150, title: 'Brick Fireplace', titleEs: 'Chimenea de Ladrillo', category: 'Archive', description: 'Custom brick BBQ fireplace complex', image: brickFireplace },
+  { id: 151, title: 'Art Nouveau Facade', titleEs: 'Fachada Art Nouveau', category: 'Archive', description: 'Historic Art Nouveau building restoration', image: artNouveauFacade },
+  { id: 152, title: 'Onyx Column', titleEs: 'Columna de Ónix', category: 'Archive', description: 'Faux onyx marble column with gold base', image: onyxColumn },
+  { id: 153, title: 'Balustrade Fence', titleEs: 'Cerca Balaustrada', category: 'Archive', description: 'Black granite balustrade with decorative fence', image: balustradeFence },
+  { id: 154, title: 'Sky Ceiling', titleEs: 'Techo Cielo', category: 'Archive', description: 'Painted sky ceiling with gold moldings', image: skyCeiling },
+  { id: 155, title: 'Outdoor Kitchen', titleEs: 'Cocina Exterior', category: 'Archive', description: 'Brick outdoor kitchen with sink', image: outdoorKitchen },
+  { id: 156, title: 'Female Sculpture', titleEs: 'Escultura Femenina', category: 'Archive', description: 'Classical female figure sculpture in workshop', image: femaleSculpture },
+  { id: 157, title: 'Ornate Facade', titleEs: 'Fachada Ornamentada', category: 'Archive', description: 'Historic facade restoration with detailed moldings', image: ornateFacade },
+  { id: 158, title: 'Coffered Atrium', titleEs: 'Atrio Artesonado', category: 'Archive', description: 'Grand atrium with coffered ceiling and ionic columns', image: cofferedAtrium },
+  { id: 159, title: 'Rustic Fireplace', titleEs: 'Chimenea Rústica', category: 'Archive', description: 'Large brick fireplace complex with wood storage', image: rusticFireplace },
 ];
 
 const Archive = () => {
