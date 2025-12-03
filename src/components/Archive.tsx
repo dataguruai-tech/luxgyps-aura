@@ -33,6 +33,16 @@ import ceilingRoom from '@/assets/archive/ceiling-room.jpg';
 import ceilingMedallion from '@/assets/archive/ceiling-medallion.jpg';
 import ceilingGrid from '@/assets/archive/ceiling-grid.jpg';
 import ceilingOrnate from '@/assets/archive/ceiling-ornate.jpg';
+import interiorArch from '@/assets/archive/interior-arch.jpg';
+import interiorColumn from '@/assets/archive/interior-column.jpg';
+import interiorWindow from '@/assets/archive/interior-window.jpg';
+import interiorDoorway from '@/assets/archive/interior-doorway.jpg';
+import goldDoors from '@/assets/archive/gold-doors.jpg';
+import grandHall from '@/assets/archive/grand-hall.jpg';
+import corinthianColumns from '@/assets/archive/corinthian-columns.jpg';
+import ceilingRosette from '@/assets/archive/ceiling-rosette.jpg';
+import fountainSculpture from '@/assets/archive/fountain-sculpture.jpg';
+import goldInterior from '@/assets/archive/gold-interior.jpg';
 
 const archiveWorks = [
   { id: 100, title: 'Horses Relief', titleEs: 'Relieve de Caballos', category: 'Archive', description: 'Sculptural horse relief', image: horsesRelief },
@@ -55,6 +65,16 @@ const archiveWorks = [
   { id: 117, title: 'Ceiling Medallion', titleEs: 'Medallón de Techo', category: 'Archive', description: 'Ornate ceiling medallion with gold accents', image: ceilingMedallion },
   { id: 118, title: 'Ceiling Grid', titleEs: 'Rejilla de Techo', category: 'Archive', description: 'Coffered ceiling with medallions', image: ceilingGrid },
   { id: 119, title: 'Ornate Ceiling', titleEs: 'Techo Ornamentado', category: 'Archive', description: 'Baroque ceiling with chandelier rosette', image: ceilingOrnate },
+  { id: 120, title: 'Interior Arch', titleEs: 'Arco Interior', category: 'Archive', description: 'Ornate arch with acanthus leaves', image: interiorArch },
+  { id: 121, title: 'Interior Column', titleEs: 'Columna Interior', category: 'Archive', description: 'Corinthian column with coffered ceiling', image: interiorColumn },
+  { id: 122, title: 'Arched Window', titleEs: 'Ventana en Arco', category: 'Archive', description: 'Decorative wall panels with arched window', image: interiorWindow },
+  { id: 123, title: 'Ornate Doorway', titleEs: 'Entrada Ornamentada', category: 'Archive', description: 'Baroque doorway with ceiling accents', image: interiorDoorway },
+  { id: 124, title: 'Gold Doors', titleEs: 'Puertas Doradas', category: 'Archive', description: 'Elegant doors with gold leaf details', image: goldDoors },
+  { id: 125, title: 'Grand Hall', titleEs: 'Gran Salón', category: 'Archive', description: 'Luxurious hall with columns and chandelier', image: grandHall },
+  { id: 126, title: 'Corinthian Columns', titleEs: 'Columnas Corintias', category: 'Archive', description: 'Gold-accented Corinthian columns', image: corinthianColumns },
+  { id: 127, title: 'Ceiling Rosette', titleEs: 'Roseta de Techo', category: 'Archive', description: 'Ornate ceiling rosette with spiral staircase', image: ceilingRosette },
+  { id: 128, title: 'Fountain Sculpture', titleEs: 'Escultura Fuente', category: 'Archive', description: 'Classical fountain with Atlas figures', image: fountainSculpture },
+  { id: 129, title: 'Gold Interior', titleEs: 'Interior Dorado', category: 'Archive', description: 'Luxurious interior with gold moldings', image: goldInterior },
 ];
 
 const Archive = () => {
