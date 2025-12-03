@@ -1,26 +1,32 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Menu, X, Sun, Moon } from 'lucide-react';
+import { Phone, Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
+import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
 
 const Header = () => {
   const { mode, toggleMode, isGallery } = useMode();
+  const { language, setLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const galleryNav = [
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Process', href: '#process' },
-    { label: 'About', href: '#about' },
+    { label: t.nav.portfolio, href: '#portfolio' },
+    { label: t.nav.process, href: '#process' },
+    { label: t.nav.about, href: '#about' },
   ];
 
   const proNav = [
-    { label: 'Catalog', href: '#catalog' },
-    { label: 'Specifications', href: '#specs' },
-    { label: 'Downloads', href: '#downloads' },
+    { label: t.nav.catalog, href: '#catalog' },
+    { label: t.nav.specifications, href: '#specs' },
+    { label: t.nav.downloads, href: '#downloads' },
   ];
 
   const navItems = isGallery ? galleryNav : proNav;
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'en' ? 'es' : 'en');
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
@@ -61,6 +67,17 @@ const Header = () => {
 
           {/* Actions */}
           <div className="flex items-center gap-3">
+            {/* Language Toggle */}
+            <motion.button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-border/50 text-sm font-medium hover:border-primary/50 transition-colors"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Globe className="w-4 h-4 text-primary" />
+              <span className="uppercase text-muted-foreground">{language}</span>
+            </motion.button>
+
             {/* Mode Toggle */}
             <motion.button
               onClick={toggleMode}
@@ -78,7 +95,7 @@ const Header = () => {
                     className="flex items-center gap-2"
                   >
                     <Moon className="w-4 h-4 text-primary" />
-                    <span className="hidden sm:inline text-muted-foreground">Gallery</span>
+                    <span className="hidden sm:inline text-muted-foreground">{t.nav.gallery}</span>
                   </motion.div>
                 ) : (
                   <motion.div
@@ -89,7 +106,7 @@ const Header = () => {
                     className="flex items-center gap-2"
                   >
                     <Sun className="w-4 h-4 text-primary" />
-                    <span className="hidden sm:inline text-muted-foreground">Pro</span>
+                    <span className="hidden sm:inline text-muted-foreground">{t.nav.pro}</span>
                   </motion.div>
                 )}
               </AnimatePresence>
