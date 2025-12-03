@@ -76,29 +76,55 @@ const Archive = () => {
   } : null;
 
   return (
-    <section className="py-12 px-4 md:px-8">
+    <section className="py-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
-        {/* Toggle Button */}
+        {/* Toggle Button - Premium Design */}
         <motion.button
           onClick={() => setIsOpen(!isOpen)}
-          className={`w-full flex items-center justify-center gap-3 py-4 px-6 rounded-lg border transition-all duration-300 ${
-            isGallery
-              ? 'border-gold/30 bg-gold/5 hover:bg-gold/10 text-gold'
-              : 'border-border bg-muted/50 hover:bg-muted text-foreground'
-          }`}
-          whileHover={{ scale: 1.01 }}
-          whileTap={{ scale: 0.99 }}
+          className="group relative w-full"
+          whileHover={{ scale: 1.005 }}
+          whileTap={{ scale: 0.995 }}
         >
-          <ArchiveIcon className="w-5 h-5" />
-          <span className="font-serif text-lg tracking-wide">
-            {language === 'es' ? 'Archivo' : 'Archive'}
-          </span>
-          <motion.div
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.3 }}
+          {/* Background with gradient */}
+          <div
+            className={`relative py-5 px-8 rounded-sm overflow-hidden transition-all duration-500 ${
+              isGallery
+                ? 'bg-gradient-to-r from-primary/5 via-primary/10 to-primary/5'
+                : 'bg-gradient-to-r from-muted/30 via-muted/50 to-muted/30'
+            }`}
           >
-            <ChevronDown className="w-5 h-5" />
-          </motion.div>
+            {/* Corner accents */}
+            <div className={`absolute top-0 left-0 w-8 h-8 border-l border-t ${isGallery ? 'border-primary/50' : 'border-border'} transition-all duration-300 group-hover:w-12 group-hover:h-12`} />
+            <div className={`absolute top-0 right-0 w-8 h-8 border-r border-t ${isGallery ? 'border-primary/50' : 'border-border'} transition-all duration-300 group-hover:w-12 group-hover:h-12`} />
+            <div className={`absolute bottom-0 left-0 w-8 h-8 border-l border-b ${isGallery ? 'border-primary/50' : 'border-border'} transition-all duration-300 group-hover:w-12 group-hover:h-12`} />
+            <div className={`absolute bottom-0 right-0 w-8 h-8 border-r border-b ${isGallery ? 'border-primary/50' : 'border-border'} transition-all duration-300 group-hover:w-12 group-hover:h-12`} />
+
+            {/* Shine effect on hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-primary/10 to-transparent -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
+
+            {/* Content */}
+            <div className="relative flex items-center justify-center gap-4">
+              <div className={`p-2 rounded-full ${isGallery ? 'bg-primary/10' : 'bg-muted'} transition-colors duration-300`}>
+                <ArchiveIcon className={`w-5 h-5 ${isGallery ? 'text-primary' : 'text-muted-foreground'}`} />
+              </div>
+              
+              <span className={`font-display text-xl tracking-[0.2em] uppercase ${isGallery ? 'text-primary' : 'text-foreground'}`}>
+                {language === 'es' ? 'Archivo' : 'Archive'}
+              </span>
+              
+              <motion.div
+                animate={{ rotate: isOpen ? 180 : 0 }}
+                transition={{ duration: 0.4, ease: 'easeInOut' }}
+                className={`${isGallery ? 'text-primary' : 'text-muted-foreground'}`}
+              >
+                <ChevronDown className="w-5 h-5" />
+              </motion.div>
+            </div>
+
+            {/* Decorative lines */}
+            <div className={`absolute left-1/4 top-1/2 -translate-y-1/2 w-16 h-px ${isGallery ? 'bg-gradient-to-r from-transparent to-primary/30' : 'bg-gradient-to-r from-transparent to-border'}`} />
+            <div className={`absolute right-1/4 top-1/2 -translate-y-1/2 w-16 h-px ${isGallery ? 'bg-gradient-to-l from-transparent to-primary/30' : 'bg-gradient-to-l from-transparent to-border'}`} />
+          </div>
         </motion.button>
 
         {/* Collapsible Carousel */}
