@@ -6,14 +6,15 @@ interface TextureLoupeProps {
   isActive: boolean;
   containerRef: React.RefObject<HTMLElement | null>;
   size?: number;
+  zoom?: number;
 }
 
-const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160 }: TextureLoupeProps) => {
+const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 10 }: TextureLoupeProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [isOverButton, setIsOverButton] = useState(false);
   const loupeSize = size;
-  const zoomLevel = 10;
+  const zoomLevel = zoom;
 
   useEffect(() => {
     if (!isActive || !containerRef.current) return;
