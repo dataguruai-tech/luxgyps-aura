@@ -73,7 +73,7 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 10 
           boxShadow: '0 0 0 3px hsl(var(--primary)), 0 0 20px rgba(212, 175, 55, 0.4), 0 8px 32px rgba(0,0,0,0.5)',
         }}
       >
-        {/* Zoomed image */}
+        {/* Zoomed image with lens distortion */}
         <div 
           className="absolute inset-0"
           style={{
@@ -84,17 +84,82 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 10 
           }}
         />
         
-        {/* Crosshair overlay */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="absolute w-full h-px bg-primary/30" />
-          <div className="absolute w-px h-full bg-primary/30" />
-        </div>
-        
-        {/* Inner glow */}
+        {/* Lens edge blur - simulates focus falloff from center to edge */}
         <div 
           className="absolute inset-0 rounded-full"
           style={{
-            boxShadow: 'inset 0 0 20px rgba(212, 175, 55, 0.2)',
+            background: 'radial-gradient(circle at center, transparent 40%, rgba(0,0,0,0.03) 60%, rgba(0,0,0,0.08) 75%, rgba(0,0,0,0.15) 90%)',
+            backdropFilter: 'blur(0px)',
+            mask: 'radial-gradient(circle at center, transparent 50%, black 100%)',
+            WebkitMask: 'radial-gradient(circle at center, transparent 50%, black 100%)',
+          }}
+        />
+        
+        {/* Edge blur overlay */}
+        <div 
+          className="absolute inset-0 rounded-full"
+          style={{
+            boxShadow: 'inset 0 0 30px 15px rgba(0,0,0,0.1)',
+          }}
+        />
+        
+        {/* Glass refraction highlight - top left */}
+        <div 
+          className="absolute rounded-full"
+          style={{
+            top: '8%',
+            left: '15%',
+            width: '35%',
+            height: '20%',
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
+            transform: 'rotate(-20deg)',
+            filter: 'blur(2px)',
+          }}
+        />
+        
+        {/* Secondary glass highlight */}
+        <div 
+          className="absolute rounded-full"
+          style={{
+            top: '12%',
+            left: '55%',
+            width: '15%',
+            height: '8%',
+            background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 100%)',
+            transform: 'rotate(-15deg)',
+            filter: 'blur(1px)',
+          }}
+        />
+        
+        {/* Subtle chromatic aberration at edges */}
+        <div 
+          className="absolute inset-0 rounded-full pointer-events-none"
+          style={{
+            background: 'radial-gradient(circle at center, transparent 60%, rgba(255,100,100,0.03) 80%, rgba(100,100,255,0.05) 100%)',
+          }}
+        />
+        
+        {/* Crosshair overlay */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div className="absolute w-full h-px bg-primary/20" />
+          <div className="absolute w-px h-full bg-primary/20" />
+          {/* Center dot */}
+          <div className="w-1 h-1 rounded-full bg-primary/40" />
+        </div>
+        
+        {/* Inner glow - glass edge */}
+        <div 
+          className="absolute inset-0 rounded-full"
+          style={{
+            boxShadow: 'inset 0 0 20px rgba(212, 175, 55, 0.15), inset 0 -5px 15px rgba(0,0,0,0.1)',
+          }}
+        />
+        
+        {/* Lens curvature shadow */}
+        <div 
+          className="absolute inset-0 rounded-full"
+          style={{
+            boxShadow: 'inset 0 2px 4px rgba(255,255,255,0.1), inset 0 -2px 4px rgba(0,0,0,0.15)',
           }}
         />
       </div>
