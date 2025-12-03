@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useState, useRef } from 'react';
 import TextureLoupe from './TextureLoupe';
 
@@ -99,7 +100,7 @@ const works = [
     size: "small",
   },
   {
-    id: 10,
+    id: 11,
     title: "White Rays",
     category: "Ceiling Panel",
     description: "Dynamic linear composition in pristine white gypsum",
@@ -110,6 +111,7 @@ const works = [
 
 const FeaturedWorks = () => {
   const { isGallery } = useMode();
+  const { t } = useLanguage();
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
   const containerRefs = useRef<Map<number, HTMLElement>>(new Map());
@@ -142,20 +144,18 @@ const FeaturedWorks = () => {
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-px bg-primary" />
             <p className="text-primary tracking-[0.3em] uppercase text-sm font-medium">
-              {isGallery ? "Featured Works" : "Recent Projects"}
+              {isGallery ? t.featured.eyebrowGallery : t.featured.eyebrowPro}
             </p>
           </div>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
             {isGallery ? (
-              <>Sculptural <span className="text-gradient-gold italic">Masterpieces</span></>
+              <>{t.featured.titleGallery} <span className="text-gradient-gold italic">Masterpieces</span></>
             ) : (
-              <>Project <span className="text-gradient-gold italic">Portfolio</span></>
+              <>{t.featured.titlePro} <span className="text-gradient-gold italic">Portfolio</span></>
             )}
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-            {isGallery 
-              ? "Each piece is a unique collaboration between artisan craftsmanship and architectural vision. We produce, we install, we guarantee—for 5 years."
-              : "Browse our completed installations with full technical specifications and CAD files available for your next project."}
+            {isGallery ? t.featured.descGallery : t.featured.descPro}
           </p>
         </motion.div>
 
@@ -300,7 +300,7 @@ const FeaturedWorks = () => {
             {/* Shimmer effect */}
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
             
-            <span className="font-medium text-foreground relative z-10">View Complete Portfolio</span>
+            <span className="font-medium text-foreground relative z-10">{t.featured.viewAll}</span>
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center relative z-10 group-hover:bg-primary transition-colors">
               <ArrowUpRight className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </div>

@@ -1,12 +1,6 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
-
-const stats = [
-  { value: 250, suffix: '+', label: 'Projects Completed' },
-  { value: 15, suffix: '+', label: 'Years of Excellence' },
-  { value: 5, suffix: ' Year', label: 'Installation Guarantee' },
-  { value: 100, suffix: '%', label: 'Client Satisfaction' },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
   const [displayValue, setDisplayValue] = useState(0);
@@ -42,6 +36,15 @@ function AnimatedNumber({ value, suffix }: { value: number; suffix: string }) {
 }
 
 const Stats = () => {
+  const { t } = useLanguage();
+
+  const stats = [
+    { value: 250, suffix: '+', label: t.stats.projects },
+    { value: 15, suffix: '+', label: t.stats.years },
+    { value: 5, suffix: ' Year', label: t.stats.guarantee },
+    { value: 100, suffix: '%', label: t.stats.satisfaction },
+  ];
+
   return (
     <section className="py-20 md:py-28 bg-secondary/30 border-y border-border/30">
       <div className="container mx-auto px-6">
