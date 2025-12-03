@@ -12,6 +12,7 @@ interface TextureLoupeProps {
 const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 10 }: TextureLoupeProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
+  const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
   const [isOverButton, setIsOverButton] = useState(false);
   const loupeSize = size;
   const zoomLevel = zoom;
@@ -20,6 +21,8 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 10 
     if (!isActive || !containerRef.current) return;
 
     const container = containerRef.current;
+    const rect = container.getBoundingClientRect();
+    setContainerSize({ width: rect.width, height: rect.height });
 
     const handleMouseMove = (e: MouseEvent) => {
       const rect = container.getBoundingClientRect();
@@ -27,11 +30,13 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 10 
       const y = e.clientY - rect.top;
       
       setPosition({ x: e.clientX, y: e.clientY });
+      setContainerSize({ width: rect.width, height: rect.height });
       
-      // Calculate the position for the zoomed image
-      const percentX = (x / rect.width) * 100;
-      const percentY = (y / rect.height) * 100;
-      setImagePosition({ x: percentX, y: percentY });
+      // Calculate pixel offset for proper centering
+      // The zoomed image should show what's under the cursor at the center of the loupe
+      const bgX = -(x * zoomLevel - loupeSize / 2);
+      const bgY = -(y * zoomLevel - loupeSize / 2);
+      setImagePosition({ x: bgX, y: bgY });
       
       // Check if hovering over interactive elements
       const target = e.target as HTMLElement;
@@ -41,7 +46,7 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 10 
 
     container.addEventListener('mousemove', handleMouseMove);
     return () => container.removeEventListener('mousemove', handleMouseMove);
-  }, [isActive, containerRef]);
+  }, [isActive, containerRef, zoomLevel, loupeSize]);
 
   if (!isActive) return null;
   
@@ -73,8 +78,8 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 10 
           className="absolute inset-0"
           style={{
             backgroundImage: `url(${imageSrc})`,
-            backgroundSize: `${zoomLevel * 100}%`,
-            backgroundPosition: `${imagePosition.x}% ${imagePosition.y}%`,
+            backgroundSize: `${containerSize.width * zoomLevel}px ${containerSize.height * zoomLevel}px`,
+            backgroundPosition: `${imagePosition.x}px ${imagePosition.y}px`,
             backgroundRepeat: 'no-repeat',
           }}
         />
