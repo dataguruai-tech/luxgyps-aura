@@ -83,6 +83,16 @@ import goldenArchway from '@/assets/archive/golden-archway.jpg';
 import fauxMarbleBase from '@/assets/archive/faux-marble-base.jpg';
 import workshopElements from '@/assets/archive/workshop-elements.jpg';
 import estateFence from '@/assets/archive/estate-fence.jpg';
+import rusticFireplaceV2 from '@/assets/archive/rustic-fireplace-v2.jpg';
+import whiteRosetteV2 from '@/assets/archive/white-rosette-v2.jpg';
+import floralWallReliefV2 from '@/assets/archive/floral-wall-relief-v2.jpg';
+import windowColumnsV2 from '@/assets/archive/window-columns-v2.jpg';
+import terracottaColumnV2 from '@/assets/archive/terracotta-column-v2.jpg';
+import baroquePortalV2 from '@/assets/archive/baroque-portal-v2.jpg';
+import activeFireplaceV2 from '@/assets/archive/active-fireplace-v2.jpg';
+import goldenArchwayV2 from '@/assets/archive/golden-archway-v2.jpg';
+import goldenArchwayV3 from '@/assets/archive/golden-archway-v3.jpg';
+import fauxMarbleBaseV2 from '@/assets/archive/faux-marble-base-v2.jpg';
 
 const archiveWorks = [
   { id: 100, title: 'Horses Relief', titleEs: 'Relieve de Caballos', category: 'Archive', description: 'Sculptural horse relief', image: horsesRelief },
@@ -155,6 +165,16 @@ const archiveWorks = [
   { id: 167, title: 'Faux Marble Base', titleEs: 'Base de Mármol Falso', category: 'Archive', description: 'Column base with green marble inlay', image: fauxMarbleBase },
   { id: 168, title: 'Workshop Elements', titleEs: 'Elementos de Taller', category: 'Archive', description: 'Architectural elements in production', image: workshopElements },
   { id: 169, title: 'Estate Fence', titleEs: 'Cerca de Finca', category: 'Archive', description: 'Decorative estate fence with lanterns', image: estateFence },
+  { id: 170, title: 'Rustic Fireplace II', titleEs: 'Chimenea Rústica II', category: 'Archive', description: 'Traditional brick fireplace complex', image: rusticFireplaceV2 },
+  { id: 171, title: 'White Rosette II', titleEs: 'Roseta Blanca II', category: 'Archive', description: 'Baroque ceiling rosette detail', image: whiteRosetteV2 },
+  { id: 172, title: 'Floral Wall Relief II', titleEs: 'Relieve Floral II', category: 'Archive', description: 'Elegant floral bas-relief installation', image: floralWallReliefV2 },
+  { id: 173, title: 'Window Columns II', titleEs: 'Columnas Ventana II', category: 'Archive', description: 'Corinthian columns with wall frame', image: windowColumnsV2 },
+  { id: 174, title: 'Terracotta Column II', titleEs: 'Columna Terracota II', category: 'Archive', description: 'Outdoor faux marble column', image: terracottaColumnV2 },
+  { id: 175, title: 'Baroque Portal II', titleEs: 'Portal Barroco II', category: 'Archive', description: 'Ornate portal with relief panels', image: baroquePortalV2 },
+  { id: 176, title: 'Active Fireplace II', titleEs: 'Chimenea Activa II', category: 'Archive', description: 'Corner brick fireplace with fire', image: activeFireplaceV2 },
+  { id: 177, title: 'Golden Archway II', titleEs: 'Arco Dorado II', category: 'Archive', description: 'Palatial archway with gold columns', image: goldenArchwayV2 },
+  { id: 178, title: 'Golden Archway III', titleEs: 'Arco Dorado III', category: 'Archive', description: 'Grand hall with gold details', image: goldenArchwayV3 },
+  { id: 179, title: 'Faux Marble Base II', titleEs: 'Base Mármol II', category: 'Archive', description: 'Pedestal with green marble inlay', image: fauxMarbleBaseV2 },
 ];
 
 const Archive = () => {
