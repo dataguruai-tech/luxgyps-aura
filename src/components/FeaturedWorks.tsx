@@ -233,11 +233,11 @@ const FeaturedWorks = () => {
                     <div className="absolute inset-4 border border-primary/60 rounded-sm" />
                   </motion.div>
                   
-                  {/* Gradient Overlay - stronger in Pro mode for better text readability */}
+                  {/* Gradient Overlay - minimal, only at bottom for text */}
                   <div className={`absolute inset-0 transition-opacity duration-500 ${
                     isGallery 
-                      ? 'bg-gradient-to-t from-background via-background/30 to-transparent opacity-70 group-hover:opacity-90'
-                      : 'bg-gradient-to-t from-background/90 via-transparent to-transparent opacity-60 group-hover:opacity-80'
+                      ? 'bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-80 group-hover:opacity-90'
+                      : 'bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-70 group-hover:opacity-85'
                   }`} />
                   
                   {/* Corner Accent */}
@@ -248,26 +248,23 @@ const FeaturedWorks = () => {
 
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                    {/* Text background for Pro mode */}
-                    {!isGallery && (
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/40 to-transparent" />
-                    )}
+                    {/* Subtle blur backdrop for text */}
+                    <div className="absolute inset-0 backdrop-blur-[2px] bg-black/10 mask-gradient-to-t" 
+                      style={{ 
+                        maskImage: 'linear-gradient(to top, black 0%, transparent 100%)',
+                        WebkitMaskImage: 'linear-gradient(to top, black 0%, transparent 100%)'
+                      }} 
+                    />
                     <div className="flex items-end justify-between gap-4 relative z-10">
                       <div className="flex-1">
-                        <p className={`text-xs font-medium tracking-wider uppercase mb-2 ${
-                          isGallery ? 'text-primary' : 'text-primary drop-shadow-sm'
-                        }`}>
+                        <p className="text-xs font-medium tracking-wider uppercase mb-2 text-primary drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
                           {work.category}
                         </p>
-                        <h3 className={`font-display text-xl md:text-2xl lg:text-3xl mb-2 leading-tight ${
-                          isGallery ? 'text-foreground' : 'text-foreground drop-shadow-sm'
-                        }`}>
+                        <h3 className="font-display text-xl md:text-2xl lg:text-3xl mb-2 leading-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)]">
                           {work.title}
                         </h3>
                         <motion.p 
-                          className={`text-sm line-clamp-2 max-w-md ${
-                            isGallery ? 'text-muted-foreground' : 'text-foreground/80'
-                          }`}
+                          className="text-sm line-clamp-2 max-w-md text-white/90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.8)]"
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ 
                             opacity: hoveredId === work.id ? 1 : 0,
