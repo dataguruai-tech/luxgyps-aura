@@ -1,10 +1,12 @@
 import { motion } from 'framer-motion';
 import { ArrowRight, Play, ChevronDown } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
+import { useLanguage } from '@/context/LanguageContext';
 import roseRelief from '@/assets/rose-relief.jpg';
 
 const Hero = () => {
   const { isGallery } = useMode();
+  const { t } = useLanguage();
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -66,7 +68,7 @@ const Hero = () => {
             className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6"
             variants={itemVariants}
           >
-            Miami Artisan Studio
+            {t.hero.eyebrow}
           </motion.p>
 
           {/* Main Heading */}
@@ -74,9 +76,9 @@ const Hero = () => {
             className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.9] mb-8"
             variants={itemVariants}
           >
-            <span className="text-foreground">Gypsum &</span>
+            <span className="text-foreground">{t.hero.title1}</span>
             <br />
-            <span className="text-gradient-gold italic">Concrete Art</span>
+            <span className="text-gradient-gold italic">{t.hero.title2}</span>
           </motion.h1>
 
           {/* Subheading */}
@@ -84,9 +86,7 @@ const Hero = () => {
             className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-12 leading-relaxed"
             variants={itemVariants}
           >
-            {isGallery 
-              ? "Handcrafted elegance. Custom-designed sculptural reliefs that transform spaces into extraordinary experiences."
-              : "Professional-grade architectural elements. CAD-ready specifications for designers and architects."}
+            {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
           </motion.p>
 
           {/* CTAs */}
@@ -102,7 +102,7 @@ const Hero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="font-medium">View Portfolio</span>
+                  <span className="font-medium">{t.hero.viewPortfolio}</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.a>
                 <motion.a
@@ -112,7 +112,7 @@ const Hero = () => {
                   whileTap={{ scale: 0.98 }}
                 >
                   <Play className="w-5 h-5" />
-                  <span className="font-medium">Watch Process</span>
+                  <span className="font-medium">{t.hero.watchProcess}</span>
                 </motion.a>
               </>
             ) : (
@@ -123,7 +123,7 @@ const Hero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="font-medium">Browse Catalog</span>
+                  <span className="font-medium">{t.hero.browseCatalog}</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.a>
                 <motion.a
@@ -132,7 +132,7 @@ const Hero = () => {
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="font-medium">Download CAD Files</span>
+                  <span className="font-medium">{t.hero.downloadCad}</span>
                 </motion.a>
               </>
             )}
@@ -147,7 +147,7 @@ const Hero = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1.5, duration: 0.6 }}
       >
-        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Scroll</span>
+        <span className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t.hero.scroll}</span>
         <motion.div
           animate={{ y: [0, 8, 0] }}
           transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}

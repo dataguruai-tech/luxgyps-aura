@@ -1,30 +1,81 @@
 import { motion } from 'framer-motion';
 import { Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { useState, useRef } from 'react';
 
-const videos = [
-  {
-    id: 1,
-    title: "The Art of Sculpting",
-    description: "Watch our master artisans shape raw gypsum into timeless art",
-    src: "/videos/sculpture-process-1.mp4",
-  },
-  {
-    id: 2,
-    title: "Precision Craftsmanship",
-    description: "Every detail matters in creating architectural masterpieces",
-    src: "/videos/sculpture-process-2.mp4",
-  },
-  {
-    id: 3,
-    title: "From Vision to Reality",
-    description: "The journey of transforming concepts into sculptural excellence",
-    src: "/videos/sculpture-process-3.mp4",
-  },
-];
+const VideoGallery = () => {
+  const { isGallery } = useMode();
+  const { t } = useLanguage();
 
-const VideoCard = ({ video, index }: { video: typeof videos[0]; index: number }) => {
+  const videos = [
+    {
+      id: 1,
+      title: t.videos.video1Title,
+      description: t.videos.video1Desc,
+      src: "/videos/sculpture-process-1.mp4",
+    },
+    {
+      id: 2,
+      title: t.videos.video2Title,
+      description: t.videos.video2Desc,
+      src: "/videos/sculpture-process-2.mp4",
+    },
+    {
+      id: 3,
+      title: t.videos.video3Title,
+      description: t.videos.video3Desc,
+      src: "/videos/sculpture-process-3.mp4",
+    },
+  ];
+
+  return (
+    <section id="videos" className="py-24 md:py-32 bg-background relative overflow-hidden">
+      {/* Decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-1/2 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+        <div className="absolute top-1/2 right-0 w-1/3 h-px bg-gradient-to-l from-transparent via-primary/20 to-transparent" />
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
+        {/* Section Header */}
+        <motion.div
+          className="max-w-4xl mb-16 md:mb-20"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-12 h-px bg-primary" />
+            <p className="text-primary tracking-[0.3em] uppercase text-sm font-medium">
+              {isGallery ? t.videos.eyebrowGallery : t.videos.eyebrowPro}
+            </p>
+          </div>
+          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
+            {isGallery ? (
+              <>{t.videos.titleGallery} <span className="text-gradient-gold italic">Motion</span></>
+            ) : (
+              <>{t.videos.titlePro} <span className="text-gradient-gold italic">Process</span></>
+            )}
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
+            {isGallery ? t.videos.descGallery : t.videos.descPro}
+          </p>
+        </motion.div>
+
+        {/* Video Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+          {videos.map((video, index) => (
+            <VideoCard key={video.id} video={video} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const VideoCard = ({ video, index }: { video: { id: number; title: string; description: string; src: string }; index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -147,57 +198,6 @@ const VideoCard = ({ video, index }: { video: typeof videos[0]; index: number })
         </div>
       </div>
     </motion.div>
-  );
-};
-
-const VideoGallery = () => {
-  const { isGallery } = useMode();
-
-  return (
-    <section id="videos" className="py-24 md:py-32 bg-background relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-0 w-1/3 h-px bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
-        <div className="absolute top-1/2 right-0 w-1/3 h-px bg-gradient-to-l from-transparent via-primary/20 to-transparent" />
-      </div>
-
-      <div className="container mx-auto px-6 relative z-10">
-        {/* Section Header */}
-        <motion.div
-          className="max-w-4xl mb-16 md:mb-20"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-px bg-primary" />
-            <p className="text-primary tracking-[0.3em] uppercase text-sm font-medium">
-              {isGallery ? "Behind the Scenes" : "Process Videos"}
-            </p>
-          </div>
-          <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
-            {isGallery ? (
-              <>Artistry in <span className="text-gradient-gold italic">Motion</span></>
-            ) : (
-              <>Technical <span className="text-gradient-gold italic">Process</span></>
-            )}
-          </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-            {isGallery
-              ? "Experience the mesmerizing journey of creation. From raw material to sculptural masterpiece, witness the hands that shape luxury."
-              : "Detailed documentation of our manufacturing process, techniques, and quality control procedures."}
-          </p>
-        </motion.div>
-
-        {/* Video Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-          {videos.map((video, index) => (
-            <VideoCard key={video.id} video={video} index={index} />
-          ))}
-        </div>
-      </div>
-    </section>
   );
 };
 

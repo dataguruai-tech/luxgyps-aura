@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useState, useRef } from 'react';
 import { ArrowLeftRight, Building2, MapPin, Calendar } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
+import { useLanguage } from '@/context/LanguageContext';
 
 import corridorBefore from '@/assets/transformations/corridor-before.jpg';
 import corridorAfter from '@/assets/transformations/corridor-after.jpg';
@@ -41,7 +42,7 @@ const transformations = [
   },
 ];
 
-const BeforeAfterSlider = ({ transformation }: { transformation: typeof transformations[0] }) => {
+const BeforeAfterSlider = ({ transformation, t }: { transformation: typeof transformations[0]; t: any }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const containerRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
@@ -122,10 +123,10 @@ const BeforeAfterSlider = ({ transformation }: { transformation: typeof transfor
 
       {/* Labels */}
       <div className="absolute top-4 left-4 px-3 py-1.5 bg-background/80 backdrop-blur-sm rounded-full text-sm font-medium text-muted-foreground border border-border/50">
-        Before
+        {t.beforeAfter.before}
       </div>
       <div className="absolute top-4 right-4 px-3 py-1.5 bg-primary/90 backdrop-blur-sm rounded-full text-sm font-medium text-primary-foreground">
-        After
+        {t.beforeAfter.after}
       </div>
     </div>
   );
@@ -133,6 +134,7 @@ const BeforeAfterSlider = ({ transformation }: { transformation: typeof transfor
 
 const BeforeAfter = () => {
   const { isGallery } = useMode();
+  const { t } = useLanguage();
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -162,20 +164,18 @@ const BeforeAfter = () => {
           <div className="flex items-center gap-4 mb-6">
             <div className="w-12 h-px bg-primary" />
             <p className="text-primary tracking-[0.3em] uppercase text-sm font-medium">
-              {isGallery ? "Transformations" : "Case Studies"}
+              {isGallery ? t.beforeAfter.eyebrowGallery : t.beforeAfter.eyebrowPro}
             </p>
           </div>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
             {isGallery ? (
-              <>Before & <span className="text-gradient-gold italic">After</span></>
+              <>{t.beforeAfter.titleGallery} <span className="text-gradient-gold italic">After</span></>
             ) : (
-              <>Project <span className="text-gradient-gold italic">Documentation</span></>
+              <>{t.beforeAfter.titlePro} <span className="text-gradient-gold italic">Documentation</span></>
             )}
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl">
-            {isGallery
-              ? "Witness the dramatic impact of our sculptural installations. Drag the slider to reveal the transformation."
-              : "Complete project documentation with specifications, timelines, and installation details for your reference."}
+            {isGallery ? t.beforeAfter.descGallery : t.beforeAfter.descPro}
           </p>
         </motion.div>
 
@@ -188,7 +188,7 @@ const BeforeAfter = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <BeforeAfterSlider transformation={transformations[activeIndex]} />
+            <BeforeAfterSlider transformation={transformations[activeIndex]} t={t} />
           </motion.div>
 
           {/* Project Info */}
@@ -201,9 +201,9 @@ const BeforeAfter = () => {
           >
             {/* Project Selector */}
             <div className="flex gap-3">
-              {transformations.map((t, idx) => (
+              {transformations.map((tr, idx) => (
                 <button
-                  key={t.id}
+                  key={tr.id}
                   onClick={() => setActiveIndex(idx)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                     activeIndex === idx
@@ -211,7 +211,7 @@ const BeforeAfter = () => {
                       : 'bg-background border border-border hover:border-primary/50 text-muted-foreground hover:text-foreground'
                   }`}
                 >
-                  Project {idx + 1}
+                  {t.beforeAfter.project} {idx + 1}
                 </button>
               ))}
             </div>
@@ -237,33 +237,33 @@ const BeforeAfter = () => {
                 </div>
                 <div className="flex items-center gap-3 text-muted-foreground col-span-2">
                   <Building2 className="w-5 h-5 text-primary" />
-                  <span>Architect: {transformations[activeIndex].architect}</span>
+                  <span>{t.beforeAfter.architect}: {transformations[activeIndex].architect}</span>
                 </div>
               </div>
 
               {/* Specs */}
               <div className="bg-background rounded-xl p-6 border border-border/50">
                 <h4 className="text-sm font-medium text-primary tracking-wider uppercase mb-4">
-                  Project Specifications
+                  {t.beforeAfter.specs}
                 </h4>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
                     <p className="text-2xl font-display text-foreground">
                       {transformations[activeIndex].specs.area}
                     </p>
-                    <p className="text-sm text-muted-foreground">Coverage Area</p>
+                    <p className="text-sm text-muted-foreground">{t.beforeAfter.area}</p>
                   </div>
                   <div>
                     <p className="text-2xl font-display text-foreground">
                       {transformations[activeIndex].specs.duration}
                     </p>
-                    <p className="text-sm text-muted-foreground">Installation</p>
+                    <p className="text-sm text-muted-foreground">{t.beforeAfter.installation}</p>
                   </div>
                   <div>
                     <p className="text-2xl font-display text-foreground">
                       {transformations[activeIndex].specs.panels}
                     </p>
-                    <p className="text-sm text-muted-foreground">Components</p>
+                    <p className="text-sm text-muted-foreground">{t.beforeAfter.components}</p>
                   </div>
                 </div>
               </div>
@@ -277,10 +277,10 @@ const BeforeAfter = () => {
                   transition={{ delay: 0.5 }}
                 >
                   <p className="text-sm text-muted-foreground mb-3">
-                    Need CAD files or detailed specifications for this project?
+                    {t.beforeAfter.needCad}
                   </p>
                   <button className="text-primary font-medium hover:underline">
-                    Request Project Documentation →
+                    {t.beforeAfter.requestDocs}
                   </button>
                 </motion.div>
               )}

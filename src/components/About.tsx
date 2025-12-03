@@ -1,30 +1,33 @@
 import { motion } from 'framer-motion';
 import { Award, Shield, Hammer, Sparkles } from 'lucide-react';
-
-const features = [
-  {
-    icon: Hammer,
-    title: "Artisan Crafted",
-    description: "Every piece hand-finished by master sculptors with decades of experience."
-  },
-  {
-    icon: Shield,
-    title: "5-Year Guarantee",
-    description: "Full structural warranty on all installations. We stand behind our work."
-  },
-  {
-    icon: Award,
-    title: "Miami's Premier",
-    description: "Trusted by top designers, architects, and luxury homeowners since 2009."
-  },
-  {
-    icon: Sparkles,
-    title: "Turnkey Solutions",
-    description: "From concept to installation. We handle design, production, and fitting."
-  }
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 const About = () => {
+  const { t } = useLanguage();
+
+  const features = [
+    {
+      icon: Hammer,
+      title: t.about.feature1Title,
+      description: t.about.feature1Desc
+    },
+    {
+      icon: Shield,
+      title: t.about.feature2Title,
+      description: t.about.feature2Desc
+    },
+    {
+      icon: Award,
+      title: t.about.feature3Title,
+      description: t.about.feature3Desc
+    },
+    {
+      icon: Sparkles,
+      title: t.about.feature4Title,
+      description: t.about.feature4Desc
+    }
+  ];
+
   return (
     <section id="about" className="py-24 md:py-32 bg-background overflow-hidden">
       <div className="container mx-auto px-6">
@@ -37,21 +40,17 @@ const About = () => {
             transition={{ duration: 0.8 }}
           >
             <p className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-4">
-              About LuxGyps
+              {t.about.eyebrow}
             </p>
             <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
-              Not a Store.<br />
-              <span className="text-gradient-gold italic">An Atelier.</span>
+              {t.about.title1}<br />
+              <span className="text-gradient-gold italic">{t.about.title2}</span>
             </h2>
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
-              We are not a "supermarket of stucco." LuxGyps is an artisan studio where 
-              every sculptural element is conceived, designed, and handcrafted specifically 
-              for your space. This is bespoke craftsmanship at its finest.
+              {t.about.desc1}
             </p>
             <p className="text-muted-foreground leading-relaxed mb-10">
-              Based in Miami's Design District, we serve discerning clients throughout 
-              South Florida—from Star Island mansions to Coral Gables historic restorations, 
-              from Brickell penthouses to Palm Beach estates.
+              {t.about.desc2}
             </p>
 
             {/* CTA */}
@@ -61,7 +60,7 @@ const About = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Schedule a Studio Visit
+              {t.about.cta}
             </motion.a>
           </motion.div>
 

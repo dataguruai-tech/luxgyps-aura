@@ -1,17 +1,20 @@
 import { motion } from 'framer-motion';
 import { Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   const socialLinks = [
     { icon: Instagram, href: 'https://instagram.com/luxgyps', label: 'Instagram' },
   ];
 
   const quickLinks = [
-    { label: 'Portfolio', href: '#portfolio' },
-    { label: 'Process', href: '#process' },
-    { label: 'About', href: '#about' },
-    { label: 'Contact', href: '#contact' },
+    { label: t.nav.portfolio, href: '#portfolio' },
+    { label: t.nav.process, href: '#process' },
+    { label: t.nav.about, href: '#about' },
+    { label: t.nav.contact, href: '#contact' },
   ];
 
   return (
@@ -32,8 +35,7 @@ const Footer = () => {
               </span>
             </motion.a>
             <p className="text-muted-foreground max-w-md mb-6 leading-relaxed">
-              Miami's premier artisan studio for custom gypsum and concrete interiors. 
-              We produce, we install, we guarantee—transforming spaces into sculptural experiences since 2015.
+              {t.footer.desc}
             </p>
             <div className="flex items-center gap-4">
               {socialLinks.map((social) => (
@@ -77,7 +79,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display text-lg text-foreground mb-6">Quick Links</h4>
+            <h4 className="font-display text-lg text-foreground mb-6">{t.footer.quickLinks}</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.label}>
@@ -94,7 +96,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display text-lg text-foreground mb-6">Contact</h4>
+            <h4 className="font-display text-lg text-foreground mb-6">{t.footer.contactTitle}</h4>
             <ul className="space-y-4">
               <li>
                 <a 
@@ -118,7 +120,7 @@ const Footer = () => {
                 <div className="flex items-start gap-3 text-muted-foreground">
                   <MapPin className="w-4 h-4 text-primary mt-1" />
                   <span>
-                    Miami Design District<br />
+                    {t.footer.location}<br />
                     Florida, USA
                   </span>
                 </div>
@@ -130,11 +132,11 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="mt-16 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} LuxGyps. All rights reserved.
+            © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
           </p>
           <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#privacy" className="hover:text-foreground transition-colors">Privacy Policy</a>
-            <a href="#terms" className="hover:text-foreground transition-colors">Terms of Service</a>
+            <a href="#privacy" className="hover:text-foreground transition-colors">{t.footer.privacy}</a>
+            <a href="#terms" className="hover:text-foreground transition-colors">{t.footer.terms}</a>
           </div>
         </div>
       </div>

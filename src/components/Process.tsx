@@ -1,42 +1,44 @@
 import { motion } from 'framer-motion';
 import { Lightbulb, PenTool, Box, Hammer, Paintbrush, CheckCircle2 } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
-
-const steps = [
-  {
-    icon: Lightbulb,
-    title: "Concept",
-    description: "We begin with your vision, translating ideas into sculptural possibilities.",
-  },
-  {
-    icon: PenTool,
-    title: "Design",
-    description: "Detailed sketches and 3D modeling bring the concept to life digitally.",
-  },
-  {
-    icon: Box,
-    title: "Mold Creation",
-    description: "CNC precision combined with hand-sculpting creates the master form.",
-  },
-  {
-    icon: Hammer,
-    title: "Casting",
-    description: "Expert artisans pour and cure premium gypsum compositions.",
-  },
-  {
-    icon: Paintbrush,
-    title: "Finishing",
-    description: "Hand-applied finishes from matte white to brushed gold.",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Installation",
-    description: "Professional installation with 5-year structural guarantee.",
-  },
-];
+import { useLanguage } from '@/context/LanguageContext';
 
 const Process = () => {
   const { isGallery } = useMode();
+  const { t } = useLanguage();
+
+  const steps = [
+    {
+      icon: Lightbulb,
+      title: t.process.step1,
+      description: t.process.step1Desc,
+    },
+    {
+      icon: PenTool,
+      title: t.process.step2,
+      description: t.process.step2Desc,
+    },
+    {
+      icon: Box,
+      title: t.process.step3,
+      description: t.process.step3Desc,
+    },
+    {
+      icon: Hammer,
+      title: t.process.step4,
+      description: t.process.step4Desc,
+    },
+    {
+      icon: Paintbrush,
+      title: t.process.step5,
+      description: t.process.step5Desc,
+    },
+    {
+      icon: CheckCircle2,
+      title: t.process.step6,
+      description: t.process.step6Desc,
+    },
+  ];
 
   return (
     <section id="process" className="py-24 md:py-32 bg-secondary/30">
@@ -50,18 +52,17 @@ const Process = () => {
           transition={{ duration: 0.8 }}
         >
           <p className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-4">
-            Our Craft
+            {t.process.eyebrow}
           </p>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
             {isGallery ? (
-              <>The <span className="text-gradient-gold italic">Artisan</span> Process</>
+              <>{t.process.titleGallery} <span className="text-gradient-gold italic">Artisan</span> Process</>
             ) : (
-              <>Technical <span className="text-gradient-gold italic">Workflow</span></>
+              <>{t.process.titlePro} <span className="text-gradient-gold italic">Workflow</span></>
             )}
           </h2>
           <p className="text-muted-foreground text-lg leading-relaxed">
-            From initial concept to final installation, every step is executed with precision and passion. 
-            This is not mass production—this is bespoke artistry.
+            {t.process.desc}
           </p>
         </motion.div>
 
@@ -111,8 +112,8 @@ const Process = () => {
         >
           <div className="inline-flex flex-col sm:flex-row items-center gap-6 p-8 rounded-2xl border border-primary/20 bg-card/30 backdrop-blur-sm">
             <div className="text-left">
-              <p className="font-display text-2xl text-foreground mb-1">Ready to Transform Your Space?</p>
-              <p className="text-muted-foreground">Book a consultation and receive a custom proposal within 48 hours.</p>
+              <p className="font-display text-2xl text-foreground mb-1">{t.process.ctaTitle}</p>
+              <p className="text-muted-foreground">{t.process.ctaDesc}</p>
             </div>
             <motion.a
               href="#contact"
@@ -120,7 +121,7 @@ const Process = () => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Book Consultation
+              {t.process.ctaButton}
             </motion.a>
           </div>
         </motion.div>
