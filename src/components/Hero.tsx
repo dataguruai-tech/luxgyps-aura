@@ -3,6 +3,7 @@ import { ArrowRight, Play, ChevronDown } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import roseRelief from '@/assets/rose-relief.jpg';
+import logo from '@/assets/luxgyps-logo.svg';
 
 const Hero = () => {
   const { isGallery } = useMode();
@@ -63,6 +64,18 @@ const Hero = () => {
           initial="hidden"
           animate="visible"
         >
+          {/* Logo */}
+          <motion.div 
+            className="flex items-center justify-center gap-3 mb-8"
+            variants={itemVariants}
+          >
+            <img src={logo} alt="LuxGyps" className="h-12 w-12 md:h-14 md:w-14" />
+            <span className="font-display text-3xl md:text-4xl tracking-wide">
+              <span className="text-foreground">Lux</span>
+              <span className="text-primary">Gyps</span>
+            </span>
+          </motion.div>
+
           {/* Eyebrow */}
           <motion.p 
             className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6"
