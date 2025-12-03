@@ -108,7 +108,7 @@ const CrosshairCursor = ({
           top: -lineLength - 4,
         }}
       >
-        <span className="text-[10px] font-mono text-primary tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-primary/20">
+        <span className="text-[10px] font-mono text-primary tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-primary/20 whitespace-nowrap">
           X: {dimensions.width}"
         </span>
       </div>
