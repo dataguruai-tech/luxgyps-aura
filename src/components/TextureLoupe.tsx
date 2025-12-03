@@ -9,7 +9,7 @@ interface TextureLoupeProps {
   zoom?: number;
 }
 
-const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 5 }: TextureLoupeProps) => {
+const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 3 }: TextureLoupeProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
