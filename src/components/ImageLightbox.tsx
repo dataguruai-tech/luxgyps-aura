@@ -150,7 +150,7 @@ const ImageLightbox = ({ isOpen, onClose, work, works, onNavigate }: ImageLightb
                       isActive={true}
                       containerRef={imageContainerRef}
                       size={120}
-                      zoom={10}
+                      zoom={7}
                     />
                   )}
                 </AnimatePresence>
