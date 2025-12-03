@@ -305,9 +305,9 @@ const FeaturedWorks = () => {
                     </span>
                   </div>
 
-                  {/* Texture Loupe - only in Gallery mode */}
+                  {/* Texture Loupe - only in Gallery mode and when lightbox is closed */}
                   <AnimatePresence>
-                    {isGallery && hoveredId === work.id && containerRefs.current.get(index) && (
+                    {isGallery && !isLightboxOpen && hoveredId === work.id && containerRefs.current.get(index) && (
                       <TextureLoupe
                         imageSrc={work.image}
                         isActive={true}
@@ -316,9 +316,9 @@ const FeaturedWorks = () => {
                     )}
                   </AnimatePresence>
 
-                  {/* Crosshair Cursor - only in Pro mode */}
+                  {/* Crosshair Cursor - only in Pro mode and when lightbox is closed */}
                   <AnimatePresence>
-                    {!isGallery && hoveredId === work.id && containerRefs.current.get(index) && (
+                    {!isGallery && !isLightboxOpen && hoveredId === work.id && containerRefs.current.get(index) && (
                       <CrosshairCursor
                         isActive={true}
                         containerRef={{ current: containerRefs.current.get(index)! }}
