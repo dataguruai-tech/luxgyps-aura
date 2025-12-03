@@ -103,34 +103,6 @@ const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160, zoom = 3 }
           }}
         />
         
-        {/* Glass refraction highlight - top left */}
-        <div 
-          className="absolute rounded-full"
-          style={{
-            top: '8%',
-            left: '15%',
-            width: '35%',
-            height: '20%',
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.1) 50%, transparent 100%)',
-            transform: 'rotate(-20deg)',
-            filter: 'blur(2px)',
-          }}
-        />
-        
-        {/* Secondary glass highlight */}
-        <div 
-          className="absolute rounded-full"
-          style={{
-            top: '12%',
-            left: '55%',
-            width: '15%',
-            height: '8%',
-            background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 100%)',
-            transform: 'rotate(-15deg)',
-            filter: 'blur(1px)',
-          }}
-        />
-        
         {/* Subtle chromatic aberration at edges */}
         <div 
           className="absolute inset-0 rounded-full pointer-events-none"
