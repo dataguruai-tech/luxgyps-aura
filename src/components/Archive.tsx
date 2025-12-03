@@ -216,7 +216,7 @@ const Archive = () => {
   } : null;
 
   return (
-    <section className="py-16 px-4 md:px-8">
+    <section id="all-works" className="py-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
         {/* Toggle Button - Premium Design */}
         <motion.button
