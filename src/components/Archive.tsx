@@ -10,6 +10,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import ImageLightbox from './ImageLightbox';
 
 // Archive images
 import horsesRelief from '@/assets/archive/horses-relief.png';
@@ -23,23 +24,56 @@ import spaBathroom from '@/assets/archive/spa-bathroom.png';
 import ornateDoors from '@/assets/archive/ornate-doors.png';
 import workshopMold from '@/assets/archive/workshop-mold.png';
 
-const archiveImages = [
-  { src: horsesRelief, title: 'Horses Relief', titleEs: 'Relieve de Caballos' },
-  { src: teamDoorway, title: 'Artisan Team', titleEs: 'Equipo Artesano' },
-  { src: facade1, title: 'Classic Facade I', titleEs: 'Fachada Clásica I' },
-  { src: facade2, title: 'Classic Facade II', titleEs: 'Fachada Clásica II' },
-  { src: facade3, title: 'Classic Facade III', titleEs: 'Fachada Clásica III' },
-  { src: facade4, title: 'Classic Facade IV', titleEs: 'Fachada Clásica IV' },
-  { src: facade5, title: 'Classic Facade V', titleEs: 'Fachada Clásica V' },
-  { src: spaBathroom, title: 'Spa Bathroom', titleEs: 'Baño Spa' },
-  { src: ornateDoors, title: 'Ornate Doors', titleEs: 'Puertas Ornamentadas' },
-  { src: workshopMold, title: 'Workshop Process', titleEs: 'Proceso de Taller' },
+const archiveWorks = [
+  { id: 100, title: 'Horses Relief', titleEs: 'Relieve de Caballos', category: 'Archive', description: 'Sculptural horse relief', image: horsesRelief },
+  { id: 101, title: 'Artisan Team', titleEs: 'Equipo Artesano', category: 'Archive', description: 'Our skilled artisans at work', image: teamDoorway },
+  { id: 102, title: 'Classic Facade I', titleEs: 'Fachada Clásica I', category: 'Archive', description: 'Exterior architectural details', image: facade1 },
+  { id: 103, title: 'Classic Facade II', titleEs: 'Fachada Clásica II', category: 'Archive', description: 'Exterior architectural details', image: facade2 },
+  { id: 104, title: 'Classic Facade III', titleEs: 'Fachada Clásica III', category: 'Archive', description: 'Exterior architectural details', image: facade3 },
+  { id: 105, title: 'Classic Facade IV', titleEs: 'Fachada Clásica IV', category: 'Archive', description: 'Exterior architectural details', image: facade4 },
+  { id: 106, title: 'Classic Facade V', titleEs: 'Fachada Clásica V', category: 'Archive', description: 'Exterior architectural details', image: facade5 },
+  { id: 107, title: 'Spa Bathroom', titleEs: 'Baño Spa', category: 'Archive', description: 'Luxury spa interior design', image: spaBathroom },
+  { id: 108, title: 'Ornate Doors', titleEs: 'Puertas Ornamentadas', category: 'Archive', description: 'Custom decorative doors', image: ornateDoors },
+  { id: 109, title: 'Workshop Process', titleEs: 'Proceso de Taller', category: 'Archive', description: 'Behind the scenes in our workshop', image: workshopMold },
 ];
 
 const Archive = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedWork, setSelectedWork] = useState<typeof archiveWorks[0] | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const { isGallery } = useMode();
   const { language } = useLanguage();
+
+  const handleImageClick = (work: typeof archiveWorks[0]) => {
+    setSelectedWork(work);
+    setLightboxOpen(true);
+  };
+
+  const handleNavigate = (direction: 'prev' | 'next') => {
+    if (!selectedWork) return;
+    const currentIndex = archiveWorks.findIndex(w => w.id === selectedWork.id);
+    const newIndex = direction === 'prev' ? currentIndex - 1 : currentIndex + 1;
+    if (newIndex >= 0 && newIndex < archiveWorks.length) {
+      setSelectedWork(archiveWorks[newIndex]);
+    }
+  };
+
+  // Format works for lightbox
+  const worksForLightbox = archiveWorks.map(w => ({
+    id: w.id,
+    title: language === 'es' ? w.titleEs : w.title,
+    category: w.category,
+    description: w.description,
+    image: w.image,
+  }));
+
+  const selectedForLightbox = selectedWork ? {
+    id: selectedWork.id,
+    title: language === 'es' ? selectedWork.titleEs : selectedWork.title,
+    category: selectedWork.category,
+    description: selectedWork.description,
+    image: selectedWork.image,
+  } : null;
 
   return (
     <section className="py-12 px-4 md:px-8">
@@ -86,16 +120,17 @@ const Archive = () => {
                   className="w-full"
                 >
                   <CarouselContent className="-ml-2 md:-ml-4">
-                    {archiveImages.map((image, index) => (
+                    {archiveWorks.map((work, index) => (
                       <CarouselItem
-                        key={index}
+                        key={work.id}
                         className="pl-2 md:pl-4 basis-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4"
                       >
                         <motion.div
                           initial={{ opacity: 0, y: 20 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: index * 0.05 }}
-                          className="relative group"
+                          className="relative group cursor-pointer"
+                          onClick={() => handleImageClick(work)}
                         >
                           <div
                             className={`relative aspect-[3/4] rounded-lg overflow-hidden ${
@@ -105,8 +140,8 @@ const Archive = () => {
                             }`}
                           >
                             <img
-                              src={image.src}
-                              alt={language === 'es' ? image.titleEs : image.title}
+                              src={work.image}
+                              alt={language === 'es' ? work.titleEs : work.title}
                               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                               loading="lazy"
                             />
@@ -125,7 +160,7 @@ const Archive = () => {
                               }`}
                             >
                               <p className="font-serif text-sm">
-                                {language === 'es' ? image.titleEs : image.title}
+                                {language === 'es' ? work.titleEs : work.title}
                               </p>
                             </div>
                           </div>
@@ -153,6 +188,15 @@ const Archive = () => {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Lightbox */}
+      <ImageLightbox
+        isOpen={lightboxOpen}
+        onClose={() => setLightboxOpen(false)}
+        work={selectedForLightbox}
+        works={worksForLightbox}
+        onNavigate={handleNavigate}
+      />
     </section>
   );
 };
