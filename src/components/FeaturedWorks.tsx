@@ -191,9 +191,9 @@ const FeaturedWorks = () => {
               <motion.article
                 key={`${work.id}-${index}`}
                 ref={(el) => setContainerRef(index, el)}
-                className={`group relative overflow-hidden rounded-lg ${
-                  isGallery ? 'cursor-pointer' : 'cursor-none'
-                } ${isLarge ? 'md:col-span-2 lg:col-span-2' : ''}`}
+                className={`group relative overflow-hidden rounded-lg cursor-none ${
+                  isLarge ? 'md:col-span-2 lg:col-span-2' : ''
+                }`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
@@ -312,6 +312,7 @@ const FeaturedWorks = () => {
                         imageSrc={work.image}
                         isActive={true}
                         containerRef={{ current: containerRefs.current.get(index)! }}
+                        size={107}
                       />
                     )}
                   </AnimatePresence>
