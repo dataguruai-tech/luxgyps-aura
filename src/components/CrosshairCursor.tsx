@@ -55,7 +55,7 @@ const CrosshairCursor = ({
   if (!isActive) return null;
   
   const shouldShow = !isOverButton;
-  const lineLength = 60;
+  const lineLength = 80;
 
   return (
     <motion.div
@@ -71,32 +71,35 @@ const CrosshairCursor = ({
     >
       {/* Horizontal line */}
       <div 
-        className="absolute bg-primary/90"
+        className="absolute bg-primary"
         style={{
           width: lineLength * 2,
-          height: 1,
+          height: 2,
           left: -lineLength,
-          top: 0,
+          top: -1,
+          boxShadow: '0 0 8px hsl(var(--primary) / 0.6)',
         }}
       />
       
       {/* Vertical line */}
       <div 
-        className="absolute bg-primary/90"
+        className="absolute bg-primary"
         style={{
-          width: 1,
+          width: 2,
           height: lineLength * 2,
-          left: 0,
+          left: -1,
           top: -lineLength,
+          boxShadow: '0 0 8px hsl(var(--primary) / 0.6)',
         }}
       />
 
       {/* Center dot */}
       <div 
-        className="absolute w-1.5 h-1.5 bg-primary rounded-full"
+        className="absolute w-3 h-3 bg-primary rounded-full"
         style={{
-          left: -3,
-          top: -3,
+          left: -6,
+          top: -6,
+          boxShadow: '0 0 12px hsl(var(--primary) / 0.8)',
         }}
       />
 
@@ -104,11 +107,11 @@ const CrosshairCursor = ({
       <div 
         className="absolute"
         style={{
-          left: 8,
-          top: -lineLength - 4,
+          left: 10,
+          top: -lineLength - 6,
         }}
       >
-        <span className="text-[10px] font-mono text-primary tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-primary/20 whitespace-nowrap">
+        <span className="text-xs font-mono text-primary font-semibold tracking-wider bg-background/95 px-2 py-1 rounded border border-primary/40 whitespace-nowrap shadow-lg">
           X: {dimensions.width}"
         </span>
       </div>
@@ -117,11 +120,11 @@ const CrosshairCursor = ({
       <div 
         className="absolute"
         style={{
-          left: lineLength + 8,
-          top: -8,
+          left: lineLength + 10,
+          top: -10,
         }}
       >
-        <span className="text-[10px] font-mono text-primary tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-primary/20 whitespace-nowrap">
+        <span className="text-xs font-mono text-primary font-semibold tracking-wider bg-background/95 px-2 py-1 rounded border border-primary/40 whitespace-nowrap shadow-lg">
           Y: {dimensions.height}"
         </span>
       </div>
@@ -131,46 +134,46 @@ const CrosshairCursor = ({
         className="absolute whitespace-nowrap"
         style={{
           left: -lineLength,
-          top: lineLength + 8,
+          top: lineLength + 10,
         }}
       >
-        <span className="text-[9px] font-mono text-primary/70 tracking-wide bg-background/80 px-1.5 py-0.5 rounded">
+        <span className="text-[10px] font-mono text-primary font-medium tracking-wide bg-background/90 px-2 py-1 rounded border border-primary/30">
           SPEC MODE
         </span>
       </div>
 
       {/* Corner brackets for architectural feel */}
       <svg 
-        className="absolute text-primary/40"
-        width="20" 
-        height="20"
-        style={{ left: -lineLength - 10, top: -lineLength - 10 }}
+        className="absolute text-primary/70"
+        width="24" 
+        height="24"
+        style={{ left: -lineLength - 12, top: -lineLength - 12 }}
       >
-        <path d="M0 15 L0 0 L15 0" fill="none" stroke="currentColor" strokeWidth="1" />
+        <path d="M0 18 L0 0 L18 0" fill="none" stroke="currentColor" strokeWidth="2" />
       </svg>
       <svg 
-        className="absolute text-primary/40"
-        width="20" 
-        height="20"
-        style={{ left: lineLength - 5, top: -lineLength - 10 }}
+        className="absolute text-primary/70"
+        width="24" 
+        height="24"
+        style={{ left: lineLength - 6, top: -lineLength - 12 }}
       >
-        <path d="M5 0 L20 0 L20 15" fill="none" stroke="currentColor" strokeWidth="1" />
+        <path d="M6 0 L24 0 L24 18" fill="none" stroke="currentColor" strokeWidth="2" />
       </svg>
       <svg 
-        className="absolute text-primary/40"
-        width="20" 
-        height="20"
-        style={{ left: -lineLength - 10, top: lineLength - 5 }}
+        className="absolute text-primary/70"
+        width="24" 
+        height="24"
+        style={{ left: -lineLength - 12, top: lineLength - 6 }}
       >
-        <path d="M0 5 L0 20 L15 20" fill="none" stroke="currentColor" strokeWidth="1" />
+        <path d="M0 6 L0 24 L18 24" fill="none" stroke="currentColor" strokeWidth="2" />
       </svg>
       <svg 
-        className="absolute text-primary/40"
-        width="20" 
-        height="20"
-        style={{ left: lineLength - 5, top: lineLength - 5 }}
+        className="absolute text-primary/70"
+        width="24" 
+        height="24"
+        style={{ left: lineLength - 6, top: lineLength - 6 }}
       >
-        <path d="M5 20 L20 20 L20 5" fill="none" stroke="currentColor" strokeWidth="1" />
+        <path d="M6 24 L24 24 L24 6" fill="none" stroke="currentColor" strokeWidth="2" />
       </svg>
     </motion.div>
   );
