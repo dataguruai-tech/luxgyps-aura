@@ -2,9 +2,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import TextureLoupe from './TextureLoupe';
 import CrosshairCursor from './CrosshairCursor';
+import ImageLightbox from './ImageLightbox';
 
 // Gallery images
 import quiltedPanel from '@/assets/gallery/quilted-panel.jpg';
@@ -115,6 +116,8 @@ const FeaturedWorks = () => {
   const { t } = useLanguage();
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [hoveredImage, setHoveredImage] = useState<string | null>(null);
+  const [selectedWork, setSelectedWork] = useState<typeof works[0] | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const containerRefs = useRef<Map<number, HTMLElement>>(new Map());
 
   const setContainerRef = (id: number, el: HTMLElement | null) => {
@@ -124,6 +127,25 @@ const FeaturedWorks = () => {
       containerRefs.current.delete(id);
     }
   };
+
+  const openLightbox = (work: typeof works[0]) => {
+    setSelectedWork(work);
+    setIsLightboxOpen(true);
+  };
+
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+    setSelectedWork(null);
+  };
+
+  const navigateLightbox = useCallback((direction: 'prev' | 'next') => {
+    if (!selectedWork) return;
+    const currentIndex = works.findIndex(w => w.id === selectedWork.id);
+    const newIndex = direction === 'prev' ? currentIndex - 1 : currentIndex + 1;
+    if (newIndex >= 0 && newIndex < works.length) {
+      setSelectedWork(works[newIndex]);
+    }
+  }, [selectedWork]);
 
   return (
     <section id="portfolio" className="py-24 md:py-32 bg-background relative overflow-hidden">
@@ -257,8 +279,12 @@ const FeaturedWorks = () => {
                         </motion.p>
                       </div>
                       
-                      <motion.div
-                        className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full border border-primary/50 flex items-center justify-center bg-background/50 backdrop-blur-sm"
+                      <motion.button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openLightbox(work);
+                        }}
+                        className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full border border-primary/50 flex items-center justify-center bg-background/50 backdrop-blur-sm cursor-pointer"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ 
                           scale: hoveredId === work.id ? 1 : 0.8,
@@ -268,7 +294,7 @@ const FeaturedWorks = () => {
                         whileHover={{ scale: 1.1, backgroundColor: 'hsl(var(--primary))' }}
                       >
                         <ArrowUpRight className="w-5 h-5 md:w-6 md:h-6 text-primary group-hover:text-primary-foreground transition-colors" />
-                      </motion.div>
+                      </motion.button>
                     </div>
                   </div>
 
@@ -332,6 +358,15 @@ const FeaturedWorks = () => {
           </motion.a>
         </motion.div>
       </div>
+
+      {/* Image Lightbox */}
+      <ImageLightbox
+        isOpen={isLightboxOpen}
+        onClose={closeLightbox}
+        work={selectedWork}
+        works={works}
+        onNavigate={navigateLightbox}
+      />
     </section>
   );
 };
