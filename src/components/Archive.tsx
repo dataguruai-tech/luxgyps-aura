@@ -73,6 +73,16 @@ import femaleSculpture from '@/assets/archive/female-sculpture.jpg';
 import ornateFacade from '@/assets/archive/ornate-facade.jpg';
 import cofferedAtrium from '@/assets/archive/coffered-atrium.jpg';
 import rusticFireplace from '@/assets/archive/rustic-fireplace.jpg';
+import whiteRosette from '@/assets/archive/white-rosette.jpg';
+import floralWallRelief from '@/assets/archive/floral-wall-relief.jpg';
+import windowColumns from '@/assets/archive/window-columns.jpg';
+import terracottaColumn from '@/assets/archive/terracotta-column.jpg';
+import baroquePortal from '@/assets/archive/baroque-portal.jpg';
+import activeFireplace from '@/assets/archive/active-fireplace.jpg';
+import goldenArchway from '@/assets/archive/golden-archway.jpg';
+import fauxMarbleBase from '@/assets/archive/faux-marble-base.jpg';
+import workshopElements from '@/assets/archive/workshop-elements.jpg';
+import estateFence from '@/assets/archive/estate-fence.jpg';
 
 const archiveWorks = [
   { id: 100, title: 'Horses Relief', titleEs: 'Relieve de Caballos', category: 'Archive', description: 'Sculptural horse relief', image: horsesRelief },
@@ -135,6 +145,16 @@ const archiveWorks = [
   { id: 157, title: 'Ornate Facade', titleEs: 'Fachada Ornamentada', category: 'Archive', description: 'Historic facade restoration with detailed moldings', image: ornateFacade },
   { id: 158, title: 'Coffered Atrium', titleEs: 'Atrio Artesonado', category: 'Archive', description: 'Grand atrium with coffered ceiling and ionic columns', image: cofferedAtrium },
   { id: 159, title: 'Rustic Fireplace', titleEs: 'Chimenea Rústica', category: 'Archive', description: 'Large brick fireplace complex with wood storage', image: rusticFireplace },
+  { id: 160, title: 'White Rosette', titleEs: 'Roseta Blanca', category: 'Archive', description: 'Ornate white ceiling rosette with baroque details', image: whiteRosette },
+  { id: 161, title: 'Floral Wall Relief', titleEs: 'Relieve Floral de Pared', category: 'Archive', description: 'Elegant white floral wall bas-relief', image: floralWallRelief },
+  { id: 162, title: 'Window Columns', titleEs: 'Columnas de Ventana', category: 'Archive', description: 'Corinthian columns framing large window', image: windowColumns },
+  { id: 163, title: 'Terracotta Column', titleEs: 'Columna Terracota', category: 'Archive', description: 'Faux terracotta marble column outdoor', image: terracottaColumn },
+  { id: 164, title: 'Baroque Portal', titleEs: 'Portal Barroco', category: 'Archive', description: 'Ornate baroque doorway with relief panels', image: baroquePortal },
+  { id: 165, title: 'Active Fireplace', titleEs: 'Chimenea Activa', category: 'Archive', description: 'Brick fireplace with active fire', image: activeFireplace },
+  { id: 166, title: 'Golden Archway', titleEs: 'Arco Dorado', category: 'Archive', description: 'Grand archway with gold Corinthian columns', image: goldenArchway },
+  { id: 167, title: 'Faux Marble Base', titleEs: 'Base de Mármol Falso', category: 'Archive', description: 'Column base with green marble inlay', image: fauxMarbleBase },
+  { id: 168, title: 'Workshop Elements', titleEs: 'Elementos de Taller', category: 'Archive', description: 'Architectural elements in production', image: workshopElements },
+  { id: 169, title: 'Estate Fence', titleEs: 'Cerca de Finca', category: 'Archive', description: 'Decorative estate fence with lanterns', image: estateFence },
 ];
 
 const Archive = () => {
