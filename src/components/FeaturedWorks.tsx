@@ -211,8 +211,12 @@ const FeaturedWorks = () => {
                     <div className="absolute inset-4 border border-primary/60 rounded-sm" />
                   </motion.div>
                   
-                  {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />
+                  {/* Gradient Overlay - stronger in Pro mode for better text readability */}
+                  <div className={`absolute inset-0 transition-opacity duration-500 ${
+                    isGallery 
+                      ? 'bg-gradient-to-t from-background via-background/30 to-transparent opacity-70 group-hover:opacity-90'
+                      : 'bg-gradient-to-t from-background via-background/60 to-background/20 opacity-80 group-hover:opacity-95'
+                  }`} />
                   
                   {/* Corner Accent */}
                   <div className="absolute top-4 right-4 w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -222,16 +226,26 @@ const FeaturedWorks = () => {
 
                   {/* Content */}
                   <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
-                    <div className="flex items-end justify-between gap-4">
+                    {/* Text background for Pro mode */}
+                    {!isGallery && (
+                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
+                    )}
+                    <div className="flex items-end justify-between gap-4 relative z-10">
                       <div className="flex-1">
-                        <p className="text-primary text-xs font-medium tracking-wider uppercase mb-2">
+                        <p className={`text-xs font-medium tracking-wider uppercase mb-2 ${
+                          isGallery ? 'text-primary' : 'text-primary drop-shadow-sm'
+                        }`}>
                           {work.category}
                         </p>
-                        <h3 className="font-display text-xl md:text-2xl lg:text-3xl text-foreground mb-2 leading-tight">
+                        <h3 className={`font-display text-xl md:text-2xl lg:text-3xl mb-2 leading-tight ${
+                          isGallery ? 'text-foreground' : 'text-foreground drop-shadow-sm'
+                        }`}>
                           {work.title}
                         </h3>
                         <motion.p 
-                          className="text-muted-foreground text-sm line-clamp-2 max-w-md"
+                          className={`text-sm line-clamp-2 max-w-md ${
+                            isGallery ? 'text-muted-foreground' : 'text-foreground/80'
+                          }`}
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ 
                             opacity: hoveredId === work.id ? 1 : 0,
@@ -244,7 +258,7 @@ const FeaturedWorks = () => {
                       </div>
                       
                       <motion.div
-                        className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full border border-primary/50 flex items-center justify-center bg-background/20 backdrop-blur-sm"
+                        className="flex-shrink-0 w-12 h-12 md:w-14 md:h-14 rounded-full border border-primary/50 flex items-center justify-center bg-background/50 backdrop-blur-sm"
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ 
                           scale: hoveredId === work.id ? 1 : 0.8,
