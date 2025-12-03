@@ -52,17 +52,22 @@ const SampleKitModal = ({ isOpen, onClose }: SampleKitModalProps) => {
           
           {/* Modal */}
           <motion.div
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-lg"
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
           >
-            <div className="bg-card border border-border rounded-2xl p-8 shadow-2xl mx-4">
+            <motion.div 
+              className="relative bg-card border border-border rounded-2xl p-8 shadow-2xl w-full max-w-lg"
+              initial={{ scale: 0.95 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0.95 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            >
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors"
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-muted transition-colors z-10"
               >
                 <X className="w-5 h-5 text-muted-foreground" />
               </button>
@@ -193,7 +198,7 @@ const SampleKitModal = ({ isOpen, onClose }: SampleKitModalProps) => {
                   </p>
                 </motion.div>
               )}
-            </div>
+            </motion.div>
           </motion.div>
         </>
       )}
