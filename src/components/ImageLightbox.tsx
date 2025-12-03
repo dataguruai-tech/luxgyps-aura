@@ -142,13 +142,14 @@ const ImageLightbox = ({ isOpen, onClose, work, works, onNavigate }: ImageLightb
                   transition={{ duration: 0.3 }}
                 />
 
-                {/* Texture Loupe */}
+                {/* Texture Loupe - 2x bigger */}
                 <AnimatePresence>
                   {isHoveringImage && (
                     <TextureLoupe
                       imageSrc={work.image}
                       isActive={true}
                       containerRef={imageContainerRef}
+                      size={320}
                     />
                   )}
                 </AnimatePresence>
