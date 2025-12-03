@@ -7,6 +7,7 @@ import BeforeAfter from '@/components/BeforeAfter';
 import Process from '@/components/Process';
 import About from '@/components/About';
 import Footer from '@/components/Footer';
+import Chatbot from '@/components/Chatbot';
 
 const Index = () => {
   return (
@@ -22,6 +23,7 @@ const Index = () => {
         <Process />
       </main>
       <Footer />
+      <Chatbot />
     </div>
   );
 };
