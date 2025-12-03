@@ -23,6 +23,16 @@ import facade5 from '@/assets/archive/facade-5.png';
 import spaBathroom from '@/assets/archive/spa-bathroom.png';
 import ornateDoors from '@/assets/archive/ornate-doors.png';
 import workshopMold from '@/assets/archive/workshop-mold.png';
+import columnsEntrance from '@/assets/archive/columns-entrance.png';
+import wallMolding from '@/assets/archive/wall-molding.png';
+import columnBase from '@/assets/archive/column-base.png';
+import marblePedestal from '@/assets/archive/marble-pedestal.png';
+import staircase1 from '@/assets/archive/staircase-1.png';
+import staircase2 from '@/assets/archive/staircase-2.png';
+import ceilingRoom from '@/assets/archive/ceiling-room.jpg';
+import ceilingMedallion from '@/assets/archive/ceiling-medallion.jpg';
+import ceilingGrid from '@/assets/archive/ceiling-grid.jpg';
+import ceilingOrnate from '@/assets/archive/ceiling-ornate.jpg';
 
 const archiveWorks = [
   { id: 100, title: 'Horses Relief', titleEs: 'Relieve de Caballos', category: 'Archive', description: 'Sculptural horse relief', image: horsesRelief },
@@ -35,6 +45,16 @@ const archiveWorks = [
   { id: 107, title: 'Spa Bathroom', titleEs: 'Baño Spa', category: 'Archive', description: 'Luxury spa interior design', image: spaBathroom },
   { id: 108, title: 'Ornate Doors', titleEs: 'Puertas Ornamentadas', category: 'Archive', description: 'Custom decorative doors', image: ornateDoors },
   { id: 109, title: 'Workshop Process', titleEs: 'Proceso de Taller', category: 'Archive', description: 'Behind the scenes in our workshop', image: workshopMold },
+  { id: 110, title: 'Columns Entrance', titleEs: 'Entrada con Columnas', category: 'Archive', description: 'Classic fluted columns with gold accents', image: columnsEntrance },
+  { id: 111, title: 'Wall Molding', titleEs: 'Moldura de Pared', category: 'Archive', description: 'Elegant wall molding details', image: wallMolding },
+  { id: 112, title: 'Column Base', titleEs: 'Base de Columna', category: 'Archive', description: 'Ornate column base in workshop', image: columnBase },
+  { id: 113, title: 'Marble Pedestal', titleEs: 'Pedestal de Mármol', category: 'Archive', description: 'Faux marble pedestal with green inlay', image: marblePedestal },
+  { id: 114, title: 'Grand Staircase I', titleEs: 'Escalera Principal I', category: 'Archive', description: 'Gold ornate staircase railings', image: staircase1 },
+  { id: 115, title: 'Grand Staircase II', titleEs: 'Escalera Principal II', category: 'Archive', description: 'Marble stairs with decorative balustrade', image: staircase2 },
+  { id: 116, title: 'Ceiling Room', titleEs: 'Sala con Techo', category: 'Archive', description: 'Classical ceiling with chandeliers', image: ceilingRoom },
+  { id: 117, title: 'Ceiling Medallion', titleEs: 'Medallón de Techo', category: 'Archive', description: 'Ornate ceiling medallion with gold accents', image: ceilingMedallion },
+  { id: 118, title: 'Ceiling Grid', titleEs: 'Rejilla de Techo', category: 'Archive', description: 'Coffered ceiling with medallions', image: ceilingGrid },
+  { id: 119, title: 'Ornate Ceiling', titleEs: 'Techo Ornamentado', category: 'Archive', description: 'Baroque ceiling with chandelier rosette', image: ceilingOrnate },
 ];
 
 const Archive = () => {
