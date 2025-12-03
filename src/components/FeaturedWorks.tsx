@@ -258,10 +258,11 @@ const FeaturedWorks = () => {
                     <div className="flex items-end justify-between gap-4 relative z-10">
                       <div className="flex-1">
                         <p 
-                          className="text-xs font-semibold tracking-wider uppercase mb-2"
+                          className="text-xs font-semibold tracking-wider uppercase mb-2 px-2 py-1 rounded-sm inline-block"
                           style={{
                             color: 'hsl(var(--primary))',
-                            textShadow: '0 0 8px rgba(0,0,0,0.9), 0 1px 3px rgba(0,0,0,1), 0 0 20px rgba(0,0,0,0.5)',
+                            backgroundColor: 'rgba(0,0,0,0.7)',
+                            backdropFilter: 'blur(4px)',
                           }}
                         >
                           {work.category}
