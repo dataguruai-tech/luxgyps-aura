@@ -1,17 +1,18 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 interface TextureLoupeProps {
   imageSrc: string;
   isActive: boolean;
   containerRef: React.RefObject<HTMLElement | null>;
+  size?: number;
 }
 
-const TextureLoupe = ({ imageSrc, isActive, containerRef }: TextureLoupeProps) => {
+const TextureLoupe = ({ imageSrc, isActive, containerRef, size = 160 }: TextureLoupeProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [imagePosition, setImagePosition] = useState({ x: 0, y: 0 });
   const [isOverButton, setIsOverButton] = useState(false);
-  const loupeSize = 160;
+  const loupeSize = size;
   const zoomLevel = 10;
 
   useEffect(() => {
