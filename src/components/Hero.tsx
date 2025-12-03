@@ -1,11 +1,15 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, ChevronDown } from 'lucide-react';
+import { ArrowRight, Play, ChevronDown, Package } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import roseRelief from '@/assets/rose-relief.jpg';
 import logo from '@/assets/luxgyps-logo.svg';
 
-const Hero = () => {
+interface HeroProps {
+  onSampleKitClick?: () => void;
+}
+
+const Hero = ({ onSampleKitClick }: HeroProps) => {
   const { isGallery } = useMode();
   const { t } = useLanguage();
 
@@ -139,14 +143,15 @@ const Hero = () => {
                   <span className="font-medium">{t.hero.browseCatalog}</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </motion.a>
-                <motion.a
-                  href="#downloads"
+                <motion.button
+                  onClick={onSampleKitClick}
                   className="group flex items-center gap-3 px-8 py-4 rounded-full btn-outline-gold"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
-                  <span className="font-medium">{t.hero.downloadCad}</span>
-                </motion.a>
+                  <Package className="w-5 h-5" />
+                  <span className="font-medium">{t.sampleKit.buttonText}</span>
+                </motion.button>
               </>
             )}
           </motion.div>
