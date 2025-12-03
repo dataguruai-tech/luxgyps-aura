@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { useState, useRef, useCallback } from 'react';
+import TextureLoupe from './TextureLoupe';
 import CrosshairCursor from './CrosshairCursor';
 import ImageLightbox from './ImageLightbox';
 
@@ -303,6 +304,17 @@ const FeaturedWorks = () => {
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>
+
+                  {/* Texture Loupe - only in Gallery mode and when lightbox is closed */}
+                  <AnimatePresence>
+                    {isGallery && !isLightboxOpen && hoveredId === work.id && containerRefs.current.get(index) && (
+                      <TextureLoupe
+                        imageSrc={work.image}
+                        isActive={true}
+                        containerRef={{ current: containerRefs.current.get(index)! }}
+                      />
+                    )}
+                  </AnimatePresence>
 
                   {/* Crosshair Cursor - only in Pro mode and when lightbox is closed */}
                   <AnimatePresence>
