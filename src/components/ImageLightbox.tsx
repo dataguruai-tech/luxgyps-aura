@@ -149,7 +149,7 @@ const ImageLightbox = ({ isOpen, onClose, work, works, onNavigate }: ImageLightb
                       imageSrc={work.image}
                       isActive={true}
                       containerRef={imageContainerRef}
-                      size={80}
+                      size={120}
                       zoom={20}
                     />
                   )}
