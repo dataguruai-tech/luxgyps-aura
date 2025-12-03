@@ -101,38 +101,30 @@ const CrosshairCursor = ({
       />
 
       {/* X dimension (horizontal position) */}
-      <motion.div 
-        className="absolute flex items-center gap-1"
+      <div 
+        className="absolute"
         style={{
           left: 8,
           top: -lineLength - 4,
         }}
-        key={`x-${dimensions.width}`}
-        initial={{ opacity: 0, y: 3 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.15 }}
       >
         <span className="text-[10px] font-mono text-primary tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-primary/20">
           X: {dimensions.width}"
         </span>
-      </motion.div>
+      </div>
 
       {/* Y dimension (vertical position) */}
-      <motion.div 
-        className="absolute flex flex-col items-center gap-1"
+      <div 
+        className="absolute"
         style={{
           left: lineLength + 8,
           top: -8,
         }}
-        key={`y-${dimensions.height}`}
-        initial={{ opacity: 0, x: -3 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.15 }}
       >
         <span className="text-[10px] font-mono text-primary tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-primary/20 whitespace-nowrap">
           Y: {dimensions.height}"
         </span>
-      </motion.div>
+      </div>
 
       {/* Coordinates label (bottom-left) */}
       <div 
