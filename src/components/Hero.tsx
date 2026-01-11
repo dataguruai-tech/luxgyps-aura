@@ -127,29 +127,9 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
             </motion.p>
 
-            {/* Since Badge - Elegant with Laurel */}
-            <motion.div 
-              className="mb-10 flex justify-start w-full"
-              variants={itemVariants}
-            >
-              <div className="relative w-32 h-28 md:w-40 md:h-36 flex items-center justify-center">
-                {/* Laurel Wreath Background */}
-                <img 
-                  src={laurelWreath} 
-                  alt="Laurel wreath" 
-                  className="absolute inset-0 w-full h-full object-contain"
-                />
-                {/* Text overlay */}
-                <div className="relative flex flex-col items-center justify-center z-10 pt-1">
-                  <span className="text-[8px] md:text-[10px] tracking-[0.25em] text-primary uppercase font-medium">since</span>
-                  <span className="font-display text-2xl md:text-3xl text-primary font-semibold tracking-wide leading-none">2010</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* CTAs */}
+            {/* CTAs with Badge centered between buttons */}
             <motion.div
-              className="flex flex-col sm:flex-row items-start gap-4"
+              className="flex flex-col sm:flex-row items-center gap-4"
               variants={itemVariants}
             >
               {isGallery ? (
@@ -163,6 +143,20 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                     <span className="font-medium">{t.hero.viewPortfolio}</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </motion.a>
+
+                  {/* Since Badge - Centered between buttons */}
+                  <div className="relative w-24 h-20 md:w-28 md:h-24 flex items-center justify-center mx-2">
+                    <img 
+                      src={laurelWreath} 
+                      alt="Laurel wreath" 
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                    <div className="relative flex flex-col items-center justify-center z-10">
+                      <span className="text-[6px] md:text-[8px] tracking-[0.2em] text-primary uppercase font-medium">since</span>
+                      <span className="font-display text-lg md:text-xl text-primary font-semibold tracking-wide leading-none">2010</span>
+                    </div>
+                  </div>
+
                   <motion.a
                     href="#process"
                     className="group flex items-center gap-3 px-8 py-4 rounded-full btn-outline-gold"
@@ -184,6 +178,20 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                     <span className="font-medium">{t.hero.browseCatalog}</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </motion.a>
+
+                  {/* Since Badge - Centered between buttons */}
+                  <div className="relative w-24 h-20 md:w-28 md:h-24 flex items-center justify-center mx-2">
+                    <img 
+                      src={laurelWreath} 
+                      alt="Laurel wreath" 
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                    <div className="relative flex flex-col items-center justify-center z-10">
+                      <span className="text-[6px] md:text-[8px] tracking-[0.2em] text-primary uppercase font-medium">since</span>
+                      <span className="font-display text-lg md:text-xl text-primary font-semibold tracking-wide leading-none">2010</span>
+                    </div>
+                  </div>
+
                   <motion.button
                     onClick={onSampleKitClick}
                     className="group flex items-center gap-3 px-8 py-4 rounded-full btn-outline-gold"
