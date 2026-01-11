@@ -25,17 +25,17 @@ const QuoteBasket = () => {
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-4 rounded-full btn-gold shadow-lg"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="fixed bottom-24 right-6 z-40 flex items-center gap-3 px-5 py-3.5 rounded-full bg-card border border-primary/30 text-foreground shadow-lg shadow-primary/10 hover:border-primary/50 hover:shadow-primary/20 transition-all duration-300"
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.98 }}
           >
             <div className="relative">
-              <FileText className="w-5 h-5" />
-              <span className="absolute -top-2 -right-2 w-5 h-5 bg-background text-primary text-xs font-bold rounded-full flex items-center justify-center">
+              <FileText className="w-5 h-5 text-primary" />
+              <span className="absolute -top-2 -right-2 w-5 h-5 bg-primary text-primary-foreground text-xs font-bold rounded-full flex items-center justify-center">
                 {totalItems}
               </span>
             </div>
-            <span className="font-medium text-sm tracking-wide">
+            <span className="font-medium text-sm tracking-wide text-foreground">
               {language === 'en' ? 'Request Quote' : 'Solicitar Cotización'}
             </span>
           </motion.button>
