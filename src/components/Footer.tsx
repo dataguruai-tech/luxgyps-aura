@@ -62,12 +62,12 @@ const Footer = () => {
       <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[280px]">
         
         {/* Left Section - Brand & Contact */}
-        <div className="lg:col-span-5 bg-secondary px-8 py-12 flex flex-col justify-between">
+        <div className="lg:col-span-5 bg-secondary px-8 py-12 flex flex-col justify-center items-center text-center">
           <div>
             {/* Logo & Tagline */}
             <motion.a 
               href="/" 
-              className="inline-flex items-center gap-3 mb-8"
+              className="inline-flex items-center gap-3 mb-8 justify-center"
               whileHover={{ scale: 1.02 }}
             >
               <img src={logo} alt="LuxGyps" className="h-10 w-auto" />
@@ -81,14 +81,14 @@ const Footer = () => {
 
             {/* Contact Info */}
             <div className="space-y-4">
-              <div className="flex items-start gap-3 text-muted-foreground">
-                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary/60" />
+              <div className="flex items-center justify-center gap-3 text-muted-foreground">
+                <MapPin className="w-4 h-4 shrink-0 text-primary/60" />
                 <span className="text-sm">{t.footer.location}, Florida, USA</span>
               </div>
               
               <motion.a 
                 href="mailto:hello@luxgyps.com"
-                className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm"
+                className="flex items-center justify-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm"
                 whileHover={{ x: 3 }}
               >
                 <Mail className="w-4 h-4 text-primary/60" />
@@ -97,7 +97,7 @@ const Footer = () => {
               
               <motion.a 
                 href="tel:+17543001010"
-                className="flex items-center gap-3 text-foreground hover:text-primary transition-colors text-base font-medium"
+                className="flex items-center justify-center gap-3 text-foreground hover:text-primary transition-colors text-base font-medium"
                 whileHover={{ x: 3 }}
               >
                 <Phone className="w-4 h-4 text-primary/60" />
@@ -107,7 +107,7 @@ const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3 mt-8">
+          <div className="flex items-center justify-center gap-3 mt-8">
             {socialLinks.map((social) => (
               <motion.a
                 key={social.label}
