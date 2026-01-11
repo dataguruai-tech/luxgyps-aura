@@ -4,7 +4,7 @@ import { ArrowRight, Play, Package } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import roseRelief from '@/assets/rose-relief.jpg';
-import laurelWreath from '@/assets/laurel-wreath.png';
+import since2000Badge from '@/assets/since-2000-badge.png';
 
 // Interior images for carousel
 import interior1 from '@/assets/hero/interior-living-1.jpg';
@@ -101,16 +101,12 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             initial="hidden"
             animate="visible"
           >
-            {/* Since Badge with Laurel */}
+            {/* Since Badge */}
             <motion.div
-              className="flex items-center gap-3 mb-6"
+              className="mb-6"
               variants={itemVariants}
             >
-              <div className="relative w-10 h-9 flex items-center justify-center">
-                <img src={laurelWreath} alt="" className="absolute inset-0 w-full h-full object-contain" />
-                <span className="relative font-display text-xs text-primary font-medium z-10">00</span>
-              </div>
-              <span className="text-primary/60 text-xs tracking-[0.2em] uppercase">since 2000</span>
+              <img src={since2000Badge} alt="Since 2000" className="h-12 w-auto object-contain" />
             </motion.div>
 
             {/* Eyebrow */}
