@@ -35,8 +35,8 @@ const Header = () => {
     label: 'Interior Decor',
     href: '#portfolio'
   }, {
-    label: 'Facade Decor',
-    href: '#facade'
+    label: 'Catalog',
+    href: '#catalog'
   }, {
     label: 'Gallery',
     href: '#gallery'
