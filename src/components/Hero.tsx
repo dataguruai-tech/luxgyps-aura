@@ -186,47 +186,51 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Horizontal Photo Stack */}
-          <div className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center overflow-visible">
-            {/* Photo Stack Container - Horizontal */}
-            <div className="relative w-full h-[70%] flex items-center justify-center">
+          {/* Right Side - Photo Stack */}
+          <div className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center">
+            {/* Photo Stack Container */}
+            <div className="relative w-[85%] max-w-md aspect-[3/4]">
+              {/* Static base shadows for depth */}
+              <div 
+                className="absolute inset-0 bg-background/20 rounded-sm shadow-2xl"
+                style={{ transform: 'rotate(-4deg) translate(-8px, 12px)' }}
+              />
+              <div 
+                className="absolute inset-0 bg-background/30 rounded-sm shadow-xl"
+                style={{ transform: 'rotate(2deg) translate(6px, 8px)' }}
+              />
               
-              {/* Animated photo stack - horizontal layout */}
+              {/* Animated photo stack */}
               <AnimatePresence>
                 {imageStack.map((imgIndex, stackIndex) => {
                   const isTop = stackIndex === imageStack.length - 1;
                   const depth = imageStack.length - 1 - stackIndex;
                   
-                  // Horizontal offset for stacking effect
-                  const xOffset = depth * -35;
-                  const yOffset = depth * 10;
-                  
                   return (
                     <motion.div
                       key={`${imgIndex}-${stackIndex}`}
-                      className="absolute w-[45%] aspect-[3/4]"
+                      className="absolute inset-0"
                       initial={isTop ? { 
                         opacity: 0, 
                         scale: 1.1, 
-                        x: 100,
-                        rotate: getRandomRotation(imgIndex) + 8
+                        y: -100,
+                        rotate: getRandomRotation(imgIndex) + 5
                       } : false}
                       animate={{ 
-                        opacity: Math.max(0, 1 - depth * 0.2),
-                        scale: 1 - depth * 0.04,
-                        x: xOffset,
-                        y: yOffset,
+                        opacity: Math.max(0, 1 - depth * 0.25),
+                        scale: 1 - depth * 0.03,
+                        y: depth * 8,
+                        x: depth * -4,
                         rotate: getRandomRotation(imgIndex),
                         zIndex: 10 - depth
                       }}
                       exit={{ 
                         opacity: 0,
-                        x: -80,
-                        scale: 0.9,
-                        transition: { duration: 0.5 }
+                        scale: 0.95,
+                        transition: { duration: 0.3 }
                       }}
                       transition={{ 
-                        duration: 1, 
+                        duration: 0.8, 
                         ease: [0.22, 1, 0.36, 1]
                       }}
                       style={{ zIndex: 10 - depth }}
@@ -238,8 +242,8 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                             src={carouselImages[imgIndex]}
                             alt="Interior design"
                             className="w-full h-full object-cover"
-                            animate={isTop ? { scale: [1, 1.03, 1] } : {}}
-                            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+                            animate={isTop ? { scale: [1, 1.02, 1] } : {}}
+                            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
                           />
                         </div>
                       </div>
@@ -250,8 +254,8 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             </div>
 
             {/* Decorative corner elements */}
-            <div className="absolute top-[10%] right-[5%] w-16 h-16 border-t border-r border-primary/20 z-0" />
-            <div className="absolute bottom-[10%] left-[10%] w-16 h-16 border-b border-l border-primary/20 z-0" />
+            <div className="absolute top-[5%] right-[5%] w-16 h-16 border-t border-r border-primary/20 z-0" />
+            <div className="absolute bottom-[5%] left-[5%] w-16 h-16 border-b border-l border-primary/20 z-0" />
           </div>
         </div>
       </div>
