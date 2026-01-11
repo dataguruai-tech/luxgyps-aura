@@ -1,117 +1,200 @@
 import { motion } from 'framer-motion';
-import { Instagram, Phone, Mail, MapPin } from 'lucide-react';
+import { Instagram, Phone, Mail, MapPin, FileText } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
+import columnDivider from '@/assets/footer-column-divider.png';
+
+// Custom TikTok icon
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+  </svg>
+);
+
+// Custom Facebook icon
+const FacebookIcon = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+  </svg>
+);
+
 const Footer = () => {
-  const {
-    t
-  } = useLanguage();
-  const socialLinks = [{
-    icon: Instagram,
-    href: 'https://instagram.com/luxgyps',
-    label: 'Instagram'
-  }];
-  const quickLinks = [{
-    label: t.nav.portfolio,
-    href: '#portfolio'
-  }, {
-    label: t.nav.process,
-    href: '#process'
-  }, {
-    label: t.nav.about,
-    href: '#about'
-  }, {
-    label: t.nav.contact,
-    href: '#contact'
-  }];
-  return <footer className="bg-card border-t border-border/50">
-      <div className="container mx-auto px-6 py-16 md:py-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
-          {/* Brand Column */}
-          <div className="lg:col-span-2">
-            <motion.a href="/" className="inline-flex items-center gap-3 mb-6" whileHover={{
-            scale: 1.02
-          }}>
-              <img src={logo} alt="LuxGyps" className="h-10 w-10" />
-              <span className="font-display text-2xl tracking-wide">
-                <span className="text-foreground">Lux</span>
-                <span className="text-primary">Gyps</span>
-              </span>
+  const { language, t } = useLanguage();
+
+  const socialLinks = [
+    { icon: Instagram, href: 'https://instagram.com/luxgyps', label: 'Instagram' },
+    { icon: TikTokIcon, href: 'https://tiktok.com/@luxgyps', label: 'TikTok' },
+    { icon: FacebookIcon, href: 'https://facebook.com/luxgyps', label: 'Facebook' },
+  ];
+
+  const navItemsLeft = [
+    { label: language === 'en' ? 'Catalog' : 'Catálogo', href: '#catalog' },
+    { label: language === 'en' ? 'Gallery' : 'Galería', href: '#gallery' },
+    { label: language === 'en' ? 'Services' : 'Servicios', href: '#process' },
+    { label: language === 'en' ? 'Payment' : 'Pago', href: '#payment' },
+    { label: language === 'en' ? 'Documentation' : 'Documentación', href: '#docs' },
+  ];
+
+  const navItemsRight = [
+    { label: 'Showroom', href: '#showroom' },
+    { label: language === 'en' ? 'Facades' : 'Fachadas', href: '#portfolio' },
+    { label: language === 'en' ? 'About' : 'Nosotros', href: '#about' },
+    { label: language === 'en' ? 'Delivery' : 'Entrega', href: '#delivery' },
+    { label: language === 'en' ? 'Contact' : 'Contacto', href: '#contact' },
+  ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      const offset = 100;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: elementPosition - offset,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  return (
+    <footer className="relative bg-background">
+      {/* Main Footer */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[280px]">
+        
+        {/* Left Section - Brand & Contact */}
+        <div className="lg:col-span-5 bg-secondary px-8 py-12 flex flex-col justify-between">
+          <div>
+            {/* Logo & Tagline */}
+            <motion.a 
+              href="/" 
+              className="inline-flex items-center gap-3 mb-8"
+              whileHover={{ scale: 1.02 }}
+            >
+              <img src={logo} alt="LuxGyps" className="h-10 w-auto" />
+              <span className="font-display text-foreground text-xl tracking-wider">LuxGyps</span>
             </motion.a>
-            <p className="text-muted-foreground max-w-md mb-6 leading-relaxed">
-              {t.footer.desc}
-            </p>
-            <div className="flex items-center gap-4">
-              {socialLinks.map(social => {})}
-              <motion.a href="https://houzz.com/luxgyps" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors" whileHover={{
-              scale: 1.1
-            }} whileTap={{
-              scale: 0.95
-            }} aria-label="Houzz">
-                <span className="text-xs font-sans font-bold">Hz</span>
+            
+            <div className="font-display text-primary/80 italic text-sm mb-8">
+              {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
+              <span className="text-muted-foreground ml-2">• since 2015</span>
+            </div>
+
+            {/* Contact Info */}
+            <div className="space-y-4">
+              <div className="flex items-start gap-3 text-muted-foreground">
+                <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary/60" />
+                <span className="text-sm">{t.footer.location}, Florida, USA</span>
+              </div>
+              
+              <motion.a 
+                href="mailto:hello@luxgyps.com"
+                className="flex items-center gap-3 text-muted-foreground hover:text-primary transition-colors text-sm"
+                whileHover={{ x: 3 }}
+              >
+                <Mail className="w-4 h-4 text-primary/60" />
+                hello@luxgyps.com
               </motion.a>
-              <motion.a href="https://pinterest.com/luxgyps" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-colors" whileHover={{
-              scale: 1.1
-            }} whileTap={{
-              scale: 0.95
-            }} aria-label="Pinterest">
-                <span className="text-xs font-sans font-bold">P</span>
+              
+              <motion.a 
+                href="tel:+17543001010"
+                className="flex items-center gap-3 text-foreground hover:text-primary transition-colors text-base font-medium"
+                whileHover={{ x: 3 }}
+              >
+                <Phone className="w-4 h-4 text-primary/60" />
+                +1 (754) 300-1010
               </motion.a>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-display text-lg text-foreground mb-6">{t.footer.quickLinks}</h4>
-            <ul className="space-y-3">
-              {quickLinks.map(link => <li key={link.label}>
-                  <a href={link.href} className="text-muted-foreground hover:text-foreground transition-colors">
-                    {link.label}
-                  </a>
-                </li>)}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="font-display text-lg text-foreground mb-6">{t.footer.contactTitle}</h4>
-            <ul className="space-y-4">
-              <li>
-                <a href="tel:+17543001010" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors">
-                  <Phone className="w-4 h-4 text-primary" />
-                  +1 (754) 300-1010
-                </a>
-              </li>
-              <li>
-                <a href="mailto:hello@luxgyps.com" className="flex items-center gap-3 text-muted-foreground hover:text-foreground transition-colors">
-                  <Mail className="w-4 h-4 text-primary" />
-                  hello@luxgyps.com
-                </a>
-              </li>
-              <li>
-                <div className="flex items-start gap-3 text-muted-foreground">
-                  <MapPin className="w-4 h-4 text-primary mt-1" />
-                  <span>
-                    {t.footer.location}<br />
-                    Florida, USA
-                  </span>
-                </div>
-              </li>
-            </ul>
+          {/* Social Links */}
+          <div className="flex items-center gap-3 mt-8">
+            {socialLinks.map((social) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all duration-300"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={social.label}
+              >
+                <social.icon className="w-4 h-4" />
+              </motion.a>
+            ))}
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-muted-foreground text-sm">
-            © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
-          </p>
-          <div className="flex items-center gap-6 text-sm text-muted-foreground">
-            <a href="#privacy" className="hover:text-foreground transition-colors">{t.footer.privacy}</a>
-            <a href="#terms" className="hover:text-foreground transition-colors">{t.footer.terms}</a>
+        {/* Column Divider */}
+        <div className="lg:col-span-2 relative hidden lg:flex items-center justify-center bg-background overflow-hidden">
+          <img 
+            src={columnDivider} 
+            alt="" 
+            className="h-full w-auto object-contain"
+          />
+        </div>
+
+        {/* Right Section - Navigation */}
+        <div className="lg:col-span-5 bg-card px-8 py-12">
+          <h3 className="font-display text-primary text-sm uppercase tracking-[0.2em] mb-8">
+            {language === 'en' ? 'Navigation' : 'Navegación'}
+          </h3>
+          
+          {/* Navigation Grid */}
+          <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+            {/* Left Nav Column */}
+            <div className="space-y-4">
+              {navItemsLeft.map((link) => (
+                <motion.a 
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="block text-muted-foreground hover:text-primary transition-colors text-sm uppercase tracking-wider"
+                  whileHover={{ x: 4 }}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+            </div>
+            
+            {/* Right Nav Column */}
+            <div className="space-y-4">
+              {navItemsRight.map((link) => (
+                <motion.a 
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="block text-muted-foreground hover:text-primary transition-colors text-sm uppercase tracking-wider"
+                  whileHover={{ x: 4 }}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+            </div>
+          </div>
+
+          {/* Legal Links */}
+          <div className="mt-8 pt-6 border-t border-border/30">
+            <motion.a 
+              href="#terms"
+              className="inline-flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors text-xs uppercase tracking-wider"
+              whileHover={{ x: 3 }}
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>{t.footer.privacy} & {t.footer.terms}</span>
+            </motion.a>
           </div>
         </div>
       </div>
-    </footer>;
+
+      {/* Copyright Bar */}
+      <div className="bg-charcoal-deep border-t border-border/20 py-4 px-6">
+        <p className="text-muted-foreground text-xs text-center tracking-wider">
+          © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
+        </p>
+      </div>
+    </footer>
+  );
 };
+
 export default Footer;
