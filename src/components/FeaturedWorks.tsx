@@ -3,8 +3,6 @@ import { ArrowUpRight } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { useState, useRef, useCallback } from 'react';
-import TextureLoupe from './TextureLoupe';
-import CrosshairCursor from './CrosshairCursor';
 import ImageLightbox from './ImageLightbox';
 
 // Gallery images
@@ -191,7 +189,7 @@ const FeaturedWorks = () => {
               <motion.article
                 key={`${work.id}-${index}`}
                 ref={(el) => setContainerRef(index, el)}
-                className={`group relative overflow-hidden rounded-lg cursor-none ${
+                className={`group relative overflow-hidden rounded-lg ${
                   isLarge ? 'md:col-span-2 lg:col-span-2' : ''
                 }`}
                 initial={{ opacity: 0, y: 40 }}
@@ -309,27 +307,6 @@ const FeaturedWorks = () => {
                     </span>
                   </div>
 
-                  {/* Texture Loupe - only in Gallery mode and when lightbox is closed */}
-                  <AnimatePresence>
-                    {isGallery && !isLightboxOpen && hoveredId === work.id && containerRefs.current.get(index) && (
-                      <TextureLoupe
-                        imageSrc={work.image}
-                        isActive={true}
-                        containerRef={{ current: containerRefs.current.get(index)! }}
-                        size={107}
-                      />
-                    )}
-                  </AnimatePresence>
-
-                  {/* Crosshair Cursor - only in Pro mode and when lightbox is closed */}
-                  <AnimatePresence>
-                    {!isGallery && !isLightboxOpen && hoveredId === work.id && containerRefs.current.get(index) && (
-                      <CrosshairCursor
-                        isActive={true}
-                        containerRef={{ current: containerRefs.current.get(index)! }}
-                      />
-                    )}
-                  </AnimatePresence>
                 </div>
               </motion.article>
             );
