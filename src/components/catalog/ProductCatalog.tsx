@@ -144,36 +144,100 @@ const ProductCatalog = () => {
           </p>
         </motion.div>
 
-        {/* Category Filter - Horizontal */}
-        <div className="flex flex-wrap gap-3 mb-10">
-          {categories.map((category) => {
-            const Icon = category.icon;
-            const isActive = activeCategory === category.id;
-            return (
-              <button
-                key={category.id}
-                onClick={() => {
-                  setActiveCategory(category.id);
-                  setVisibleRows(2);
-                }}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
-                  isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/50'
-                }`}
-              >
-                <Icon className="w-4 h-4" />
-                <span>{language === 'en' ? category.label : category.labelEs}</span>
-                <span className={`text-xs ${isActive ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
-                  ({category.count})
-                </span>
-              </button>
-            );
-          })}
+        {/* Mobile Category Filter - Horizontal Scroll */}
+        <div className="lg:hidden mb-8 -mx-6 px-6">
+          <div className="flex gap-2 overflow-x-auto pb-3 scrollbar-hide">
+            {categories.map((category) => {
+              const Icon = category.icon;
+              const isActive = activeCategory === category.id;
+              return (
+                <button
+                  key={category.id}
+                  onClick={() => {
+                    setActiveCategory(category.id);
+                    setVisibleRows(2);
+                  }}
+                  className={`flex-shrink-0 flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                    isActive
+                      ? 'bg-primary text-primary-foreground'
+                      : 'bg-muted/50 text-muted-foreground hover:bg-muted border border-border/50'
+                  }`}
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="whitespace-nowrap">{language === 'en' ? category.label : category.labelEs}</span>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="flex gap-10">
+          {/* Desktop Sidebar Navigation */}
+          <aside className="hidden lg:block w-64 flex-shrink-0">
+            <div className="sticky top-28">
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-6">
+                {language === 'en' ? 'Categories' : 'Categorías'}
+              </p>
+              
+              <nav className="space-y-1">
+                {categories.map((category) => {
+                  const Icon = category.icon;
+                  const isActive = activeCategory === category.id;
+                  return (
+                    <button
+                      key={category.id}
+                      onClick={() => {
+                        setActiveCategory(category.id);
+                        setVisibleRows(2);
+                      }}
+                      className={`w-full flex items-center justify-between px-4 py-3 rounded-lg text-left transition-all duration-300 group ${
+                        isActive
+                          ? 'bg-primary/10 border-l-2 border-primary'
+                          : 'hover:bg-muted/50 border-l-2 border-transparent'
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        <Icon className={`w-4 h-4 ${isActive ? 'text-primary' : 'text-muted-foreground group-hover:text-foreground'}`} />
+                        <span className={`text-sm font-medium ${isActive ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
+                          {language === 'en' ? category.label : category.labelEs}
+                        </span>
+                      </div>
+                      <span className={`text-xs px-2 py-0.5 rounded-full ${
+                        isActive 
+                          ? 'bg-primary text-primary-foreground' 
+                          : 'bg-muted text-muted-foreground'
+                      }`}>
+                        {category.count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </nav>
+
+              {/* Trade Program CTA */}
+              <div className="mt-8 p-5 bg-gradient-to-br from-primary/10 to-primary/5 rounded-xl border border-primary/20">
+                <p className="text-xs tracking-[0.2em] uppercase text-primary mb-2">
+                  {language === 'en' ? 'Trade Program' : 'Programa Profesional'}
+                </p>
+                <p className="text-sm text-muted-foreground mb-4">
+                  {language === 'en' 
+                    ? 'Architects & designers get exclusive pricing.'
+                    : 'Arquitectos y diseñadores obtienen precios exclusivos.'
+                  }
+                </p>
+                <a 
+                  href="#trade-register" 
+                  className="inline-flex items-center text-sm font-medium text-primary hover:underline"
+                >
+                  {language === 'en' ? 'Apply Now' : 'Aplicar Ahora'} →
+                </a>
+              </div>
+            </div>
+          </aside>
+
+          {/* Product Grid */}
+          <div className="flex-1 min-w-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               <AnimatePresence mode="popLayout">
                 {visibleProducts.map((product, index) => (
                   <motion.div
@@ -285,6 +349,8 @@ const ProductCatalog = () => {
                 </p>
               </div>
             )}
+          </div>
+        </div>
       </div>
     </section>
   );
