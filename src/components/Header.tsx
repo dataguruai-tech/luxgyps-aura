@@ -81,10 +81,9 @@ const Header = () => {
 
   return <TooltipProvider>
       <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6">
+        {/* Main Header Bar */}
         <motion.div 
-          className={`mt-4 border border-border/50 backdrop-blur-xl bg-background/95 transition-all duration-300 ${
-            mobileMenuOpen ? 'rounded-2xl' : 'rounded-full'
-          }`}
+          className="mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/95"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
@@ -293,73 +292,85 @@ const Header = () => {
               </motion.button>
             </div>
           </div>
-
-          {/* Mobile Menu */}
-          <AnimatePresence>
-            {mobileMenuOpen && (
-              <motion.div 
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                className="xl:hidden overflow-hidden"
-              >
-                {/* Top border line */}
-                <div className="mx-4 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-                
-                <nav className="flex flex-col p-5 gap-0.5">
-                  {allNavItems.map((item, index) => 
-                    'comingSoon' in item && item.comingSoon ? (
-                      <motion.div 
-                        key={item.label} 
-                        className="flex items-center justify-between px-4 py-4 rounded-xl bg-muted/30"
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.04 }}
-                      >
-                        <span className="font-display text-sm uppercase tracking-[0.2em] text-muted-foreground/40">
-                          {item.label}
-                        </span>
-                        <span className="font-display text-[10px] uppercase tracking-[0.15em] text-primary bg-primary/10 px-3 py-1.5 rounded-full border border-primary/20">
-                          {language === 'en' ? 'Soon' : 'Pronto'}
-                        </span>
-                      </motion.div>
-                    ) : (
-                      <motion.a 
-                        key={item.label} 
-                        href={item.href} 
-                        className="group relative px-4 py-4 rounded-xl font-display text-sm uppercase tracking-[0.2em] text-foreground/70 hover:text-primary transition-all duration-300 overflow-hidden" 
-                        onClick={(e) => handleNavClick(e, item.href)} 
-                        initial={{ opacity: 0, x: -20 }} 
-                        animate={{ opacity: 1, x: 0 }} 
-                        transition={{ delay: index * 0.04 }}
-                      >
-                        {/* Hover background */}
-                        <span className="absolute inset-0 bg-gradient-to-r from-primary/5 to-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
-                        <span className="relative">{item.label}</span>
-                      </motion.a>
-                    )
-                  )}
-                  
-                  {/* Bottom section with phone */}
-                  <div className="mt-4 pt-4 border-t border-border/30">
-                    <motion.a 
-                      href="tel:+17543001010" 
-                      className="flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-primary to-primary/80 text-primary-foreground shadow-lg shadow-primary/20" 
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.35 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      <Phone className="w-4 h-4" />
-                      <span className="font-display text-sm uppercase tracking-[0.15em]">+1 (754) 300-1010</span>
-                    </motion.a>
-                  </div>
-                </nav>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </motion.div>
+
+        {/* Mobile Menu - Papyrus Scroll Effect */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div 
+              initial={{ scaleY: 0, opacity: 0 }}
+              animate={{ scaleY: 1, opacity: 1 }}
+              exit={{ scaleY: 0, opacity: 0 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              style={{ originY: 0 }}
+              className="xl:hidden mt-2 mx-2 rounded-2xl border border-border/40 backdrop-blur-xl bg-background/95 overflow-hidden shadow-2xl shadow-black/20"
+            >
+              {/* Decorative top edge - papyrus texture feel */}
+              <div className="h-1 bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+              
+              <nav className="flex flex-col p-4 gap-1">
+                {allNavItems.map((item, index) => 
+                  'comingSoon' in item && item.comingSoon ? (
+                    <motion.div 
+                      key={item.label} 
+                      className="flex items-center justify-between px-4 py-4 rounded-xl"
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.1 + index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <span className="font-display text-sm uppercase tracking-[0.2em] text-muted-foreground/40">
+                        {item.label}
+                      </span>
+                      <span className="font-display text-[10px] uppercase tracking-[0.15em] text-primary/70 bg-primary/10 px-3 py-1.5 rounded-full border border-primary/15">
+                        {language === 'en' ? 'Soon' : 'Pronto'}
+                      </span>
+                    </motion.div>
+                  ) : (
+                    <motion.a 
+                      key={item.label} 
+                      href={item.href} 
+                      className="group relative px-4 py-4 rounded-xl font-display text-sm uppercase tracking-[0.2em] text-foreground/80 hover:text-primary transition-all duration-300 overflow-hidden" 
+                      onClick={(e) => handleNavClick(e, item.href)} 
+                      initial={{ opacity: 0, y: -10 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      transition={{ delay: 0.1 + index * 0.04, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      {/* Hover background */}
+                      <span className="absolute inset-0 bg-gradient-to-r from-primary/5 via-primary/8 to-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                      {/* Left accent line on hover */}
+                      <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-primary group-hover:h-1/2 transition-all duration-300 rounded-full" />
+                      <span className="relative ml-2">{item.label}</span>
+                    </motion.a>
+                  )
+                )}
+                
+                {/* Decorative divider */}
+                <motion.div 
+                  className="my-3 mx-4 h-px bg-gradient-to-r from-transparent via-primary/25 to-transparent"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.35, duration: 0.4 }}
+                />
+                
+                {/* Phone CTA */}
+                <motion.a 
+                  href="tel:+17543001010" 
+                  className="flex items-center justify-center gap-3 mx-2 px-6 py-4 rounded-xl bg-gradient-to-r from-primary via-primary to-primary/90 text-primary-foreground shadow-lg shadow-primary/25" 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                  whileTap={{ scale: 0.98 }}
+                >
+                  <Phone className="w-4 h-4" />
+                  <span className="font-display text-sm uppercase tracking-[0.15em]">+1 (754) 300-1010</span>
+                </motion.a>
+              </nav>
+              
+              {/* Decorative bottom edge */}
+              <div className="h-1 bg-gradient-to-r from-transparent via-primary/15 to-transparent" />
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
     </TooltipProvider>;
 };
