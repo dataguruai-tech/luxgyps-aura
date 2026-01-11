@@ -96,22 +96,22 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
           
           {/* Left Side - Content */}
           <motion.div
-            className="py-32 lg:py-0 lg:pr-8"
+            className="py-32 lg:py-0 lg:pr-8 text-right"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
-            {/* Since Badge - Centered */}
+            {/* Since Badge */}
             <motion.div
-              className="flex justify-center mb-8"
+              className="flex justify-end mb-8"
               variants={itemVariants}
             >
               <img src={since2000Badge} alt="Since 2000" className="h-16 w-auto object-contain" />
             </motion.div>
 
-            {/* Eyebrow - Centered */}
+            {/* Eyebrow */}
             <motion.p
-              className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6 text-center"
+              className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6"
               variants={itemVariants}
             >
               Miami Artisan Studio
@@ -129,7 +129,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
             {/* Subheading */}
             <motion.p
-              className="text-muted-foreground text-base md:text-lg max-w-md mb-10 leading-relaxed"
+              className="text-muted-foreground text-base md:text-lg max-w-md mb-10 leading-relaxed ml-auto"
               variants={itemVariants}
             >
               {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
@@ -138,7 +138,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
             {/* CTAs */}
             <motion.div
-              className="flex flex-col sm:flex-row items-start gap-4"
+              className="flex flex-col sm:flex-row items-end sm:justify-end gap-4"
               variants={itemVariants}
             >
               {isGallery ? (
