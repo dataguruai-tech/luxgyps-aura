@@ -108,7 +108,7 @@ const CrosshairCursor = ({
           top: -lineLength - 4,
         }}
       >
-        <span className="text-[10px] font-mono text-foreground tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-foreground/20 whitespace-nowrap">
+        <span className="text-[10px] font-sans font-medium text-foreground tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-foreground/20 whitespace-nowrap">
           X: {dimensions.width}"
         </span>
       </div>
@@ -121,7 +121,7 @@ const CrosshairCursor = ({
           top: -8,
         }}
       >
-        <span className="text-[10px] font-mono text-foreground tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-foreground/20 whitespace-nowrap">
+        <span className="text-[10px] font-sans font-medium text-foreground tracking-wider bg-background/90 px-1.5 py-0.5 rounded border border-foreground/20 whitespace-nowrap">
           Y: {dimensions.height}"
         </span>
       </div>
@@ -134,7 +134,7 @@ const CrosshairCursor = ({
           top: lineLength + 8,
         }}
       >
-        <span className="text-[9px] font-mono text-primary tracking-wide bg-background/80 px-1.5 py-0.5 rounded">
+        <span className="text-[9px] font-sans font-semibold text-primary tracking-wider uppercase bg-background/80 px-1.5 py-0.5 rounded">
           SPEC MODE
         </span>
       </div>

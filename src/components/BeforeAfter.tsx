@@ -248,22 +248,22 @@ const BeforeAfter = () => {
                 </h4>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <p className="text-2xl font-display text-foreground">
+                    <p className="text-2xl font-sans font-semibold text-foreground">
                       {transformations[activeIndex].specs.area}
                     </p>
-                    <p className="text-sm text-muted-foreground">{t.beforeAfter.area}</p>
+                    <p className="text-sm font-sans text-muted-foreground">{t.beforeAfter.area}</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-display text-foreground">
+                    <p className="text-2xl font-sans font-semibold text-foreground">
                       {transformations[activeIndex].specs.duration}
                     </p>
-                    <p className="text-sm text-muted-foreground">{t.beforeAfter.installation}</p>
+                    <p className="text-sm font-sans text-muted-foreground">{t.beforeAfter.installation}</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-display text-foreground">
+                    <p className="text-2xl font-sans font-semibold text-foreground">
                       {transformations[activeIndex].specs.panels}
                     </p>
-                    <p className="text-sm text-muted-foreground">{t.beforeAfter.components}</p>
+                    <p className="text-sm font-sans text-muted-foreground">{t.beforeAfter.components}</p>
                   </div>
                 </div>
               </div>
