@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Instagram, Phone, Mail, MapPin, FileText } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
-import columnImage from '@/assets/archive/interior-column.jpg';
+import columnImage from '@/assets/footer-column.jpg';
 
 // Custom TikTok icon
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -58,10 +58,10 @@ const Footer = () => {
 
   return (
     <footer className="relative">
-      {/* Main Footer - Three Column Layout */}
+      {/* Main Footer - Four Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12">
         
-        {/* Left Column - Brand (Dark Blue) */}
+        {/* Left Column - Brand */}
         <div className="lg:col-span-3 bg-[hsl(var(--footer-brand))] px-8 py-12 flex flex-col justify-between">
           <div>
             <motion.a 
@@ -72,14 +72,14 @@ const Footer = () => {
               <img src={logo} alt="LuxGyps" className="h-16 w-auto brightness-0 invert opacity-90" />
             </motion.a>
             
-            <div className="font-display text-white/60 italic text-lg mb-2">
+            <div className="font-display text-primary/80 italic text-lg mb-2">
               {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
             </div>
             
-            <div className="font-display text-white/40 text-sm tracking-[0.2em] uppercase mb-1">
+            <div className="font-display text-primary/50 text-sm tracking-[0.2em] uppercase mb-1">
               since
             </div>
-            <div className="font-display text-white text-5xl tracking-wider">
+            <div className="font-display text-primary text-5xl tracking-wider">
               2015
             </div>
           </div>
@@ -89,30 +89,30 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Middle Column - Contact (Olive/Gold) */}
-        <div className="lg:col-span-4 bg-[hsl(var(--footer-contact))] px-8 py-12">
+        {/* Middle Column - Contact */}
+        <div className="lg:col-span-3 bg-[hsl(var(--footer-contact))] px-8 py-12">
           {/* Contact Info */}
           <div className="space-y-4 mb-8">
-            <div className="flex items-start gap-3 text-white/80">
-              <MapPin className="w-4 h-4 mt-1 shrink-0 text-white/50" />
+            <div className="flex items-start gap-3 text-white/90">
+              <MapPin className="w-4 h-4 mt-1 shrink-0 text-white/60" />
               <span className="text-sm">{t.footer.location}, Florida, USA</span>
             </div>
             
             <motion.a 
               href="mailto:hello@luxgyps.com"
-              className="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm"
+              className="flex items-center gap-3 text-white/70 hover:text-white transition-colors text-sm"
               whileHover={{ x: 2 }}
             >
-              <Mail className="w-4 h-4 shrink-0 text-white/50" />
+              <Mail className="w-4 h-4 shrink-0 text-white/60" />
               hello@luxgyps.com
             </motion.a>
             
             <motion.a 
               href="tel:+17543001010"
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors text-lg font-medium"
+              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors text-lg font-semibold"
               whileHover={{ x: 2 }}
             >
-              <Phone className="w-4 h-4 shrink-0 text-white/50" />
+              <Phone className="w-4 h-4 shrink-0 text-white/60" />
               +1 (754) 300-1010
             </motion.a>
           </div>
@@ -125,7 +125,7 @@ const Footer = () => {
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all duration-300"
+                className="w-10 h-10 rounded-lg border border-white/30 flex items-center justify-center text-white/70 hover:text-white hover:border-white/50 hover:bg-white/10 transition-all duration-300"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 aria-label={social.label}
@@ -138,7 +138,7 @@ const Footer = () => {
           {/* Legal Links */}
           <motion.a 
             href="#terms"
-            className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm"
+            className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
             whileHover={{ x: 2 }}
           >
             <FileText className="w-4 h-4" />
@@ -146,50 +146,48 @@ const Footer = () => {
           </motion.a>
         </div>
 
-        {/* Right Column - Navigation with Image (Dark) */}
-        <div className="lg:col-span-5 bg-[hsl(var(--footer-nav))] relative overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute left-0 top-0 bottom-0 w-1/3 overflow-hidden">
-            <img 
-              src={columnImage} 
-              alt="" 
-              className="h-full w-full object-cover opacity-40"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[hsl(var(--footer-nav))]" />
-          </div>
-          
+        {/* Column Image Section */}
+        <div className="lg:col-span-2 bg-[hsl(var(--footer-image))] relative overflow-hidden hidden lg:block">
+          <img 
+            src={columnImage} 
+            alt="Classical Column" 
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20" />
+        </div>
+
+        {/* Right Column - Navigation */}
+        <div className="lg:col-span-4 bg-[hsl(var(--footer-nav))] px-8 py-12">
           {/* Navigation Grid */}
-          <div className="relative z-10 px-8 py-12 pl-24 lg:pl-32">
-            <div className="grid grid-cols-2 gap-x-12 gap-y-4">
-              {/* Left Nav Column */}
-              <div className="space-y-4">
-                {navItemsLeft.map((link) => (
-                  <motion.a 
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="block text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
-                    whileHover={{ x: 4 }}
-                  >
-                    {link.label}
-                  </motion.a>
-                ))}
-              </div>
-              
-              {/* Right Nav Column */}
-              <div className="space-y-4">
-                {navItemsRight.map((link) => (
-                  <motion.a 
-                    key={link.label}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="block text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
-                    whileHover={{ x: 4 }}
-                  >
-                    {link.label}
-                  </motion.a>
-                ))}
-              </div>
+          <div className="grid grid-cols-2 gap-x-10 gap-y-4">
+            {/* Left Nav Column */}
+            <div className="space-y-4">
+              {navItemsLeft.map((link) => (
+                <motion.a 
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="block text-white/70 hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium"
+                  whileHover={{ x: 4 }}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
+            </div>
+            
+            {/* Right Nav Column */}
+            <div className="space-y-4">
+              {navItemsRight.map((link) => (
+                <motion.a 
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="block text-white/70 hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium"
+                  whileHover={{ x: 4 }}
+                >
+                  {link.label}
+                </motion.a>
+              ))}
             </div>
           </div>
         </div>
