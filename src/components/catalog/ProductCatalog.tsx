@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Layers3, Frame, Columns, Flame, LayoutGrid, Filter, X } from 'lucide-react';
-import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import ProductCard from './ProductCard';
 import CategorySidebar from './CategorySidebar';
@@ -88,7 +87,6 @@ const categories = [
 ];
 
 const ProductCatalog = () => {
-  const { isGallery } = useMode();
   const { language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -97,9 +95,6 @@ const ProductCatalog = () => {
     if (activeCategory === 'all') return products;
     return products.filter(p => p.category === activeCategory);
   }, [activeCategory]);
-
-  // Only show in Pro mode (Day mode)
-  if (isGallery) return null;
 
   return (
     <section id="catalog" className="py-24 md:py-32 bg-background relative">
