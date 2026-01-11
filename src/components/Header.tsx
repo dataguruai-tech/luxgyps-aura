@@ -39,35 +39,35 @@ const Header = () => {
 
   return (
     <TooltipProvider>
-      <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6">
+      <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-8">
         <motion.div 
-          className="mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/80"
+          className="mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/80 max-w-[1800px] mx-auto"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex items-center justify-between px-4 sm:px-6 py-3">
-            {/* Logo - Prevent squashing */}
+          <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3">
+            {/* Logo - Enhanced sizing, never squashed */}
             <motion.a 
               href="/" 
-              className="flex-shrink-0 flex items-center gap-2"
+              className="flex-shrink-0 flex items-center gap-2 lg:gap-3"
               whileHover={{ scale: 1.02 }}
             >
-              <img src={logo} alt="LuxGyps" className="h-8 w-8" />
-              <span className="font-display text-xl tracking-wide whitespace-nowrap">
+              <img src={logo} alt="LuxGyps" className="h-10 sm:h-12 lg:h-14 xl:h-16 w-auto" />
+              <span className="font-display text-xl sm:text-2xl lg:text-2xl xl:text-3xl tracking-wide whitespace-nowrap">
                 <span className="text-foreground">Lux</span>
                 <span className="text-primary">Gyps</span>
               </span>
             </motion.a>
 
             {/* Desktop Navigation - Premium Artisan Style */}
-            <nav className="hidden xl:flex flex-1 items-center justify-center gap-x-3 2xl:gap-x-6">
+            <nav className="hidden xl:flex items-center gap-x-4 2xl:gap-x-8">
               {navItems.map((item) => (
                 item.comingSoon ? (
                   <Tooltip key={item.label} delayDuration={0}>
                     <TooltipTrigger asChild>
                       <span
-                        className="font-display text-sm 2xl:text-base uppercase tracking-[0.15em] 2xl:tracking-[0.2em] text-muted-foreground/50 cursor-not-allowed select-none whitespace-nowrap"
+                        className="font-display text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.1em] xl:tracking-[0.15em] 2xl:tracking-[0.2em] text-muted-foreground/50 cursor-not-allowed select-none whitespace-nowrap"
                       >
                         {item.label}
                       </span>
@@ -83,7 +83,7 @@ const Header = () => {
                   <motion.a
                     key={item.label}
                     href={item.href}
-                    className="font-display text-sm 2xl:text-base uppercase tracking-[0.15em] 2xl:tracking-[0.2em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap"
+                    className="font-display text-xs xl:text-sm 2xl:text-base uppercase tracking-[0.1em] xl:tracking-[0.15em] 2xl:tracking-[0.2em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap"
                     whileHover={{ y: -1 }}
                   >
                     {item.label}
