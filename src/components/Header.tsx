@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+
 interface NavItem {
   label: string;
   href: string;
   disabled?: boolean;
   comingSoon?: boolean;
 }
+
+const HEADER_OFFSET = 100; // Offset for fixed header height
+
 const Header = () => {
   const {
     mode,
@@ -23,6 +27,7 @@ const Header = () => {
     t
   } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   const navItems: NavItem[] = [{
     label: 'About Us',
     href: '#about'
@@ -47,9 +52,28 @@ const Header = () => {
     label: 'Contacts',
     href: '#contact'
   }];
+
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'es' : 'en');
   };
+
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const targetElement = document.getElementById(targetId);
+    
+    if (targetElement) {
+      const elementPosition = targetElement.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - HEADER_OFFSET;
+      
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    
+    setMobileMenuOpen(false);
+  }, []);
   return <TooltipProvider>
       <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6">
         <motion.div className="mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/80" initial={{
@@ -85,9 +109,13 @@ const Header = () => {
                     <TooltipContent side="bottom" className="bg-primary text-primary-foreground font-sans text-xs tracking-wider uppercase px-3 py-1.5">
                       Coming Soon
                     </TooltipContent>
-                  </Tooltip> : <motion.a key={item.label} href={item.href} className="font-display text-sm 2xl:text-base uppercase tracking-[0.15em] 2xl:tracking-[0.2em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap" whileHover={{
-              y: -1
-            }}>
+                  </Tooltip> : <motion.a 
+                    key={item.label} 
+                    href={item.href} 
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className="font-display text-sm 2xl:text-base uppercase tracking-[0.15em] 2xl:tracking-[0.2em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap" 
+                    whileHover={{ y: -1 }}
+                  >
                     {item.label}
                     <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full" />
                   </motion.a>)}
@@ -179,15 +207,15 @@ const Header = () => {
                         <span className="font-sans text-[10px] uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded">
                           Coming Soon
                         </span>
-                      </div> : <motion.a key={item.label} href={item.href} className="px-4 py-3 rounded-lg font-display text-base uppercase tracking-[0.15em] text-foreground/80 hover:text-primary hover:bg-primary/5 transition-all duration-300" onClick={() => setMobileMenuOpen(false)} initial={{
-                opacity: 0,
-                x: -20
-              }} animate={{
-                opacity: 1,
-                x: 0
-              }} transition={{
-                delay: index * 0.05
-              }}>
+                      </div> : <motion.a 
+                        key={item.label} 
+                        href={item.href} 
+                        className="px-4 py-3 rounded-lg font-display text-base uppercase tracking-[0.15em] text-foreground/80 hover:text-primary hover:bg-primary/5 transition-all duration-300" 
+                        onClick={(e) => handleNavClick(e, item.href)} 
+                        initial={{ opacity: 0, x: -20 }} 
+                        animate={{ opacity: 1, x: 0 }} 
+                        transition={{ delay: index * 0.05 }}
+                      >
                         {item.label}
                       </motion.a>)}
                   <motion.a href="tel:+17543001010" className="flex items-center justify-center gap-2 mt-4 px-4 py-3 rounded-full btn-gold" initial={{
