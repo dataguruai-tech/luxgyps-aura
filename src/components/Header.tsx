@@ -1,8 +1,9 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Menu, X, Sun, Moon, Globe } from 'lucide-react';
+import { Phone, Menu, X, Sun, Moon, Globe, FileText } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
+import { useQuote } from '@/context/QuoteContext';
 import logo from '@/assets/luxgyps-logo.svg';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -26,6 +27,7 @@ const Header = () => {
     setLanguage,
     t
   } = useLanguage();
+  const { totalItems, setIsOpen: setQuoteOpen } = useQuote();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems: NavItem[] = [{
@@ -167,6 +169,29 @@ const Header = () => {
                     </motion.div>}
                 </AnimatePresence>
               </motion.button>
+
+              {/* Quote Basket Button */}
+              <AnimatePresence>
+                {totalItems > 0 && (
+                  <motion.button
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0, opacity: 0 }}
+                    onClick={() => setQuoteOpen(true)}
+                    className="relative flex items-center gap-2 px-3 py-2 rounded-full border border-primary/50 bg-primary/10 hover:bg-primary/20 transition-colors"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <FileText className="w-4 h-4 text-primary" />
+                    <span className="hidden sm:inline font-sans text-xs font-medium text-foreground tracking-wide">
+                      {language === 'en' ? 'Quote' : 'Cotización'}
+                    </span>
+                    <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-primary text-primary-foreground text-xs font-bold rounded-full flex items-center justify-center">
+                      {totalItems}
+                    </span>
+                  </motion.button>
+                )}
+              </AnimatePresence>
 
               {/* Phone CTA */}
               <motion.a href="tel:+17543001010" className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full btn-gold" whileHover={{
