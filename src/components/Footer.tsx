@@ -67,11 +67,11 @@ const Footer = () => {
             {/* Logo & Tagline */}
             <motion.a 
               href="/" 
-              className="inline-flex items-center gap-2 mb-8"
+              className="inline-flex items-center gap-3 mb-8"
               whileHover={{ scale: 1.02 }}
             >
-              <img src={logo} alt="LuxGyps" className="h-9 sm:h-10 w-auto" />
-              <span className="font-display text-base sm:text-lg tracking-wide whitespace-nowrap">
+              <img src={logo} alt="LuxGyps" className="h-14 sm:h-16 w-auto" />
+              <span className="font-display text-xl sm:text-2xl tracking-wide whitespace-nowrap">
                 <span className="text-foreground">Lux</span>
                 <span className="text-primary">Gyps</span>
               </span>
