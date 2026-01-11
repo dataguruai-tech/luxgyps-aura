@@ -57,9 +57,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-background">
+    <footer className="relative">
+      {/* Top Separator Line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+      
       {/* Main Footer */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[280px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[280px] border-t border-primary/20">
         
         {/* Left Section - Brand & Contact */}
         <div className="lg:col-span-5 bg-secondary px-8 py-12 flex flex-col justify-center items-center">
