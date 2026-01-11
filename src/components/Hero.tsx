@@ -81,8 +81,8 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
     <section className="relative min-h-screen flex items-center overflow-hidden">
       {/* Split Background - Rose Relief Left, Carousel Right */}
       <div className="absolute inset-0 flex">
-        {/* Left Side - Rose Relief (Gypsum Flower) */}
-        <div className="w-full lg:w-1/2 relative">
+        {/* Left Side - Rose Relief (Gypsum Flower) - 2/3 width */}
+        <div className="w-full lg:w-2/3 relative">
           <motion.img
             src={roseRelief}
             alt="Gypsum Rose Relief"
@@ -94,8 +94,8 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
           <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-background/90" />
         </div>
         
-        {/* Right Side - Carousel Images */}
-        <div className="hidden lg:block w-1/2 relative">
+        {/* Right Side - Carousel Images - 1/3 width */}
+        <div className="hidden lg:block w-1/3 relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentImage}
