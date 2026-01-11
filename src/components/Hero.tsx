@@ -79,32 +79,48 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Full Screen Background - Cinematic Fade */}
-      <div className="absolute inset-0">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentImage}
-            className="absolute inset-0"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
+      {/* Split Background - Rose Relief Left, Carousel Right */}
+      <div className="absolute inset-0 flex">
+        {/* Left Side - Rose Relief (Gypsum Flower) */}
+        <div className="w-full lg:w-1/2 relative">
+          <motion.img
+            src={roseRelief}
+            alt="Gypsum Rose Relief"
+            className="w-full h-full object-cover"
+            initial={{ scale: 1.1 }}
+            animate={{ scale: 1 }}
             transition={{ duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          >
-            <img
-              src={carouselImages[currentImage]}
-              alt="Interior design"
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        </AnimatePresence>
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-background/90" />
+        </div>
         
-        {/* Premium gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-background/40" />
-        
-        {/* Subtle noise texture for depth */}
-        <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')]" />
+        {/* Right Side - Carousel Images */}
+        <div className="hidden lg:block w-1/2 relative">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentImage}
+              className="absolute inset-0"
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            >
+              <img
+                src={carouselImages[currentImage]}
+                alt="Interior design"
+                className="w-full h-full object-cover"
+              />
+            </motion.div>
+          </AnimatePresence>
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-background/80" />
+        </div>
       </div>
+      
+      {/* Top & Bottom gradient overlays */}
+      <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/40 pointer-events-none" />
+      
+      {/* Subtle noise texture for depth */}
+      <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')]" />
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-6 lg:px-16 xl:px-24">
