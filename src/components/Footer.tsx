@@ -61,150 +61,100 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-card border-t border-border/30 overflow-hidden">
-      {/* Subtle gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.02] to-primary/[0.05] pointer-events-none" />
-      
-      <div className="container relative mx-auto px-6 py-16 md:py-20">
-        {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
-          
-          {/* Brand Column */}
-          <div className="lg:col-span-5">
+    <footer className="relative overflow-hidden px-4 sm:px-6 pb-6">
+      {/* Main Footer Container - Same style as header */}
+      <div className="rounded-2xl border border-border/50 backdrop-blur-xl bg-background/80">
+        <div className="px-6 py-8">
+          {/* Top Row - Logo, Nav, Actions */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+            
+            {/* Logo */}
             <motion.a 
               href="/" 
-              className="inline-flex items-center gap-3 mb-6 group"
+              className="flex-shrink-0 flex items-center gap-3"
               whileHover={{ scale: 1.02 }}
             >
-              <img src={logo} alt="LuxGyps" className="h-12 w-12 transition-transform group-hover:rotate-12" />
-              <span className="font-display text-3xl tracking-wide">
+              <img src={logo} alt="LuxGyps" className="h-12 w-auto" />
+              <span className="font-display text-2xl tracking-wide">
                 <span className="text-foreground">Lux</span>
                 <span className="text-primary">Gyps</span>
               </span>
             </motion.a>
-            
-            <p className="text-muted-foreground max-w-sm mb-8 leading-relaxed text-sm">
-              {t.footer.desc}
-            </p>
-            
-            {/* Social Links - Stylized */}
+
+            {/* Navigation - Same style as header */}
+            <nav className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 lg:gap-8">
+              {Object.values(navItems).map((link) => (
+                <motion.a 
+                  key={link.label}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className="font-display text-sm uppercase tracking-[0.12em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap" 
+                  whileHover={{ y: -1 }}
+                >
+                  {link.label}
+                  <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+                </motion.a>
+              ))}
+            </nav>
+
+            {/* Actions - Social & Phone */}
             <div className="flex items-center gap-3">
+              {/* Social Links */}
               {socialLinks.map((social) => (
                 <motion.a
                   key={social.label}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative w-11 h-11 rounded-xl bg-muted/50 border border-border/50 flex items-center justify-center text-muted-foreground transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:border-primary/30"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="relative w-9 h-9 rounded-full flex items-center justify-center text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all duration-300"
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={social.label}
                 >
-                  <social.icon className="w-5 h-5 relative z-10" />
+                  <social.icon className="w-4 h-4" />
                 </motion.a>
               ))}
+
+              {/* Divider */}
+              <div className="hidden sm:block w-px h-5 bg-border/60" />
+
+              {/* Phone CTA - Elegant Button */}
+              <motion.a 
+                href="tel:+17543001010" 
+                className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:brightness-110 transition-all duration-300"
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span className="font-sans text-xs font-semibold tracking-wide whitespace-nowrap">+1 (754) 300-1010</span>
+              </motion.a>
             </div>
           </div>
 
-          {/* Navigation Column */}
-          <div className="lg:col-span-3">
-            <h4 className="font-display text-sm uppercase tracking-[0.2em] text-foreground mb-6">
-              {language === 'en' ? 'Navigation' : 'Navegación'}
-            </h4>
-            <ul className="space-y-3">
-              {Object.values(navItems).map((link) => (
-                <li key={link.label}>
-                  <motion.a 
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="group inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors text-sm"
-                    whileHover={{ x: 4 }}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary/40 group-hover:bg-primary transition-colors" />
-                    {link.label}
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Column */}
-          <div className="lg:col-span-4">
-            <h4 className="font-display text-sm uppercase tracking-[0.2em] text-foreground mb-6">
-              {t.footer.contactTitle}
-            </h4>
-            
-            <div className="space-y-4">
-              {/* Phone */}
-              <motion.a 
-                href="tel:+17543001010"
-                className="group flex items-center gap-4 p-3 -mx-3 rounded-xl hover:bg-muted/50 transition-colors"
-                whileHover={{ x: 4 }}
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Phone className="w-4 h-4 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground mb-0.5">{language === 'en' ? 'Call us' : 'Llámenos'}</p>
-                  <p className="text-sm font-medium text-foreground">+1 (754) 300-1010</p>
-                </div>
-                <ArrowUpRight className="w-4 h-4 text-muted-foreground ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-              </motion.a>
-
-              {/* Email */}
-              <motion.a 
-                href="mailto:hello@luxgyps.com"
-                className="group flex items-center gap-4 p-3 -mx-3 rounded-xl hover:bg-muted/50 transition-colors"
-                whileHover={{ x: 4 }}
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <Mail className="w-4 h-4 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground mb-0.5">Email</p>
-                  <p className="text-sm font-medium text-foreground">hello@luxgyps.com</p>
-                </div>
-                <ArrowUpRight className="w-4 h-4 text-muted-foreground ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
-              </motion.a>
-
-              {/* Location */}
-              <div className="flex items-center gap-4 p-3 -mx-3">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                  <MapPin className="w-4 h-4 text-primary" />
-                </div>
-                <div>
-                  <p className="text-xs text-muted-foreground mb-0.5">{language === 'en' ? 'Location' : 'Ubicación'}</p>
-                  <p className="text-sm font-medium text-foreground">{t.footer.location}</p>
-                  <p className="text-sm text-muted-foreground">Florida, USA</p>
-                </div>
+          {/* Bottom Row - Copyright & Links */}
+          <div className="mt-8 pt-6 border-t border-border/30">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-muted-foreground text-xs">
+                © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
+              </p>
+              
+              <div className="flex items-center gap-4">
+                <motion.a 
+                  href="#privacy" 
+                  className="font-display text-xs uppercase tracking-[0.1em] text-muted-foreground hover:text-primary transition-colors"
+                  whileHover={{ y: -1 }}
+                >
+                  {t.footer.privacy}
+                </motion.a>
+                <div className="w-px h-3 bg-border/60" />
+                <motion.a 
+                  href="#terms" 
+                  className="font-display text-xs uppercase tracking-[0.1em] text-muted-foreground hover:text-primary transition-colors"
+                  whileHover={{ y: -1 }}
+                >
+                  {t.footer.terms}
+                </motion.a>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-border/30">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-muted-foreground text-xs">
-              © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
-            </p>
-            
-            <div className="flex items-center gap-1">
-              <motion.a 
-                href="#privacy" 
-                className="px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                whileHover={{ scale: 1.02 }}
-              >
-                {t.footer.privacy}
-              </motion.a>
-              <span className="text-border">•</span>
-              <motion.a 
-                href="#terms" 
-                className="px-3 py-1.5 text-xs text-muted-foreground hover:text-foreground hover:bg-muted/50 rounded-lg transition-colors"
-                whileHover={{ scale: 1.02 }}
-              >
-                {t.footer.terms}
-              </motion.a>
             </div>
           </div>
         </div>
