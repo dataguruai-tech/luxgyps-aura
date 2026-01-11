@@ -61,7 +61,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.95 }}
                 aria-label="Houzz"
               >
-                <span className="text-xs font-bold">Hz</span>
+                <span className="text-xs font-sans font-bold">Hz</span>
               </motion.a>
               <motion.a
                 href="https://pinterest.com/luxgyps"
@@ -72,7 +72,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.95 }}
                 aria-label="Pinterest"
               >
-                <span className="text-xs font-bold">P</span>
+                <span className="text-xs font-sans font-bold">P</span>
               </motion.a>
             </div>
           </div>

@@ -51,12 +51,12 @@ const Header = () => {
           </motion.a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-10">
             {navItems.map((item) => (
               <motion.a
                 key={item.label}
                 href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
+                className="font-sans text-base font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors relative group"
                 whileHover={{ y: -2 }}
               >
                 {item.label}
@@ -70,18 +70,18 @@ const Header = () => {
             {/* Language Toggle */}
             <motion.button
               onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-border/50 text-sm font-medium hover:border-primary/50 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-border/50 font-sans text-sm font-medium hover:border-primary/50 transition-colors"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
               <Globe className="w-4 h-4 text-primary" />
-              <span className="uppercase text-muted-foreground">{language}</span>
+              <span className="uppercase text-muted-foreground tracking-wide">{language}</span>
             </motion.button>
 
             {/* Mode Toggle */}
             <motion.button
               onClick={toggleMode}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 text-sm font-medium hover:border-primary/50 transition-colors"
+              className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 font-sans text-sm font-medium hover:border-primary/50 transition-colors"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -120,7 +120,7 @@ const Header = () => {
               whileTap={{ scale: 0.98 }}
             >
               <Phone className="w-4 h-4" />
-              <span className="text-sm font-medium">+1 (754) 300-1010</span>
+              <span className="font-sans text-sm font-medium tracking-wide">+1 (754) 300-1010</span>
             </motion.a>
 
             {/* Mobile Menu Button */}
@@ -148,7 +148,7 @@ const Header = () => {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="px-4 py-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
+                    className="px-4 py-3 rounded-lg font-sans text-base font-medium tracking-wide text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
                     onClick={() => setMobileMenuOpen(false)}
                   >
                     {item.label}
