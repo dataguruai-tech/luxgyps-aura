@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Play, Package } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
+import roseRelief from '@/assets/rose-relief.jpg';
 
 // Gallery images for rotating carousel
 import goldenWave from '@/assets/gallery/golden-wave.jpg';
@@ -62,22 +63,36 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 min-h-screen items-center">
           
-          {/* Left Side - Content */}
-          <motion.div
-            className="relative z-10 py-32 lg:py-0 lg:pr-12"
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-          >
-            {/* Decorative line */}
-            <motion.div 
-              className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-32 bg-gradient-to-b from-transparent via-primary to-transparent hidden lg:block"
-              initial={{ scaleY: 0 }}
-              animate={{ scaleY: 1 }}
-              transition={{ duration: 1, delay: 0.5 }}
-            />
+          {/* Left Side - Content with Background */}
+          <div className="relative lg:h-screen flex items-center">
+            {/* Background Rose Relief */}
+            <div className="absolute inset-0 overflow-hidden">
+              <motion.img
+                src={roseRelief}
+                alt="Gypsum Rose Relief"
+                className="w-full h-full object-cover opacity-20"
+                initial={{ scale: 1.1 }}
+                animate={{ scale: 1 }}
+                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-muted via-muted/95 to-muted/80" />
+            </div>
 
-            {/* Eyebrow */}
+            <motion.div
+              className="relative z-10 py-32 lg:py-0 lg:pr-12 px-4 lg:px-8"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              {/* Decorative line */}
+              <motion.div 
+                className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-32 bg-gradient-to-b from-transparent via-primary to-transparent hidden lg:block"
+                initial={{ scaleY: 0 }}
+                animate={{ scaleY: 1 }}
+                transition={{ duration: 1, delay: 0.5 }}
+              />
+
+              {/* Eyebrow */}
             <motion.p
               className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6"
               variants={itemVariants}
@@ -161,7 +176,8 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                 </>
               )}
             </motion.div>
-          </motion.div>
+            </motion.div>
+          </div>
 
           {/* Right Side - Rotating Image Carousel */}
           <div className="relative h-[50vh] lg:h-screen flex items-center justify-center">
