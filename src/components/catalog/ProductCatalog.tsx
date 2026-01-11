@@ -173,8 +173,8 @@ const ProductCatalog = () => {
 
         <div className="flex gap-10">
           {/* Desktop Sidebar Navigation */}
-          <aside className="hidden lg:block w-64 flex-shrink-0">
-            <div className="sticky top-1/2 -translate-y-1/2">
+          <aside className="hidden lg:block w-64 flex-shrink-0 relative z-0">
+            <div className="sticky top-32 max-h-[calc(100vh-10rem)] overflow-y-auto">
               <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-6">
                 {language === 'en' ? 'Categories' : 'Categorías'}
               </p>
