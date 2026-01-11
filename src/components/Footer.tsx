@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Instagram, Phone, Mail, MapPin, FileText } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
-import columnImage from '@/assets/footer-column.jpg';
+import columnDivider from '@/assets/footer-column-divider.png';
 
 // Custom TikTok icon
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -58,108 +58,117 @@ const Footer = () => {
 
   return (
     <footer className="relative">
-      {/* Main Footer - Four Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-12">
+      {/* Main Footer - Two Color Layout with Column Divider */}
+      <div className="flex flex-col lg:flex-row">
         
-        {/* Left Column - Brand */}
-        <div className="lg:col-span-3 bg-[hsl(var(--footer-brand))] px-8 py-12 flex flex-col justify-between">
-          <div>
-            <motion.a 
-              href="/" 
-              className="inline-flex items-center gap-3 mb-8"
-              whileHover={{ scale: 1.02 }}
-            >
-              <img src={logo} alt="LuxGyps" className="h-16 w-auto brightness-0 invert opacity-90" />
-            </motion.a>
-            
-            <div className="font-display text-primary/80 italic text-lg mb-2">
-              {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
+        {/* Left Section - Gold/Brown (Brand + Contact) */}
+        <div className="flex-1 bg-[hsl(var(--gold-dark))] relative">
+          <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+            {/* Brand Column */}
+            <div className="px-8 py-12 flex flex-col justify-between">
+              <div>
+                <motion.a 
+                  href="/" 
+                  className="inline-flex items-center gap-3 mb-8"
+                  whileHover={{ scale: 1.02 }}
+                >
+                  <img src={logo} alt="LuxGyps" className="h-16 w-auto brightness-0 invert opacity-90" />
+                </motion.a>
+                
+                <div className="font-display text-white/70 italic text-lg mb-2">
+                  {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
+                </div>
+                
+                <div className="font-display text-white/40 text-sm tracking-[0.2em] uppercase mb-1">
+                  since
+                </div>
+                <div className="font-display text-white text-5xl tracking-wider">
+                  2015
+                </div>
+              </div>
+              
+              <p className="text-white/40 text-xs mt-8">
+                © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
+              </p>
             </div>
-            
-            <div className="font-display text-primary/50 text-sm tracking-[0.2em] uppercase mb-1">
-              since
-            </div>
-            <div className="font-display text-primary text-5xl tracking-wider">
-              2015
-            </div>
-          </div>
-          
-          <p className="text-white/50 text-xs mt-8">
-            © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
-          </p>
-        </div>
 
-        {/* Middle Column - Contact */}
-        <div className="lg:col-span-3 bg-[hsl(var(--footer-contact))] px-8 py-12">
-          {/* Contact Info */}
-          <div className="space-y-4 mb-8">
-            <div className="flex items-start gap-3 text-white/90">
-              <MapPin className="w-4 h-4 mt-1 shrink-0 text-white/60" />
-              <span className="text-sm">{t.footer.location}, Florida, USA</span>
-            </div>
-            
-            <motion.a 
-              href="mailto:hello@luxgyps.com"
-              className="flex items-center gap-3 text-white/70 hover:text-white transition-colors text-sm"
-              whileHover={{ x: 2 }}
-            >
-              <Mail className="w-4 h-4 shrink-0 text-white/60" />
-              hello@luxgyps.com
-            </motion.a>
-            
-            <motion.a 
-              href="tel:+17543001010"
-              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors text-lg font-semibold"
-              whileHover={{ x: 2 }}
-            >
-              <Phone className="w-4 h-4 shrink-0 text-white/60" />
-              +1 (754) 300-1010
-            </motion.a>
-          </div>
+            {/* Contact Column */}
+            <div className="px-8 py-12">
+              {/* Contact Info */}
+              <div className="space-y-4 mb-8">
+                <div className="flex items-start gap-3 text-white/80">
+                  <MapPin className="w-4 h-4 mt-1 shrink-0 text-white/50" />
+                  <span className="text-sm">{t.footer.location}, Florida, USA</span>
+                </div>
+                
+                <motion.a 
+                  href="mailto:hello@luxgyps.com"
+                  className="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm"
+                  whileHover={{ x: 2 }}
+                >
+                  <Mail className="w-4 h-4 shrink-0 text-white/50" />
+                  hello@luxgyps.com
+                </motion.a>
+                
+                <motion.a 
+                  href="tel:+17543001010"
+                  className="flex items-center gap-3 text-white hover:text-white/80 transition-colors text-lg font-semibold"
+                  whileHover={{ x: 2 }}
+                >
+                  <Phone className="w-4 h-4 shrink-0 text-white/50" />
+                  +1 (754) 300-1010
+                </motion.a>
+              </div>
 
-          {/* Social Links */}
-          <div className="flex items-center gap-3 mb-8">
-            {socialLinks.map((social) => (
-              <motion.a
-                key={social.label}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-lg border border-white/30 flex items-center justify-center text-white/70 hover:text-white hover:border-white/50 hover:bg-white/10 transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                aria-label={social.label}
+              {/* Social Links */}
+              <div className="flex items-center gap-3 mb-8">
+                {socialLinks.map((social) => (
+                  <motion.a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 rounded-lg border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={social.label}
+                  >
+                    <social.icon className="w-4 h-4" />
+                  </motion.a>
+                ))}
+              </div>
+
+              {/* Legal Links */}
+              <motion.a 
+                href="#terms"
+                className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm"
+                whileHover={{ x: 2 }}
               >
-                <social.icon className="w-4 h-4" />
+                <FileText className="w-4 h-4" />
+                <span>{t.footer.privacy} & {t.footer.terms}</span>
               </motion.a>
-            ))}
+            </div>
           </div>
-
-          {/* Legal Links */}
-          <motion.a 
-            href="#terms"
-            className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
-            whileHover={{ x: 2 }}
-          >
-            <FileText className="w-4 h-4" />
-            <span>{t.footer.privacy} & {t.footer.terms}</span>
-          </motion.a>
         </div>
 
-        {/* Column Image Section */}
-        <div className="lg:col-span-2 bg-[hsl(var(--footer-image))] relative overflow-hidden hidden lg:block">
+        {/* Column Divider */}
+        <div className="hidden lg:flex w-24 relative z-10">
+          {/* Left gradient fade from gold */}
+          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[hsl(var(--gold-dark))] to-transparent z-10" />
+          {/* Column image */}
           <img 
-            src={columnImage} 
-            alt="Classical Column" 
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            src={columnDivider} 
+            alt="" 
+            className="h-full w-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/20" />
+          {/* Right gradient fade to dark */}
+          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10" />
         </div>
 
-        {/* Right Column - Navigation */}
-        <div className="lg:col-span-4 bg-[hsl(var(--footer-nav))] px-8 py-12">
+        {/* Right Section - Dark (Navigation) */}
+        <div className="flex-1 bg-background px-8 lg:px-12 py-12">
           {/* Navigation Grid */}
-          <div className="grid grid-cols-2 gap-x-10 gap-y-4">
+          <div className="grid grid-cols-2 gap-x-12 gap-y-4 max-w-md">
             {/* Left Nav Column */}
             <div className="space-y-4">
               {navItemsLeft.map((link) => (
@@ -167,7 +176,7 @@ const Footer = () => {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="block text-white/70 hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium"
+                  className="block text-muted-foreground hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium"
                   whileHover={{ x: 4 }}
                 >
                   {link.label}
@@ -182,7 +191,7 @@ const Footer = () => {
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="block text-white/70 hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium"
+                  className="block text-muted-foreground hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium"
                   whileHover={{ x: 4 }}
                 >
                   {link.label}
