@@ -3,6 +3,8 @@ import Header from '@/components/Header';
 import Hero from '@/components/Hero';
 import Stats from '@/components/Stats';
 import FeaturedWorks from '@/components/FeaturedWorks';
+import ProductCatalog from '@/components/catalog/ProductCatalog';
+import QuoteBasket from '@/components/catalog/QuoteBasket';
 import VideoGallery from '@/components/VideoGallery';
 import BeforeAfter from '@/components/BeforeAfter';
 import Process from '@/components/Process';
@@ -23,6 +25,7 @@ const Index = () => {
         <Hero onSampleKitClick={() => setIsSampleKitOpen(true)} />
         <Stats />
         <FeaturedWorks />
+        <ProductCatalog />
         <Archive />
         <VideoGallery />
         <BeforeAfter />
@@ -31,6 +34,7 @@ const Index = () => {
       </main>
       <Footer />
       <Chatbot />
+      <QuoteBasket />
       <SampleKitModal isOpen={isSampleKitOpen} onClose={() => setIsSampleKitOpen(false)} />
       <LookbookPopup />
     </div>
