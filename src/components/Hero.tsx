@@ -108,9 +108,9 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             >
               <div className="relative w-10 h-9 flex items-center justify-center">
                 <img src={laurelWreath} alt="" className="absolute inset-0 w-full h-full object-contain" />
-                <span className="relative font-display text-xs text-primary font-medium z-10">10</span>
+                <span className="relative font-display text-xs text-primary font-medium z-10">00</span>
               </div>
-              <span className="text-primary/60 text-xs tracking-[0.2em] uppercase">since 2010</span>
+              <span className="text-primary/60 text-xs tracking-[0.2em] uppercase">since 2000</span>
             </motion.div>
 
             {/* Eyebrow */}

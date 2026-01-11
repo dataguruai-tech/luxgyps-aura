@@ -88,7 +88,7 @@ const Footer = () => {
               <span className="text-muted-foreground">•</span>
               <div className="flex items-center gap-2">
                 <img src={laurelWreath} alt="" className="w-8 h-7 object-contain" />
-                <span className="font-display text-primary text-sm tracking-wide">2010</span>
+                <span className="font-display text-primary text-sm tracking-wide">2000</span>
               </div>
             </div>
 
