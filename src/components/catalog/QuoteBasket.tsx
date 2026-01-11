@@ -172,7 +172,10 @@ const QuoteBasket = () => {
                       {language === 'en' ? 'Clear' : 'Limpiar'}
                     </button>
                     <button
-                      onClick={() => setShowForm(true)}
+                      onClick={() => {
+                        setIsOpen(false);
+                        setShowForm(true);
+                      }}
                       className="flex-1 py-3 rounded-lg btn-gold text-sm font-medium"
                     >
                       {language === 'en' ? 'Request Quote' : 'Solicitar Cotización'}
