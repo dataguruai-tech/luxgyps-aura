@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
-import { motion } from 'framer-motion';
-import { Layers3, Frame, Columns, Flame, LayoutGrid, Filter, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Layers3, Frame, Columns, Flame, LayoutGrid, Filter, X, ChevronDown, ChevronUp } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import ProductCard from './ProductCard';
 import CategorySidebar from './CategorySidebar';
@@ -90,11 +90,18 @@ const ProductCatalog = () => {
   const { language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Number of items per row based on screen size (we'll show 2 rows = 8 items on desktop)
+  const INITIAL_ITEMS = 8;
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === 'all') return products;
     return products.filter(p => p.category === activeCategory);
   }, [activeCategory]);
+
+  const visibleProducts = isExpanded ? filteredProducts : filteredProducts.slice(0, INITIAL_ITEMS);
+  const hasMore = filteredProducts.length > INITIAL_ITEMS;
 
   return (
     <section id="catalog" className="py-24 md:py-32 bg-background relative">
@@ -154,18 +161,57 @@ const ProductCatalog = () => {
           {/* Product Grid */}
           <div className="flex-1">
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
-              {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  id={product.id}
-                  title={language === 'en' ? product.title : product.titleEs}
-                  category={categories.find(c => c.id === product.category)?.label || product.category}
-                  image={product.image}
-                  pricePerSqFt={product.pricePerSqFt}
-                  dimensions={product.dimensions}
-                />
-              ))}
+              <AnimatePresence mode="popLayout">
+                {visibleProducts.map((product, index) => (
+                  <motion.div
+                    key={product.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ delay: index * 0.05, duration: 0.3 }}
+                  >
+                    <ProductCard
+                      id={product.id}
+                      title={language === 'en' ? product.title : product.titleEs}
+                      category={categories.find(c => c.id === product.category)?.label || product.category}
+                      image={product.image}
+                      pricePerSqFt={product.pricePerSqFt}
+                      dimensions={product.dimensions}
+                    />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </div>
+
+            {/* Show More / Show Less Button */}
+            {hasMore && (
+              <motion.div 
+                className="mt-10 text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <button
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="group inline-flex items-center gap-3 px-8 py-4 border border-primary/30 rounded-full text-foreground hover:border-primary hover:bg-primary/5 transition-all duration-300"
+                >
+                  <span className="font-medium tracking-wide">
+                    {isExpanded 
+                      ? (language === 'en' ? 'Show Less' : 'Mostrar Menos')
+                      : (language === 'en' 
+                          ? `View All ${filteredProducts.length} Products` 
+                          : `Ver los ${filteredProducts.length} Productos`)
+                    }
+                  </span>
+                  <motion.div
+                    animate={{ rotate: isExpanded ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="w-5 h-5 text-primary" />
+                  </motion.div>
+                </button>
+              </motion.div>
+            )}
 
             {filteredProducts.length === 0 && (
               <div className="text-center py-16">
