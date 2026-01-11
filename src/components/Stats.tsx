@@ -58,7 +58,7 @@ const Stats = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <div className="font-display text-4xl md:text-5xl lg:text-6xl text-gradient-gold mb-3">
+              <div className="font-sans font-semibold text-4xl md:text-5xl lg:text-6xl text-gradient-gold mb-3">
                 <AnimatedNumber value={stat.value} suffix={stat.suffix} />
               </div>
               <p className="text-muted-foreground text-sm md:text-base uppercase tracking-wider">
