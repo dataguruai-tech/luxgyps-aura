@@ -88,39 +88,40 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         />
-        {/* Mobile: center gradient, Desktop: side gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/70 to-background/90 lg:bg-gradient-to-r lg:from-background/95 lg:via-background/85 lg:to-background/50" />
+        {/* Mobile: center gradient, Tablet: diagonal, Desktop: side gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/70 to-background/90 md:bg-gradient-to-br md:from-background/90 md:via-background/60 md:to-background/40 lg:bg-gradient-to-r lg:from-background/95 lg:via-background/85 lg:to-background/50" />
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-4 min-h-screen items-center">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 md:px-10 lg:px-12">
+        {/* Mobile: single column, Tablet: side-by-side balanced, Desktop: 2-column */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-4 min-h-screen items-center">
           
           {/* Left Side - Content */}
           <motion.div
-            className="pt-28 pb-8 lg:py-0 lg:pr-8 text-center order-1 lg:order-1"
+            className="pt-28 pb-8 md:pt-24 md:pb-0 lg:py-0 lg:pr-8 text-center md:text-left order-1"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
           >
-            {/* Since Badge - Smaller on mobile */}
+            {/* Since Badge - Optimized for tablet */}
             <motion.div
-              className="flex justify-center mb-4 lg:mb-8"
+              className="flex justify-center md:justify-start mb-4 md:mb-6 lg:mb-8"
               variants={itemVariants}
             >
-              <img src={since2000Badge} alt="Since 2000" className="h-12 sm:h-14 lg:h-16 w-auto object-contain" />
+              <img src={since2000Badge} alt="Since 2000" className="h-12 sm:h-14 md:h-14 lg:h-16 w-auto object-contain" />
             </motion.div>
 
             {/* Eyebrow */}
             <motion.p
-              className="text-primary tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs sm:text-sm font-medium mb-4 lg:mb-6"
+              className="text-primary tracking-[0.2em] sm:tracking-[0.3em] uppercase text-xs sm:text-sm md:text-xs font-medium mb-4 md:mb-4 lg:mb-6"
               variants={itemVariants}
             >
               Miami Artisan Studio
             </motion.p>
 
-            {/* Main Heading - Optimized for mobile */}
+            {/* Main Heading - Tablet-optimized sizing */}
             <motion.h1
-              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1] sm:leading-[0.95] mb-5 lg:mb-8"
+              className="font-display text-3xl sm:text-4xl md:text-[2.75rem] lg:text-6xl xl:text-7xl leading-[1] sm:leading-[0.95] md:leading-[0.9] mb-5 md:mb-6 lg:mb-8"
               variants={itemVariants}
             >
               <span className="text-foreground">{t.hero.title1}</span>
@@ -128,37 +129,37 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               <span className="text-gradient-gold italic">{t.hero.title2}</span>
             </motion.h1>
 
-            {/* Subheading - Tighter on mobile */}
+            {/* Subheading - Optimized for tablet */}
             <motion.p
-              className="text-muted-foreground text-sm sm:text-base md:text-lg max-w-xs sm:max-w-md mb-6 lg:mb-10 leading-relaxed mx-auto"
+              className="text-muted-foreground text-sm sm:text-base md:text-base max-w-xs sm:max-w-md md:max-w-sm lg:max-w-md mb-6 md:mb-8 lg:mb-10 leading-relaxed mx-auto md:mx-0"
               variants={itemVariants}
             >
               {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
             </motion.p>
 
-            {/* CTAs - Stack vertically on mobile, horizontal on tablet+ */}
+            {/* CTAs - Tablet: horizontal with refined sizing */}
             <motion.div
-              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
+              className="flex flex-col sm:flex-row items-center md:items-start justify-center md:justify-start gap-3 sm:gap-4 md:gap-3"
               variants={itemVariants}
             >
               {isGallery ? (
                 <>
                   <motion.a
                     href="#portfolio"
-                    className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full btn-gold text-sm sm:text-base"
+                    className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 md:px-6 py-3.5 sm:py-4 md:py-3 rounded-full btn-gold text-sm sm:text-base md:text-sm"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <span className="font-medium">{t.hero.viewPortfolio}</span>
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform" />
                   </motion.a>
                   <motion.a
                     href="#process"
-                    className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full btn-outline-gold text-sm sm:text-base"
+                    className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 md:px-6 py-3.5 sm:py-4 md:py-3 rounded-full btn-outline-gold text-sm sm:text-base md:text-sm"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <Play className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <Play className="w-4 h-4 sm:w-5 sm:h-5 md:w-4 md:h-4" />
                     <span className="font-medium">{t.hero.watchProcess}</span>
                   </motion.a>
                 </>
@@ -166,20 +167,20 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                 <>
                   <motion.a
                     href="#catalog"
-                    className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full btn-gold text-sm sm:text-base"
+                    className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 md:px-6 py-3.5 sm:py-4 md:py-3 rounded-full btn-gold text-sm sm:text-base md:text-sm"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <span className="font-medium">{t.hero.browseCatalog}</span>
-                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 md:w-4 md:h-4 group-hover:translate-x-1 transition-transform" />
                   </motion.a>
                   <motion.button
                     onClick={onSampleKitClick}
-                    className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 py-3.5 sm:py-4 rounded-full btn-outline-gold text-sm sm:text-base"
+                    className="group flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto px-6 sm:px-8 md:px-6 py-3.5 sm:py-4 md:py-3 rounded-full btn-outline-gold text-sm sm:text-base md:text-sm"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <Package className="w-4 h-4 sm:w-5 sm:h-5" />
+                    <Package className="w-4 h-4 sm:w-5 sm:h-5 md:w-4 md:h-4" />
                     <span className="font-medium">{t.sampleKit.buttonText}</span>
                   </motion.button>
                 </>
@@ -188,10 +189,10 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
           </motion.div>
 
           {/* Right Side - Photo Stack */}
-          {/* Mobile: smaller, positioned below content. Desktop: large, right side */}
-          <div className="relative h-[45vh] sm:h-[50vh] lg:h-[85vh] flex items-center justify-center lg:justify-end lg:pr-8 order-2 lg:order-2">
-            {/* Photo Stack Container - Smaller on mobile */}
-            <div className="relative w-[70%] sm:w-[75%] lg:w-[85%] max-w-xs sm:max-w-sm lg:max-w-md aspect-[3/4]">
+          {/* Mobile: smaller below, Tablet: elegant side placement, Desktop: large right */}
+          <div className="relative h-[45vh] sm:h-[50vh] md:h-[70vh] lg:h-[85vh] flex items-center justify-center md:justify-center lg:justify-end lg:pr-8 order-2">
+            {/* Photo Stack Container - Tablet: centered elegantly */}
+            <div className="relative w-[70%] sm:w-[75%] md:w-[90%] lg:w-[85%] max-w-xs sm:max-w-sm md:max-w-[280px] lg:max-w-md aspect-[3/4]">
               {/* Static base shadows for depth */}
               <div 
                 className="absolute inset-0 bg-background/20 rounded-sm shadow-2xl hidden sm:block"
@@ -238,7 +239,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                       style={{ zIndex: 10 - depth }}
                     >
                       {/* Photo frame effect */}
-                      <div className="w-full h-full bg-cream p-1.5 sm:p-2 rounded-sm shadow-2xl">
+                      <div className="w-full h-full bg-cream p-1.5 sm:p-2 md:p-2 rounded-sm shadow-2xl">
                         <div className="w-full h-full overflow-hidden">
                           <motion.img
                             src={carouselImages[imgIndex]}
@@ -255,14 +256,14 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               </AnimatePresence>
             </div>
 
-            {/* Decorative corner elements - Hidden on mobile */}
-            <div className="absolute top-[5%] right-[5%] w-12 sm:w-16 h-12 sm:h-16 border-t border-r border-primary/20 z-0 hidden sm:block" />
-            <div className="absolute bottom-[5%] left-[5%] w-12 sm:w-16 h-12 sm:h-16 border-b border-l border-primary/20 z-0 hidden sm:block" />
+            {/* Decorative corner elements - Show on tablet+ */}
+            <div className="absolute top-[5%] right-[5%] md:top-[8%] md:right-[8%] w-12 sm:w-16 md:w-12 h-12 sm:h-16 md:h-12 border-t border-r border-primary/20 z-0 hidden md:block" />
+            <div className="absolute bottom-[5%] left-[5%] md:bottom-[8%] md:left-[8%] w-12 sm:w-16 md:w-12 h-12 sm:h-16 md:h-12 border-b border-l border-primary/20 z-0 hidden md:block" />
           </div>
         </div>
       </div>
 
-      {/* Mobile scroll indicator */}
+      {/* Mobile/Tablet scroll indicator - Hidden on desktop */}
       <motion.div 
         className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 lg:hidden"
         initial={{ opacity: 0, y: 10 }}
