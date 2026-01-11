@@ -4,6 +4,7 @@ import { ArrowRight, Play, Package } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import roseRelief from '@/assets/rose-relief.jpg';
+import laurelWreath from '@/assets/laurel-wreath.png';
 
 // Interior images for carousel
 import interior1 from '@/assets/hero/interior-living-1.jpg';
@@ -128,64 +129,22 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
             {/* Since Badge - Elegant with Laurel */}
             <motion.div 
-              className="mb-10 inline-flex flex-col items-center"
+              className="mb-10 flex justify-center w-full"
               variants={itemVariants}
             >
-              {/* Top Laurel Branch */}
-              <svg 
-                viewBox="0 0 120 24" 
-                className="w-28 h-6 text-primary/60 mb-2"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-              >
-                {/* Left branch */}
-                <path d="M60 20 Q50 18, 45 12 Q42 8, 38 6" strokeLinecap="round" />
-                <ellipse cx="36" cy="8" rx="4" ry="6" transform="rotate(-30 36 8)" className="fill-primary/20" />
-                <path d="M45 12 Q42 10, 38 10" strokeLinecap="round" />
-                <ellipse cx="35" cy="12" rx="3.5" ry="5" transform="rotate(-20 35 12)" className="fill-primary/20" />
-                <path d="M50 16 Q46 14, 42 14" strokeLinecap="round" />
-                <ellipse cx="39" cy="15" rx="3" ry="4.5" transform="rotate(-10 39 15)" className="fill-primary/20" />
-                
-                {/* Right branch (mirrored) */}
-                <path d="M60 20 Q70 18, 75 12 Q78 8, 82 6" strokeLinecap="round" />
-                <ellipse cx="84" cy="8" rx="4" ry="6" transform="rotate(30 84 8)" className="fill-primary/20" />
-                <path d="M75 12 Q78 10, 82 10" strokeLinecap="round" />
-                <ellipse cx="85" cy="12" rx="3.5" ry="5" transform="rotate(20 85 12)" className="fill-primary/20" />
-                <path d="M70 16 Q74 14, 78 14" strokeLinecap="round" />
-                <ellipse cx="81" cy="15" rx="3" ry="4.5" transform="rotate(10 81 15)" className="fill-primary/20" />
-              </svg>
-
-              {/* Since Text */}
-              <div className="flex flex-col items-center">
-                <span className="text-[10px] tracking-[0.4em] text-primary/50 uppercase font-light">since</span>
-                <span className="font-display text-4xl md:text-5xl text-primary font-light tracking-wide">2010</span>
+              <div className="relative w-32 h-28 md:w-40 md:h-36 flex items-center justify-center">
+                {/* Laurel Wreath Background */}
+                <img 
+                  src={laurelWreath} 
+                  alt="Laurel wreath" 
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
+                {/* Text overlay */}
+                <div className="relative flex flex-col items-center justify-center z-10 pt-1">
+                  <span className="text-[8px] md:text-[10px] tracking-[0.25em] text-primary uppercase font-medium">since</span>
+                  <span className="font-display text-2xl md:text-3xl text-primary font-semibold tracking-wide leading-none">2010</span>
+                </div>
               </div>
-
-              {/* Bottom Laurel Branch (inverted) */}
-              <svg 
-                viewBox="0 0 120 24" 
-                className="w-28 h-6 text-primary/60 mt-2 rotate-180"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1"
-              >
-                {/* Left branch */}
-                <path d="M60 20 Q50 18, 45 12 Q42 8, 38 6" strokeLinecap="round" />
-                <ellipse cx="36" cy="8" rx="4" ry="6" transform="rotate(-30 36 8)" className="fill-primary/20" />
-                <path d="M45 12 Q42 10, 38 10" strokeLinecap="round" />
-                <ellipse cx="35" cy="12" rx="3.5" ry="5" transform="rotate(-20 35 12)" className="fill-primary/20" />
-                <path d="M50 16 Q46 14, 42 14" strokeLinecap="round" />
-                <ellipse cx="39" cy="15" rx="3" ry="4.5" transform="rotate(-10 39 15)" className="fill-primary/20" />
-                
-                {/* Right branch (mirrored) */}
-                <path d="M60 20 Q70 18, 75 12 Q78 8, 82 6" strokeLinecap="round" />
-                <ellipse cx="84" cy="8" rx="4" ry="6" transform="rotate(30 84 8)" className="fill-primary/20" />
-                <path d="M75 12 Q78 10, 82 10" strokeLinecap="round" />
-                <ellipse cx="85" cy="12" rx="3.5" ry="5" transform="rotate(20 85 12)" className="fill-primary/20" />
-                <path d="M70 16 Q74 14, 78 14" strokeLinecap="round" />
-                <ellipse cx="81" cy="15" rx="3" ry="4.5" transform="rotate(10 81 15)" className="fill-primary/20" />
-              </svg>
             </motion.div>
 
             {/* CTAs */}
