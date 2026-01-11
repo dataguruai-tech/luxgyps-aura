@@ -126,11 +126,16 @@ const Footer = () => {
         </div>
 
         {/* Column Divider */}
-        <div className="lg:col-span-2 relative hidden lg:flex items-center justify-center bg-background overflow-hidden">
+        <div className="lg:col-span-2 relative hidden lg:flex items-center justify-center overflow-hidden">
+          {/* Split background - left matches left section, right matches right section */}
+          <div className="absolute inset-0 flex">
+            <div className="w-1/2 bg-secondary" />
+            <div className="w-1/2 bg-card" />
+          </div>
           <img 
             src={columnDivider} 
             alt="" 
-            className="h-full w-auto object-contain"
+            className="h-full w-auto object-contain relative z-10"
           />
         </div>
 
