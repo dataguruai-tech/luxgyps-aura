@@ -1,9 +1,8 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layers3, Frame, Columns, Flame, LayoutGrid, Filter, X, ChevronDown, ChevronUp } from 'lucide-react';
+import { Layers3, Frame, Columns, Flame, LayoutGrid, ChevronDown, ChevronUp } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import ProductCard from './ProductCard';
-import CategorySidebar from './CategorySidebar';
 
 // Import product images
 import quiltedPanel from '@/assets/gallery/quilted-panel.jpg';
@@ -89,11 +88,10 @@ const categories = [
 const ProductCatalog = () => {
   const { language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [visibleRows, setVisibleRows] = useState(2);
 
-  // Items per row on different breakpoints (we use 4 as base for calculation)
-  const ITEMS_PER_ROW = 4;
+  // Items per row (3 columns on desktop)
+  const ITEMS_PER_ROW = 3;
   const ROWS_INCREMENT = 2;
 
   const filteredProducts = useMemo(() => {
@@ -146,34 +144,36 @@ const ProductCatalog = () => {
           </p>
         </motion.div>
 
-        {/* Mobile Filter Toggle */}
-        <div className="lg:hidden mb-6">
-          <button
-            onClick={() => setShowMobileFilters(!showMobileFilters)}
-            className="flex items-center gap-2 px-4 py-2 border border-border rounded-lg text-sm font-medium"
-          >
-            {showMobileFilters ? <X className="w-4 h-4" /> : <Filter className="w-4 h-4" />}
-            {language === 'en' ? 'Filter' : 'Filtrar'}
-          </button>
+        {/* Category Filter - Horizontal */}
+        <div className="flex flex-wrap gap-3 mb-10">
+          {categories.map((category) => {
+            const Icon = category.icon;
+            const isActive = activeCategory === category.id;
+            return (
+              <button
+                key={category.id}
+                onClick={() => {
+                  setActiveCategory(category.id);
+                  setVisibleRows(2);
+                }}
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+                  isActive
+                    ? 'bg-primary text-primary-foreground'
+                    : 'bg-muted/50 text-muted-foreground hover:bg-muted hover:text-foreground border border-border/50'
+                }`}
+              >
+                <Icon className="w-4 h-4" />
+                <span>{language === 'en' ? category.label : category.labelEs}</span>
+                <span className={`text-xs ${isActive ? 'text-primary-foreground/80' : 'text-muted-foreground'}`}>
+                  ({category.count})
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar */}
-          <div className={`${showMobileFilters ? 'block' : 'hidden'} lg:block`}>
-            <CategorySidebar
-              categories={categories}
-              activeCategory={activeCategory}
-              onCategoryChange={(cat) => {
-                setActiveCategory(cat);
-                setVisibleRows(2);
-                setShowMobileFilters(false);
-              }}
-            />
-          </div>
-
-          {/* Product Grid */}
-          <div className="flex-1">
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
               <AnimatePresence mode="popLayout">
                 {visibleProducts.map((product, index) => (
                   <motion.div
@@ -195,7 +195,6 @@ const ProductCatalog = () => {
                 ))}
               </AnimatePresence>
             </div>
-
             {/* Elegant Load More Section */}
             {(hasMore || visibleRows > 2) && (
               <motion.div 
@@ -286,8 +285,6 @@ const ProductCatalog = () => {
                 </p>
               </div>
             )}
-          </div>
-        </div>
       </div>
     </section>
   );
