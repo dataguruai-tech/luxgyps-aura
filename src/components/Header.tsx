@@ -4,169 +4,218 @@ import { Phone, Menu, X, Sun, Moon, Globe } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
+interface NavItem {
+  label: string;
+  href: string;
+  disabled?: boolean;
+  comingSoon?: boolean;
+}
 
 const Header = () => {
   const { mode, toggleMode, isGallery } = useMode();
   const { language, setLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const galleryNav = [
-    { label: t.nav.portfolio, href: '#portfolio' },
-    { label: t.nav.process, href: '#process' },
-    { label: t.nav.about, href: '#about' },
+  const navItems: NavItem[] = [
+    { label: 'About Us', href: '#about' },
+    { label: 'Interior Decor', href: '#portfolio' },
+    { label: 'Facade Decor', href: '#facade' },
+    { label: 'Gallery', href: '#gallery' },
+    { label: 'Services', href: '#process' },
+    { label: 'Showroom', href: '#showroom', disabled: true, comingSoon: true },
+    { label: 'Contacts', href: '#contact' },
   ];
-
-  const proNav = [
-    { label: t.nav.catalog, href: '#catalog' },
-    { label: t.nav.specifications, href: '#specs' },
-    { label: t.nav.downloads, href: '#downloads' },
-  ];
-
-  const navItems = isGallery ? galleryNav : proNav;
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'es' : 'en');
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <motion.div 
-        className="mx-4 mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/80"
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      >
-        <div className="flex items-center justify-between px-6 py-3">
-          {/* Logo */}
-          <motion.a 
-            href="/" 
-            className="flex items-center gap-2"
-            whileHover={{ scale: 1.02 }}
-          >
-            <img src={logo} alt="LuxGyps" className="h-8 w-8" />
-            <span className="font-display text-xl tracking-wide">
-              <span className="text-foreground">Lux</span>
-              <span className="text-primary">Gyps</span>
-            </span>
-          </motion.a>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-10">
-            {navItems.map((item) => (
-              <motion.a
-                key={item.label}
-                href={item.href}
-                className="font-sans text-base font-medium tracking-wide text-muted-foreground hover:text-foreground transition-colors relative group"
-                whileHover={{ y: -2 }}
-              >
-                {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
-              </motion.a>
-            ))}
-          </nav>
-
-          {/* Actions */}
-          <div className="flex items-center gap-3">
-            {/* Language Toggle */}
-            <motion.button
-              onClick={toggleLanguage}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-full border border-border/50 font-sans text-sm font-medium hover:border-primary/50 transition-colors"
+    <TooltipProvider>
+      <header className="fixed top-0 left-0 right-0 z-50">
+        <motion.div 
+          className="mx-4 mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/80"
+          initial={{ y: -100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="flex items-center justify-between px-6 py-3">
+            {/* Logo */}
+            <motion.a 
+              href="/" 
+              className="flex items-center gap-2"
               whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
-              <Globe className="w-4 h-4 text-primary" />
-              <span className="uppercase text-muted-foreground tracking-wide">{language}</span>
-            </motion.button>
-
-            {/* Mode Toggle */}
-            <motion.button
-              onClick={toggleMode}
-              className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/50 font-sans text-sm font-medium hover:border-primary/50 transition-colors"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <AnimatePresence mode="wait">
-                {isGallery ? (
-                  <motion.div
-                    key="gallery"
-                    initial={{ opacity: 0, rotate: -90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 90 }}
-                    className="flex items-center gap-2"
-                  >
-                    <Moon className="w-4 h-4 text-primary" />
-                    <span className="hidden sm:inline text-muted-foreground">{t.nav.gallery}</span>
-                  </motion.div>
-                ) : (
-                  <motion.div
-                    key="pro"
-                    initial={{ opacity: 0, rotate: -90 }}
-                    animate={{ opacity: 1, rotate: 0 }}
-                    exit={{ opacity: 0, rotate: 90 }}
-                    className="flex items-center gap-2"
-                  >
-                    <Sun className="w-4 h-4 text-primary" />
-                    <span className="hidden sm:inline text-muted-foreground">{t.nav.pro}</span>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-
-            {/* Phone CTA */}
-            <motion.a
-              href="tel:+17543001010"
-              className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full btn-gold"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Phone className="w-4 h-4" />
-              <span className="font-sans text-sm font-medium tracking-wide">+1 (754) 300-1010</span>
+              <img src={logo} alt="LuxGyps" className="h-8 w-8" />
+              <span className="font-display text-xl tracking-wide">
+                <span className="text-foreground">Lux</span>
+                <span className="text-primary">Gyps</span>
+              </span>
             </motion.a>
 
-            {/* Mobile Menu Button */}
-            <motion.button
-              className="md:hidden p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              whileTap={{ scale: 0.95 }}
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </motion.button>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: 'auto', opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="md:hidden border-t border-border/50 overflow-hidden"
-            >
-              <nav className="flex flex-col p-4 gap-2">
-                {navItems.map((item) => (
-                  <a
+            {/* Desktop Navigation - Premium Artisan Style */}
+            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+              {navItems.map((item) => (
+                item.comingSoon ? (
+                  <Tooltip key={item.label} delayDuration={0}>
+                    <TooltipTrigger asChild>
+                      <span
+                        className="font-display text-sm xl:text-base uppercase tracking-[0.2em] text-muted-foreground/50 cursor-not-allowed select-none"
+                      >
+                        {item.label}
+                      </span>
+                    </TooltipTrigger>
+                    <TooltipContent 
+                      side="bottom" 
+                      className="bg-primary text-primary-foreground font-sans text-xs tracking-wider uppercase px-3 py-1.5"
+                    >
+                      Coming Soon
+                    </TooltipContent>
+                  </Tooltip>
+                ) : (
+                  <motion.a
                     key={item.label}
                     href={item.href}
-                    className="px-4 py-3 rounded-lg font-sans text-base font-medium tracking-wide text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
+                    className="font-display text-sm xl:text-base uppercase tracking-[0.2em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
+                    whileHover={{ y: -1 }}
                   >
                     {item.label}
-                  </a>
-                ))}
-                <a
-                  href="tel:+17543001010"
-                  className="flex items-center justify-center gap-2 mt-2 px-4 py-3 rounded-full btn-gold"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>+1 (754) 300-1010</span>
-                </a>
-              </nav>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
-    </header>
+                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+                  </motion.a>
+                )
+              ))}
+            </nav>
+
+            {/* Actions */}
+            <div className="flex items-center gap-2 lg:gap-3">
+              {/* Language Toggle */}
+              <motion.button
+                onClick={toggleLanguage}
+                className="flex items-center gap-1.5 px-2.5 py-2 rounded-full border border-border/50 font-sans text-xs font-medium hover:border-primary/50 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Globe className="w-3.5 h-3.5 text-primary" />
+                <span className="uppercase text-muted-foreground tracking-wider">{language}</span>
+              </motion.button>
+
+              {/* Mode Toggle */}
+              <motion.button
+                onClick={toggleMode}
+                className="flex items-center gap-2 px-3 py-2 rounded-full border border-border/50 font-sans text-xs font-medium hover:border-primary/50 transition-colors"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <AnimatePresence mode="wait">
+                  {isGallery ? (
+                    <motion.div
+                      key="gallery"
+                      initial={{ opacity: 0, rotate: -90 }}
+                      animate={{ opacity: 1, rotate: 0 }}
+                      exit={{ opacity: 0, rotate: 90 }}
+                      className="flex items-center gap-1.5"
+                    >
+                      <Moon className="w-3.5 h-3.5 text-primary" />
+                      <span className="hidden sm:inline text-muted-foreground tracking-wide uppercase">{t.nav.gallery}</span>
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      key="pro"
+                      initial={{ opacity: 0, rotate: -90 }}
+                      animate={{ opacity: 1, rotate: 0 }}
+                      exit={{ opacity: 0, rotate: 90 }}
+                      className="flex items-center gap-1.5"
+                    >
+                      <Sun className="w-3.5 h-3.5 text-primary" />
+                      <span className="hidden sm:inline text-muted-foreground tracking-wide uppercase">{t.nav.pro}</span>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.button>
+
+              {/* Phone CTA */}
+              <motion.a
+                href="tel:+17543001010"
+                className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full btn-gold"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+              >
+                <Phone className="w-3.5 h-3.5" />
+                <span className="font-sans text-xs font-medium tracking-wider">+1 (754) 300-1010</span>
+              </motion.a>
+
+              {/* Mobile Menu Button */}
+              <motion.button
+                className="lg:hidden p-2"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                whileTap={{ scale: 0.95 }}
+              >
+                {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              </motion.button>
+            </div>
+          </div>
+
+          {/* Mobile Menu */}
+          <AnimatePresence>
+            {mobileMenuOpen && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                className="lg:hidden border-t border-border/50 overflow-hidden"
+              >
+                <nav className="flex flex-col p-6 gap-1">
+                  {navItems.map((item, index) => (
+                    item.comingSoon ? (
+                      <div
+                        key={item.label}
+                        className="flex items-center justify-between px-4 py-3 rounded-lg"
+                      >
+                        <span className="font-display text-base uppercase tracking-[0.15em] text-muted-foreground/50">
+                          {item.label}
+                        </span>
+                        <span className="font-sans text-[10px] uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded">
+                          Coming Soon
+                        </span>
+                      </div>
+                    ) : (
+                      <motion.a
+                        key={item.label}
+                        href={item.href}
+                        className="px-4 py-3 rounded-lg font-display text-base uppercase tracking-[0.15em] text-foreground/80 hover:text-primary hover:bg-primary/5 transition-all duration-300"
+                        onClick={() => setMobileMenuOpen(false)}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.05 }}
+                      >
+                        {item.label}
+                      </motion.a>
+                    )
+                  ))}
+                  <motion.a
+                    href="tel:+17543001010"
+                    className="flex items-center justify-center gap-2 mt-4 px-4 py-3 rounded-full btn-gold"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                  >
+                    <Phone className="w-4 h-4" />
+                    <span className="font-sans text-sm tracking-wider">+1 (754) 300-1010</span>
+                  </motion.a>
+                </nav>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+      </header>
+    </TooltipProvider>
   );
 };
 
