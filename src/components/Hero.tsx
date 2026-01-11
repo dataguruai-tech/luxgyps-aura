@@ -1,37 +1,60 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Package } from 'lucide-react';
+import { ArrowRight, Play, Package, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import roseRelief from '@/assets/rose-relief.jpg';
 
-// New interior images
+// Interior images for carousel
 import interior1 from '@/assets/hero/interior-living-1.jpg';
 import interior2 from '@/assets/hero/interior-living-2.jpg';
 import interior3 from '@/assets/hero/interior-living-3.jpg';
+import interior4 from '@/assets/hero/interior-living-4.jpg';
+import interior5 from '@/assets/hero/interior-living-5.jpg';
+import interior6 from '@/assets/hero/interior-living-6.jpg';
 
 interface HeroProps {
   onSampleKitClick?: () => void;
 }
 
 const carouselImages = [
-  { front: interior1, back: interior2 },
-  { front: interior2, back: interior3 },
-  { front: interior3, back: interior1 },
+  { front: interior1, back: interior2, label: 'Гостиная' },
+  { front: interior2, back: interior3, label: 'Классика' },
+  { front: interior3, back: interior4, label: 'Холл' },
+  { front: interior4, back: interior5, label: 'Столовая' },
+  { front: interior5, back: interior6, label: 'Спальня' },
+  { front: interior6, back: interior1, label: 'Вестибюль' },
 ];
 
 const Hero = ({ onSampleKitClick }: HeroProps) => {
   const { isGallery } = useMode();
   const { t } = useLanguage();
   const [currentSet, setCurrentSet] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
   // Auto-rotate image pairs
   useEffect(() => {
+    if (!isAutoPlaying) return;
     const interval = setInterval(() => {
       setCurrentSet((prev) => (prev + 1) % carouselImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [isAutoPlaying]);
+
+  const goToPrev = () => {
+    setIsAutoPlaying(false);
+    setCurrentSet((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
+  };
+
+  const goToNext = () => {
+    setIsAutoPlaying(false);
+    setCurrentSet((prev) => (prev + 1) % carouselImages.length);
+  };
+
+  const goToSlide = (index: number) => {
+    setIsAutoPlaying(false);
+    setCurrentSet(index);
+  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -167,19 +190,19 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Overlapping Images like reference */}
+          {/* Right Side - Overlapping Images Carousel */}
           <div className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center lg:justify-end">
-            {/* Back Image - partially visible */}
+            {/* Back Image */}
             <motion.div
               key={`back-${currentSet}`}
               className="absolute right-0 top-[10%] w-[55%] h-[70%] z-10"
               initial={{ opacity: 0, x: 50 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
             >
               <motion.div 
                 className="w-full h-full overflow-hidden shadow-2xl"
-                animate={{ y: [0, -10, 0] }}
+                animate={{ y: [0, -8, 0] }}
                 transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
               >
                 <img
@@ -190,17 +213,17 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               </motion.div>
             </motion.div>
 
-            {/* Front Image - overlapping */}
+            {/* Front Image */}
             <motion.div
               key={`front-${currentSet}`}
               className="absolute left-0 lg:left-auto lg:right-[35%] bottom-[5%] w-[60%] h-[65%] z-20"
               initial={{ opacity: 0, x: -50, y: 50 }}
               animate={{ opacity: 1, x: 0, y: 0 }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
               <motion.div 
                 className="w-full h-full overflow-hidden shadow-2xl"
-                animate={{ y: [0, 10, 0] }}
+                animate={{ y: [0, 8, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
               >
                 <img
@@ -211,9 +234,57 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               </motion.div>
             </motion.div>
 
-            {/* Decorative frame corners */}
-            <div className="absolute top-[5%] right-[5%] w-24 h-24 border-t-2 border-r-2 border-primary/30 z-0" />
-            <div className="absolute bottom-[0%] left-[5%] lg:left-auto lg:right-[45%] w-24 h-24 border-b-2 border-l-2 border-primary/30 z-30" />
+            {/* Navigation Arrows */}
+            <div className="absolute bottom-[15%] right-[5%] z-30 flex items-center gap-3">
+              <motion.button
+                onClick={goToPrev}
+                className="w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-background transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </motion.button>
+              <motion.button
+                onClick={goToNext}
+                className="w-12 h-12 rounded-full bg-background/80 backdrop-blur-sm border border-primary/30 flex items-center justify-center text-primary hover:bg-primary hover:text-background transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
+            </div>
+
+            {/* Slide Indicators */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-30">
+              {carouselImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => goToSlide(index)}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    currentSet === index
+                      ? 'w-8 bg-primary'
+                      : 'w-2 bg-primary/30 hover:bg-primary/50'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Current Slide Label */}
+            <motion.div 
+              key={`label-${currentSet}`}
+              className="absolute top-[5%] left-[10%] lg:left-auto lg:right-[50%] z-30"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="text-xs tracking-[0.2em] text-primary/70 uppercase">
+                {String(currentSet + 1).padStart(2, '0')} / {String(carouselImages.length).padStart(2, '0')}
+              </span>
+            </motion.div>
+
+            {/* Decorative corner elements */}
+            <div className="absolute top-[5%] right-[5%] w-20 h-20 border-t-2 border-r-2 border-primary/20 z-0" />
+            <div className="absolute bottom-[0%] left-[5%] lg:left-auto lg:right-[45%] w-20 h-20 border-b-2 border-l-2 border-primary/20 z-30" />
           </div>
         </div>
       </div>
