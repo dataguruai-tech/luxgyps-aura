@@ -1,35 +1,35 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ArrowRight, Play, Package } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import roseRelief from '@/assets/rose-relief.jpg';
 
-// Gallery images for rotating carousel
-import goldenWave from '@/assets/gallery/golden-wave.jpg';
-import poseidon from '@/assets/gallery/poseidon.jpg';
-import bronzeLiving from '@/assets/gallery/bronze-living.jpg';
+// New interior images
+import interior1 from '@/assets/hero/interior-living-1.jpg';
+import interior2 from '@/assets/hero/interior-living-2.jpg';
+import interior3 from '@/assets/hero/interior-living-3.jpg';
 
 interface HeroProps {
   onSampleKitClick?: () => void;
 }
 
 const carouselImages = [
-  { src: goldenWave, alt: 'Golden Wave Relief' },
-  { src: poseidon, alt: 'Poseidon Relief' },
-  { src: bronzeLiving, alt: 'Bronze Living Interior' },
+  { front: interior1, back: interior2 },
+  { front: interior2, back: interior3 },
+  { front: interior3, back: interior1 },
 ];
 
 const Hero = ({ onSampleKitClick }: HeroProps) => {
   const { isGallery } = useMode();
   const { t } = useLanguage();
-  const [currentImage, setCurrentImage] = useState(0);
+  const [currentSet, setCurrentSet] = useState(0);
 
-  // Auto-rotate images with stacking effect
+  // Auto-rotate image pairs
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % carouselImages.length);
-    }, 4000);
+      setCurrentSet((prev) => (prev + 1) % carouselImages.length);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
@@ -68,11 +68,11 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
           animate={{ scale: 1 }}
           transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/50" />
       </div>
 
       <div className="relative z-10 container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 min-h-screen items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 min-h-screen items-center">
           
           {/* Left Side - Content */}
           <motion.div
@@ -112,7 +112,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               className="mb-10 inline-flex flex-col items-start"
               variants={itemVariants}
             >
-              <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">since</span>
+              <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase italic">since</span>
               <span className="font-display text-4xl md:text-5xl text-primary font-semibold">2010</span>
             </motion.div>
 
@@ -167,90 +167,53 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Stacked Image Carousel */}
-          <div className="relative h-[50vh] lg:h-[80vh] flex items-center justify-center">
-            {/* Stacked Images Container */}
-            <div className="relative w-full h-full max-w-lg mx-auto">
-              {carouselImages.map((image, index) => {
-                const isActive = index === currentImage;
-                const isPrev = index === (currentImage - 1 + carouselImages.length) % carouselImages.length;
-                const isNext = index === (currentImage + 1) % carouselImages.length;
-                
-                let zIndex = 0;
-                let xOffset = 0;
-                let yOffset = 0;
-                let scale = 0.85;
-                let opacity = 0;
-                
-                if (isActive) {
-                  zIndex = 30;
-                  xOffset = 0;
-                  yOffset = 0;
-                  scale = 1;
-                  opacity = 1;
-                } else if (isPrev) {
-                  zIndex = 20;
-                  xOffset = -30;
-                  yOffset = 20;
-                  scale = 0.92;
-                  opacity = 0.6;
-                } else if (isNext) {
-                  zIndex = 10;
-                  xOffset = 30;
-                  yOffset = 40;
-                  scale = 0.85;
-                  opacity = 0.3;
-                }
-                
-                return (
-                  <motion.div
-                    key={index}
-                    className="absolute inset-0 cursor-pointer"
-                    style={{ zIndex }}
-                    animate={{
-                      x: xOffset,
-                      y: yOffset,
-                      scale,
-                      opacity,
-                    }}
-                    transition={{
-                      duration: 0.8,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    onClick={() => setCurrentImage(index)}
-                  >
-                    <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl">
-                      <img
-                        src={image.src}
-                        alt={image.alt}
-                        className="w-full h-full object-cover"
-                      />
-                      {/* Subtle overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" />
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Image indicators */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-40">
-              {carouselImages.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => setCurrentImage(index)}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                    currentImage === index
-                      ? 'w-8 bg-primary'
-                      : 'bg-primary/30 hover:bg-primary/50'
-                  }`}
+          {/* Right Side - Overlapping Images like reference */}
+          <div className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center lg:justify-end">
+            {/* Back Image - partially visible */}
+            <motion.div
+              key={`back-${currentSet}`}
+              className="absolute right-0 top-[10%] w-[55%] h-[70%] z-10"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.div 
+                className="w-full h-full overflow-hidden shadow-2xl"
+                animate={{ y: [0, -10, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              >
+                <img
+                  src={carouselImages[currentSet].back}
+                  alt="Interior design"
+                  className="w-full h-full object-cover"
                 />
-              ))}
-            </div>
+              </motion.div>
+            </motion.div>
 
-            {/* Decorative corner elements */}
-            <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-primary/20" />
-            <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-primary/20" />
+            {/* Front Image - overlapping */}
+            <motion.div
+              key={`front-${currentSet}`}
+              className="absolute left-0 lg:left-auto lg:right-[35%] bottom-[5%] w-[60%] h-[65%] z-20"
+              initial={{ opacity: 0, x: -50, y: 50 }}
+              animate={{ opacity: 1, x: 0, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <motion.div 
+                className="w-full h-full overflow-hidden shadow-2xl"
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              >
+                <img
+                  src={carouselImages[currentSet].front}
+                  alt="Interior design"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            </motion.div>
+
+            {/* Decorative frame corners */}
+            <div className="absolute top-[5%] right-[5%] w-24 h-24 border-t-2 border-r-2 border-primary/30 z-0" />
+            <div className="absolute bottom-[0%] left-[5%] lg:left-auto lg:right-[45%] w-24 h-24 border-b-2 border-l-2 border-primary/30 z-30" />
           </div>
         </div>
       </div>
