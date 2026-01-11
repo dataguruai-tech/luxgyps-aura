@@ -14,12 +14,18 @@ interface Translations {
     portfolio: string;
     process: string;
     about: string;
+    aboutUs: string;
     catalog: string;
     specifications: string;
     downloads: string;
     gallery: string;
     pro: string;
     contact: string;
+    contacts: string;
+    interiorDecor: string;
+    facadeDecor: string;
+    services: string;
+    showroom: string;
   };
   hero: {
     eyebrow: string;
@@ -125,6 +131,9 @@ interface Translations {
     rights: string;
     privacy: string;
     terms: string;
+    company: string;
+    estimate: string;
+    documentation: string;
   };
   sampleKit: {
     title: string;
@@ -169,12 +178,18 @@ const translations: Record<Language, Translations> = {
       portfolio: 'Portfolio',
       process: 'Process',
       about: 'About',
+      aboutUs: 'About Us',
       catalog: 'Catalog',
       specifications: 'Specifications',
       downloads: 'Downloads',
       gallery: 'Gallery',
       pro: 'Pro',
       contact: 'Contact',
+      contacts: 'Contacts',
+      interiorDecor: 'Interior Decor',
+      facadeDecor: 'Facade Decor',
+      services: 'Services',
+      showroom: 'Showroom',
     },
     hero: {
       eyebrow: 'Miami Artisan Studio',
@@ -273,13 +288,16 @@ const translations: Record<Language, Translations> = {
       ctaButton: 'Book Consultation',
     },
     footer: {
-      desc: 'Miami\'s premier artisan studio for custom gypsum and concrete interiors. We produce, we install, we guarantee—transforming spaces into sculptural experiences since 2015.',
+      desc: 'Miami\'s premier artisan studio for custom gypsum and concrete interiors. We produce, we install, we guarantee - transforming spaces into sculptural experiences since 2000.',
       quickLinks: 'Quick Links',
       contactTitle: 'Contact',
       location: 'Miami Design District',
       rights: 'All rights reserved.',
       privacy: 'Privacy Policy',
       terms: 'Terms of Service',
+      company: 'Company',
+      estimate: 'Request Estimate',
+      documentation: 'Documentation',
     },
     sampleKit: {
       title: 'Miami Sample Box',
@@ -322,12 +340,18 @@ const translations: Record<Language, Translations> = {
       portfolio: 'Portafolio',
       process: 'Proceso',
       about: 'Nosotros',
+      aboutUs: 'Sobre Nosotros',
       catalog: 'Catálogo',
       specifications: 'Especificaciones',
       downloads: 'Descargas',
       gallery: 'Galería',
       pro: 'Pro',
       contact: 'Contacto',
+      contacts: 'Contactos',
+      interiorDecor: 'Decoración Interior',
+      facadeDecor: 'Decoración Fachada',
+      services: 'Servicios',
+      showroom: 'Showroom',
     },
     hero: {
       eyebrow: 'Estudio Artesanal Miami',
@@ -426,13 +450,16 @@ const translations: Record<Language, Translations> = {
       ctaButton: 'Reservar Consulta',
     },
     footer: {
-      desc: 'El estudio artesanal premier de Miami para interiores personalizados de yeso y concreto. Producimos, instalamos, garantizamos—transformando espacios en experiencias escultóricas desde 2015.',
+      desc: 'El estudio artesanal premier de Miami para interiores personalizados de yeso y concreto. Producimos, instalamos, garantizamos - transformando espacios en experiencias escultóricas desde 2000.',
       quickLinks: 'Enlaces Rápidos',
       contactTitle: 'Contacto',
       location: 'Distrito de Diseño de Miami',
       rights: 'Todos los derechos reservados.',
       privacy: 'Política de Privacidad',
       terms: 'Términos de Servicio',
+      company: 'Empresa',
+      estimate: 'Solicitar Presupuesto',
+      documentation: 'Documentación',
     },
     sampleKit: {
       title: 'Caja de Muestras Miami',
