@@ -40,7 +40,7 @@ const Stats = () => {
 
   const stats = [
     { value: 250, suffix: '+', label: t.stats.projects },
-    { value: 15, suffix: '+', label: t.stats.years },
+    { value: 25, suffix: '+', label: t.stats.years },
     { value: 5, suffix: ' Year', label: t.stats.guarantee },
     { value: 100, suffix: '%', label: t.stats.satisfaction },
   ];
