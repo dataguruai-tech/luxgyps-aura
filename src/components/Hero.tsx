@@ -187,7 +187,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
           </motion.div>
 
           {/* Right Side - Photo Stack */}
-          <div className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center">
+          <div className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center lg:justify-end lg:pr-8">
             {/* Photo Stack Container */}
             <div className="relative w-[85%] max-w-md aspect-[3/4]">
               {/* Static base shadows for depth */}
