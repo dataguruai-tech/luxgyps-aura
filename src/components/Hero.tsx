@@ -127,9 +127,27 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
             </motion.p>
 
-            {/* CTAs with Badge centered between buttons */}
+            {/* Since Badge - Centered above buttons */}
+            <motion.div 
+              className="mb-8 flex justify-center w-full"
+              variants={itemVariants}
+            >
+              <div className="relative w-28 h-24 md:w-32 md:h-28 flex items-center justify-center">
+                <img 
+                  src={laurelWreath} 
+                  alt="Laurel wreath" 
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
+                <div className="relative flex flex-col items-center justify-center z-10">
+                  <span className="text-[7px] md:text-[9px] tracking-[0.2em] text-primary uppercase font-medium">since</span>
+                  <span className="font-display text-xl md:text-2xl text-primary font-semibold tracking-wide leading-none">2010</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* CTAs */}
             <motion.div
-              className="flex flex-col sm:flex-row items-center gap-4"
+              className="flex flex-col sm:flex-row items-start gap-4"
               variants={itemVariants}
             >
               {isGallery ? (
@@ -143,19 +161,6 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                     <span className="font-medium">{t.hero.viewPortfolio}</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </motion.a>
-
-                  {/* Since Badge - Centered between buttons */}
-                  <div className="relative w-24 h-20 md:w-28 md:h-24 flex items-center justify-center mx-2">
-                    <img 
-                      src={laurelWreath} 
-                      alt="Laurel wreath" 
-                      className="absolute inset-0 w-full h-full object-contain"
-                    />
-                    <div className="relative flex flex-col items-center justify-center z-10">
-                      <span className="text-[6px] md:text-[8px] tracking-[0.2em] text-primary uppercase font-medium">since</span>
-                      <span className="font-display text-lg md:text-xl text-primary font-semibold tracking-wide leading-none">2010</span>
-                    </div>
-                  </div>
 
                   <motion.a
                     href="#process"
@@ -178,19 +183,6 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                     <span className="font-medium">{t.hero.browseCatalog}</span>
                     <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </motion.a>
-
-                  {/* Since Badge - Centered between buttons */}
-                  <div className="relative w-24 h-20 md:w-28 md:h-24 flex items-center justify-center mx-2">
-                    <img 
-                      src={laurelWreath} 
-                      alt="Laurel wreath" 
-                      className="absolute inset-0 w-full h-full object-contain"
-                    />
-                    <div className="relative flex flex-col items-center justify-center z-10">
-                      <span className="text-[6px] md:text-[8px] tracking-[0.2em] text-primary uppercase font-medium">since</span>
-                      <span className="font-display text-lg md:text-xl text-primary font-semibold tracking-wide leading-none">2010</span>
-                    </div>
-                  </div>
 
                   <motion.button
                     onClick={onSampleKitClick}
