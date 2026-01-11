@@ -24,13 +24,11 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
   const { isGallery } = useMode();
   const { t } = useLanguage();
   const [currentImage, setCurrentImage] = useState(0);
-  const [rotation, setRotation] = useState(0);
 
-  // Auto-rotate images
+  // Auto-rotate images with stacking effect
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % carouselImages.length);
-      setRotation((prev) => prev + 120); // Rotate 120 degrees each time
     }, 4000);
     return () => clearInterval(interval);
   }, []);
@@ -59,40 +57,31 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-muted">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-0 min-h-screen items-center">
+    <section className="relative min-h-screen flex items-center overflow-hidden">
+      {/* Full Screen Background - Rose Relief */}
+      <div className="absolute inset-0">
+        <motion.img
+          src={roseRelief}
+          alt="Gypsum Rose Relief"
+          className="w-full h-full object-cover"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/80 to-background/40" />
+      </div>
+
+      <div className="relative z-10 container mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 min-h-screen items-center">
           
-          {/* Left Side - Content with Background */}
-          <div className="relative lg:h-screen flex items-center">
-            {/* Background Rose Relief */}
-            <div className="absolute inset-0 overflow-hidden">
-              <motion.img
-                src={roseRelief}
-                alt="Gypsum Rose Relief"
-                className="w-full h-full object-cover opacity-20"
-                initial={{ scale: 1.1 }}
-                animate={{ scale: 1 }}
-                transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-muted via-muted/95 to-muted/80" />
-            </div>
-
-            <motion.div
-              className="relative z-10 py-32 lg:py-0 lg:pr-12 px-4 lg:px-8"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-            >
-              {/* Decorative line */}
-              <motion.div 
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-px h-32 bg-gradient-to-b from-transparent via-primary to-transparent hidden lg:block"
-                initial={{ scaleY: 0 }}
-                animate={{ scaleY: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-              />
-
-              {/* Eyebrow */}
+          {/* Left Side - Content */}
+          <motion.div
+            className="py-32 lg:py-0 lg:pr-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Eyebrow */}
             <motion.p
               className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6"
               variants={itemVariants}
@@ -120,7 +109,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
             {/* Since Badge */}
             <motion.div 
-              className="mb-10 inline-flex flex-col items-center"
+              className="mb-10 inline-flex flex-col items-start"
               variants={itemVariants}
             >
               <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase">since</span>
@@ -176,66 +165,92 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                 </>
               )}
             </motion.div>
-            </motion.div>
-          </div>
+          </motion.div>
 
-          {/* Right Side - Rotating Image Carousel */}
-          <div className="relative h-[50vh] lg:h-screen flex items-center justify-center">
-            {/* Background decorative circle */}
-            <motion.div
-              className="absolute w-[80%] aspect-square rounded-full border border-primary/10"
-              animate={{ rotate: rotation }}
-              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            />
-            <motion.div
-              className="absolute w-[90%] aspect-square rounded-full border border-primary/5"
-              animate={{ rotate: -rotation / 2 }}
-              transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
-            />
-
-            {/* Image Container */}
-            <div className="relative w-full h-full flex items-center justify-center overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentImage}
-                  className="absolute inset-4 lg:inset-8"
-                  initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
-                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, rotate: 5 }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <img
-                    src={carouselImages[currentImage].src}
-                    alt={carouselImages[currentImage].alt}
-                    className="w-full h-full object-cover rounded-lg shadow-2xl"
-                  />
-                  {/* Overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent rounded-lg" />
-                </motion.div>
-              </AnimatePresence>
-
-              {/* Image indicators */}
-              <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-10">
-                {carouselImages.map((_, index) => (
-                  <button
+          {/* Right Side - Stacked Image Carousel */}
+          <div className="relative h-[50vh] lg:h-[80vh] flex items-center justify-center">
+            {/* Stacked Images Container */}
+            <div className="relative w-full h-full max-w-lg mx-auto">
+              {carouselImages.map((image, index) => {
+                const isActive = index === currentImage;
+                const isPrev = index === (currentImage - 1 + carouselImages.length) % carouselImages.length;
+                const isNext = index === (currentImage + 1) % carouselImages.length;
+                
+                let zIndex = 0;
+                let xOffset = 0;
+                let yOffset = 0;
+                let scale = 0.85;
+                let opacity = 0;
+                
+                if (isActive) {
+                  zIndex = 30;
+                  xOffset = 0;
+                  yOffset = 0;
+                  scale = 1;
+                  opacity = 1;
+                } else if (isPrev) {
+                  zIndex = 20;
+                  xOffset = -30;
+                  yOffset = 20;
+                  scale = 0.92;
+                  opacity = 0.6;
+                } else if (isNext) {
+                  zIndex = 10;
+                  xOffset = 30;
+                  yOffset = 40;
+                  scale = 0.85;
+                  opacity = 0.3;
+                }
+                
+                return (
+                  <motion.div
                     key={index}
-                    onClick={() => {
-                      setCurrentImage(index);
-                      setRotation(index * 120);
+                    className="absolute inset-0 cursor-pointer"
+                    style={{ zIndex }}
+                    animate={{
+                      x: xOffset,
+                      y: yOffset,
+                      scale,
+                      opacity,
                     }}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                      currentImage === index
-                        ? 'w-8 bg-primary'
-                        : 'bg-primary/30 hover:bg-primary/50'
-                    }`}
-                  />
-                ))}
-              </div>
+                    transition={{
+                      duration: 0.8,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    onClick={() => setCurrentImage(index)}
+                  >
+                    <div className="relative w-full h-full rounded-lg overflow-hidden shadow-2xl">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Subtle overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent" />
+                    </div>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Image indicators */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-3 z-40">
+              {carouselImages.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentImage(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    currentImage === index
+                      ? 'w-8 bg-primary'
+                      : 'bg-primary/30 hover:bg-primary/50'
+                  }`}
+                />
+              ))}
             </div>
 
             {/* Decorative corner elements */}
-            <div className="absolute top-4 right-4 w-16 h-16 border-t border-r border-primary/30" />
-            <div className="absolute bottom-4 left-4 w-16 h-16 border-b border-l border-primary/30" />
+            <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-primary/20" />
+            <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-primary/20" />
           </div>
         </div>
       </div>
