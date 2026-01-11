@@ -31,13 +31,17 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
   const { isGallery } = useMode();
   const { t } = useLanguage();
   const [currentImage, setCurrentImage] = useState(0);
+  const [imageStack, setImageStack] = useState<number[]>([0]);
 
-  const SLIDE_DURATION = 6000;
+  const SLIDE_DURATION = 5000;
 
   const goToNext = useCallback(() => {
-    setCurrentImage((prev) => (prev + 1) % carouselImages.length);
-  }, []);
+    const nextIndex = (currentImage + 1) % carouselImages.length;
+    setCurrentImage(nextIndex);
+    setImageStack(prev => [...prev.slice(-3), nextIndex]); // Keep last 4 images in stack
+  }, [currentImage]);
 
+  // Auto-rotate
   useEffect(() => {
     const interval = setInterval(goToNext, SLIDE_DURATION);
     return () => clearInterval(interval);
@@ -48,257 +52,225 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.5,
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
       },
     },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 40 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 1,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1] as const,
       },
     },
   };
 
-  const lineVariants = {
-    hidden: { scaleX: 0 },
-    visible: {
-      scaleX: 1,
-      transition: {
-        duration: 1.2,
-        ease: [0.25, 0.46, 0.45, 0.94] as const,
-      },
-    },
+  // Random rotation for photo stack effect
+  const getRandomRotation = (index: number) => {
+    const rotations = [-3, 2, -1.5, 3, -2, 1.5];
+    return rotations[index % rotations.length];
   };
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Split Background - Rose Relief Left, Carousel Right */}
-      <div className="absolute inset-0 flex">
-        {/* Left Side - Rose Relief (Gypsum Flower) - 2/3 width */}
-        <div className="w-full lg:w-2/3 relative">
-          <motion.img
-            src={roseRelief}
-            alt="Gypsum Rose Relief"
-            className="w-full h-full object-cover"
-            initial={{ scale: 1.1 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-background/90" />
-        </div>
-        
-        {/* Right Side - Carousel Images - 1/3 width */}
-        <div className="hidden lg:block w-1/3 relative">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentImage}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              <img
-                src={carouselImages[currentImage]}
-                alt="Interior design"
-                className="w-full h-full object-cover"
-              />
-            </motion.div>
-          </AnimatePresence>
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-background/80" />
-        </div>
-      </div>
-      
-      {/* Top & Bottom gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/40 pointer-events-none" />
-      
-      {/* Subtle noise texture for depth */}
-      <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay pointer-events-none bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iMC4wNSIvPjwvc3ZnPg==')]" />
-
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-6 lg:px-16 xl:px-24">
-        <motion.div
-          className="max-w-4xl"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          {/* Laurel Badge - Subtle & Elegant */}
-          <motion.div 
-            className="mb-12"
-            variants={itemVariants}
-          >
-            <div className="relative w-20 h-16 flex items-center justify-center">
-              <img 
-                src={laurelWreath} 
-                alt="Laurel wreath" 
-                className="absolute inset-0 w-full h-full object-contain opacity-80"
-              />
-              <div className="relative flex flex-col items-center justify-center z-10">
-                <span className="text-[6px] tracking-[0.3em] text-primary uppercase font-medium">since</span>
-                <span className="font-display text-base text-primary font-semibold tracking-wide leading-none">2010</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Main Heading - Ultra Premium Typography */}
-          <motion.div className="mb-8" variants={itemVariants}>
-            <h1 className="font-display leading-[0.9] tracking-[-0.02em]">
-              <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-foreground">
-                {t.hero.title1}
-              </span>
-              <span className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl text-gradient-gold italic mt-2">
-                {t.hero.title2}
-              </span>
-            </h1>
-          </motion.div>
-
-          {/* Decorative Line */}
-          <motion.div 
-            className="w-24 h-px bg-primary/60 mb-8 origin-left"
-            variants={lineVariants}
-          />
-
-          {/* Subheading */}
-          <motion.p
-            className="text-muted-foreground text-lg md:text-xl max-w-lg mb-12 leading-relaxed font-light"
-            variants={itemVariants}
-          >
-            {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
-          </motion.p>
-
-          {/* CTAs - Refined */}
-          <motion.div
-            className="flex flex-wrap items-center gap-6"
-            variants={itemVariants}
-          >
-            {isGallery ? (
-              <>
-                <motion.a
-                  href="#portfolio"
-                  className="group relative flex items-center gap-4 px-10 py-5 overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  {/* Button background */}
-                  <div className="absolute inset-0 btn-gold rounded-none" />
-                  <span className="relative z-10 font-medium tracking-wider text-sm uppercase text-background">
-                    {t.hero.viewPortfolio}
-                  </span>
-                  <ArrowRight className="relative z-10 w-4 h-4 text-background group-hover:translate-x-1 transition-transform" />
-                </motion.a>
-
-                <motion.a
-                  href="#process"
-                  className="group flex items-center gap-4 px-10 py-5 border border-primary/30 hover:border-primary/60 transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Play className="w-4 h-4 text-primary" />
-                  <span className="font-medium tracking-wider text-sm uppercase text-primary">
-                    {t.hero.watchProcess}
-                  </span>
-                </motion.a>
-              </>
-            ) : (
-              <>
-                <motion.a
-                  href="#catalog"
-                  className="group relative flex items-center gap-4 px-10 py-5 overflow-hidden"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <div className="absolute inset-0 btn-gold rounded-none" />
-                  <span className="relative z-10 font-medium tracking-wider text-sm uppercase text-background">
-                    {t.hero.browseCatalog}
-                  </span>
-                  <ArrowRight className="relative z-10 w-4 h-4 text-background group-hover:translate-x-1 transition-transform" />
-                </motion.a>
-
-                <motion.button
-                  onClick={onSampleKitClick}
-                  className="group flex items-center gap-4 px-10 py-5 border border-primary/30 hover:border-primary/60 transition-colors"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                >
-                  <Package className="w-4 h-4 text-primary" />
-                  <span className="font-medium tracking-wider text-sm uppercase text-primary">
-                    {t.sampleKit.buttonText}
-                  </span>
-                </motion.button>
-              </>
-            )}
-          </motion.div>
-
-          {/* Bottom Info Bar */}
-          <motion.div
-            className="mt-20 pt-8 border-t border-border/30"
-            variants={itemVariants}
-          >
-            <div className="flex flex-wrap items-center gap-x-12 gap-y-4 text-sm text-muted-foreground">
-              <div className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <span className="tracking-wide">Miami, FL</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <span className="tracking-wide">Premium Artisan Studio</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                <span className="tracking-wide">5-Year Guarantee</span>
-              </div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Image Progress Indicator */}
-      <div className="absolute bottom-12 right-12 hidden lg:flex flex-col items-end gap-2">
-        <span className="text-xs text-muted-foreground tracking-widest mb-2">
-          {String(currentImage + 1).padStart(2, '0')} / {String(carouselImages.length).padStart(2, '0')}
-        </span>
-        <div className="flex gap-1.5">
-          {carouselImages.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setCurrentImage(idx)}
-              className={`w-8 h-0.5 transition-all duration-500 ${
-                idx === currentImage 
-                  ? 'bg-primary' 
-                  : 'bg-foreground/20 hover:bg-foreground/40'
-              }`}
-              aria-label={`Go to slide ${idx + 1}`}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 lg:hidden"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 2, duration: 1 }}
-      >
-        <span className="text-xs text-muted-foreground tracking-widest uppercase">Scroll</span>
-        <motion.div
-          className="w-px h-8 bg-gradient-to-b from-primary to-transparent"
-          animate={{ scaleY: [1, 0.5, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+      {/* Full Screen Background - Rose Relief */}
+      <div className="absolute inset-0">
+        <motion.img
+          src={roseRelief}
+          alt="Gypsum Rose Relief"
+          className="w-full h-full object-cover"
+          initial={{ scale: 1.1 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 1.5, ease: [0.22, 1, 0.36, 1] }}
         />
-      </motion.div>
+        <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/85 to-background/50" />
+      </div>
 
-      {/* Corner Accents */}
-      <div className="absolute top-0 left-0 w-24 h-24 border-l border-t border-primary/10" />
-      <div className="absolute bottom-0 right-0 w-24 h-24 border-r border-b border-primary/10" />
+      <div className="relative z-10 container mx-auto px-6 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-4 min-h-screen items-center">
+          
+          {/* Left Side - Content */}
+          <motion.div
+            className="py-32 lg:py-0 lg:pr-8"
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Eyebrow */}
+            <motion.p
+              className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6"
+              variants={itemVariants}
+            >
+              {t.hero.eyebrow}
+            </motion.p>
+
+            {/* Main Heading */}
+            <motion.h1
+              className="font-display text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[0.95] mb-8"
+              variants={itemVariants}
+            >
+              <span className="text-foreground">{t.hero.title1}</span>
+              <br />
+              <span className="text-gradient-gold italic">{t.hero.title2}</span>
+            </motion.h1>
+
+            {/* Subheading */}
+            <motion.p
+              className="text-muted-foreground text-base md:text-lg max-w-md mb-10 leading-relaxed"
+              variants={itemVariants}
+            >
+              {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
+            </motion.p>
+
+            {/* Since Badge - Elegant with Laurel */}
+            <motion.div 
+              className="mb-10 flex justify-center w-full"
+              variants={itemVariants}
+            >
+              <div className="relative w-32 h-28 md:w-40 md:h-36 flex items-center justify-center">
+                {/* Laurel Wreath Background */}
+                <img 
+                  src={laurelWreath} 
+                  alt="Laurel wreath" 
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
+                {/* Text overlay */}
+                <div className="relative flex flex-col items-center justify-center z-10 pt-1">
+                  <span className="text-[8px] md:text-[10px] tracking-[0.25em] text-primary uppercase font-medium">since</span>
+                  <span className="font-display text-2xl md:text-3xl text-primary font-semibold tracking-wide leading-none">2010</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* CTAs */}
+            <motion.div
+              className="flex flex-col sm:flex-row items-start gap-4"
+              variants={itemVariants}
+            >
+              {isGallery ? (
+                <>
+                  <motion.a
+                    href="#portfolio"
+                    className="group flex items-center gap-3 px-8 py-4 rounded-full btn-gold"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="font-medium">{t.hero.viewPortfolio}</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </motion.a>
+                  <motion.a
+                    href="#process"
+                    className="group flex items-center gap-3 px-8 py-4 rounded-full btn-outline-gold"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Play className="w-5 h-5" />
+                    <span className="font-medium">{t.hero.watchProcess}</span>
+                  </motion.a>
+                </>
+              ) : (
+                <>
+                  <motion.a
+                    href="#catalog"
+                    className="group flex items-center gap-3 px-8 py-4 rounded-full btn-gold"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <span className="font-medium">{t.hero.browseCatalog}</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </motion.a>
+                  <motion.button
+                    onClick={onSampleKitClick}
+                    className="group flex items-center gap-3 px-8 py-4 rounded-full btn-outline-gold"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Package className="w-5 h-5" />
+                    <span className="font-medium">{t.sampleKit.buttonText}</span>
+                  </motion.button>
+                </>
+              )}
+            </motion.div>
+          </motion.div>
+
+          {/* Right Side - Photo Stack */}
+          <div className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center lg:justify-end lg:pr-8">
+            {/* Photo Stack Container */}
+            <div className="relative w-[85%] max-w-md aspect-[3/4]">
+              {/* Static base shadows for depth */}
+              <div 
+                className="absolute inset-0 bg-background/20 rounded-sm shadow-2xl"
+                style={{ transform: 'rotate(-4deg) translate(-8px, 12px)' }}
+              />
+              <div 
+                className="absolute inset-0 bg-background/30 rounded-sm shadow-xl"
+                style={{ transform: 'rotate(2deg) translate(6px, 8px)' }}
+              />
+              
+              {/* Animated photo stack */}
+              <AnimatePresence>
+                {imageStack.map((imgIndex, stackIndex) => {
+                  const isTop = stackIndex === imageStack.length - 1;
+                  const depth = imageStack.length - 1 - stackIndex;
+                  
+                  return (
+                    <motion.div
+                      key={`${imgIndex}-${stackIndex}`}
+                      className="absolute inset-0"
+                      initial={isTop ? { 
+                        opacity: 0, 
+                        scale: 1.1, 
+                        y: -100,
+                        rotate: getRandomRotation(imgIndex) + 5
+                      } : false}
+                      animate={{ 
+                        opacity: Math.max(0, 1 - depth * 0.25),
+                        scale: 1 - depth * 0.03,
+                        y: depth * 8,
+                        x: depth * -4,
+                        rotate: getRandomRotation(imgIndex),
+                        zIndex: 10 - depth
+                      }}
+                      exit={{ 
+                        opacity: 0,
+                        scale: 0.95,
+                        transition: { duration: 0.3 }
+                      }}
+                      transition={{ 
+                        duration: 0.8, 
+                        ease: [0.22, 1, 0.36, 1]
+                      }}
+                      style={{ zIndex: 10 - depth }}
+                    >
+                      {/* Photo frame effect */}
+                      <div className="w-full h-full bg-cream p-2 rounded-sm shadow-2xl">
+                        <div className="w-full h-full overflow-hidden">
+                          <motion.img
+                            src={carouselImages[imgIndex]}
+                            alt="Interior design"
+                            className="w-full h-full object-cover"
+                            animate={isTop ? { scale: [1, 1.02, 1] } : {}}
+                            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </div>
+
+            {/* Decorative corner elements */}
+            <div className="absolute top-[5%] right-[5%] w-16 h-16 border-t border-r border-primary/20 z-0" />
+            <div className="absolute bottom-[5%] left-[5%] w-16 h-16 border-b border-l border-primary/20 z-0" />
+          </div>
+        </div>
+      </div>
     </section>
   );
 };
