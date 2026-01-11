@@ -58,125 +58,109 @@ const Footer = () => {
 
   return (
     <footer className="relative">
-      {/* Main Footer - Two Color Layout with Column Divider */}
-      <div className="flex flex-col lg:flex-row">
+      {/* Main Footer - Reference Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[200px]">
         
-        {/* Left Section - Gold/Brown (Brand + Contact) */}
-        <div className="flex-1 bg-[hsl(var(--gold-dark))] relative">
-          <div className="grid grid-cols-1 md:grid-cols-2 h-full">
-            {/* Brand Column */}
-            <div className="px-8 py-12 flex flex-col justify-between">
-              <div>
-                <motion.a 
-                  href="/" 
-                  className="inline-flex items-center gap-3 mb-8"
-                  whileHover={{ scale: 1.02 }}
-                >
-                  <img src={logo} alt="LuxGyps" className="h-16 w-auto brightness-0 invert opacity-90" />
-                </motion.a>
-                
-                <div className="font-display text-white/70 italic text-lg mb-2">
-                  {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
-                </div>
-                
-                <div className="font-display text-white/40 text-sm tracking-[0.2em] uppercase mb-1">
-                  since
-                </div>
-                <div className="font-display text-white text-5xl tracking-wider">
-                  2015
-                </div>
-              </div>
-              
-              <p className="text-white/40 text-xs mt-8">
-                © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
-              </p>
+        {/* Left Section - Brand (Dark Brown) */}
+        <div className="lg:col-span-2 bg-[hsl(var(--gold-dark))] px-6 py-10 flex flex-col justify-between">
+          <div>
+            <motion.a 
+              href="/" 
+              className="inline-flex items-center gap-2 mb-6"
+              whileHover={{ scale: 1.02 }}
+            >
+              <img src={logo} alt="LuxGyps" className="h-12 w-auto brightness-0 invert opacity-80" />
+            </motion.a>
+            
+            <div className="font-display text-white/50 italic text-sm mb-1">
+              {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
             </div>
-
-            {/* Contact Column */}
-            <div className="px-8 py-12">
-              {/* Contact Info */}
-              <div className="space-y-4 mb-8">
-                <div className="flex items-start gap-3 text-white/80">
-                  <MapPin className="w-4 h-4 mt-1 shrink-0 text-white/50" />
-                  <span className="text-sm">{t.footer.location}, Florida, USA</span>
-                </div>
-                
-                <motion.a 
-                  href="mailto:hello@luxgyps.com"
-                  className="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm"
-                  whileHover={{ x: 2 }}
-                >
-                  <Mail className="w-4 h-4 shrink-0 text-white/50" />
-                  hello@luxgyps.com
-                </motion.a>
-                
-                <motion.a 
-                  href="tel:+17543001010"
-                  className="flex items-center gap-3 text-white hover:text-white/80 transition-colors text-lg font-semibold"
-                  whileHover={{ x: 2 }}
-                >
-                  <Phone className="w-4 h-4 shrink-0 text-white/50" />
-                  +1 (754) 300-1010
-                </motion.a>
-              </div>
-
-              {/* Social Links */}
-              <div className="flex items-center gap-3 mb-8">
-                {socialLinks.map((social) => (
-                  <motion.a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all duration-300"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    aria-label={social.label}
-                  >
-                    <social.icon className="w-4 h-4" />
-                  </motion.a>
-                ))}
-              </div>
-
-              {/* Legal Links */}
-              <motion.a 
-                href="#terms"
-                className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm"
-                whileHover={{ x: 2 }}
-              >
-                <FileText className="w-4 h-4" />
-                <span>{t.footer.privacy} & {t.footer.terms}</span>
-              </motion.a>
+            
+            <div className="font-display text-white/40 text-xs tracking-[0.15em] uppercase mb-0.5">
+              since
+            </div>
+            <div className="font-display text-white/90 text-4xl tracking-wider font-light">
+              2015
             </div>
           </div>
         </div>
 
+        {/* Middle Section - Contact (Olive/Gold) */}
+        <div className="lg:col-span-4 bg-[hsl(var(--gold-muted))] px-6 py-10">
+          {/* Contact Info */}
+          <div className="space-y-3 mb-6">
+            <div className="flex items-start gap-2 text-white/80">
+              <MapPin className="w-3.5 h-3.5 mt-1 shrink-0 text-white/50" />
+              <span className="text-sm">{t.footer.location}, Florida, USA</span>
+            </div>
+            
+            <motion.a 
+              href="mailto:hello@luxgyps.com"
+              className="flex items-center gap-2 text-white/60 hover:text-white transition-colors text-sm"
+              whileHover={{ x: 2 }}
+            >
+              hello@luxgyps.com
+            </motion.a>
+            
+            <motion.a 
+              href="tel:+17543001010"
+              className="flex items-center gap-2 text-white hover:text-white/80 transition-colors text-base font-semibold"
+              whileHover={{ x: 2 }}
+            >
+              +1 (754) 300-1010
+            </motion.a>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex items-center gap-2 mb-6">
+            {socialLinks.map((social) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-9 h-9 rounded border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all duration-300"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={social.label}
+              >
+                <social.icon className="w-4 h-4" />
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Legal Links */}
+          <motion.a 
+            href="#terms"
+            className="inline-flex items-center gap-2 text-primary/80 hover:text-primary transition-colors text-sm"
+            whileHover={{ x: 2 }}
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>{t.footer.privacy} & {t.footer.terms}</span>
+          </motion.a>
+        </div>
+
         {/* Column Divider */}
-        <div className="hidden lg:flex w-24 relative z-10">
-          {/* Left gradient fade from gold */}
-          <div className="absolute left-0 top-0 bottom-0 w-8 bg-gradient-to-r from-[hsl(var(--gold-dark))] to-transparent z-10" />
-          {/* Column image */}
+        <div className="lg:col-span-2 relative hidden lg:block bg-muted">
           <img 
             src={columnDivider} 
             alt="" 
-            className="h-full w-full object-cover object-center"
+            className="absolute inset-0 h-full w-full object-cover object-center"
           />
-          {/* Right gradient fade to dark */}
-          <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-background to-transparent z-10" />
         </div>
 
-        {/* Right Section - Dark (Navigation) */}
-        <div className="flex-1 bg-background px-8 lg:px-12 py-12">
+        {/* Right Section - Navigation (Dark) */}
+        <div className="lg:col-span-4 bg-secondary px-8 py-10">
           {/* Navigation Grid */}
-          <div className="grid grid-cols-2 gap-x-12 gap-y-4 max-w-md">
+          <div className="grid grid-cols-2 gap-x-8 gap-y-3">
             {/* Left Nav Column */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               {navItemsLeft.map((link) => (
                 <motion.a 
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="block text-muted-foreground hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium"
+                  className="block text-foreground/70 hover:text-primary transition-colors text-sm uppercase tracking-wider"
                   whileHover={{ x: 4 }}
                 >
                   {link.label}
@@ -185,13 +169,13 @@ const Footer = () => {
             </div>
             
             {/* Right Nav Column */}
-            <div className="space-y-4">
+            <div className="space-y-3">
               {navItemsRight.map((link) => (
                 <motion.a 
                   key={link.label}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className="block text-muted-foreground hover:text-primary transition-colors text-sm uppercase tracking-wider font-medium"
+                  className="block text-foreground/70 hover:text-primary transition-colors text-sm uppercase tracking-wider"
                   whileHover={{ x: 4 }}
                 >
                   {link.label}
@@ -200,6 +184,13 @@ const Footer = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Copyright Bar */}
+      <div className="bg-background border-t border-border/30 py-3 px-6">
+        <p className="text-muted-foreground text-xs text-center">
+          © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
+        </p>
       </div>
     </footer>
   );
