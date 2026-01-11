@@ -141,11 +141,11 @@ const Footer = () => {
         </div>
 
         {/* Column Divider */}
-        <div className="lg:col-span-2 relative hidden lg:block bg-muted">
+        <div className="lg:col-span-2 relative hidden lg:flex items-start justify-center overflow-hidden">
           <img 
             src={columnDivider} 
             alt="" 
-            className="absolute inset-0 h-full w-full object-cover object-center"
+            className="h-full w-auto object-contain object-top"
           />
         </div>
 
