@@ -101,20 +101,20 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             initial="hidden"
             animate="visible"
           >
-            {/* Since Badge */}
+            {/* Since Badge - Centered */}
             <motion.div
-              className="mb-6"
+              className="flex justify-center mb-8"
               variants={itemVariants}
             >
-              <img src={since2000Badge} alt="Since 2000" className="h-12 w-auto object-contain" />
+              <img src={since2000Badge} alt="Since 2000" className="h-16 w-auto object-contain" />
             </motion.div>
 
-            {/* Eyebrow */}
+            {/* Eyebrow - Centered */}
             <motion.p
-              className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6"
+              className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6 text-center"
               variants={itemVariants}
             >
-              {t.hero.eyebrow}
+              Miami Artisan Studio
             </motion.p>
 
             {/* Main Heading */}
