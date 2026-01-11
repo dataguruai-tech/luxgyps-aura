@@ -90,18 +90,30 @@ const ProductCatalog = () => {
   const { language } = useLanguage();
   const [activeCategory, setActiveCategory] = useState('all');
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [visibleRows, setVisibleRows] = useState(2);
 
-  // Number of items per row based on screen size (we'll show 2 rows = 8 items on desktop)
-  const INITIAL_ITEMS = 8;
+  // Items per row on different breakpoints (we use 4 as base for calculation)
+  const ITEMS_PER_ROW = 4;
+  const ROWS_INCREMENT = 2;
 
   const filteredProducts = useMemo(() => {
     if (activeCategory === 'all') return products;
     return products.filter(p => p.category === activeCategory);
   }, [activeCategory]);
 
-  const visibleProducts = isExpanded ? filteredProducts : filteredProducts.slice(0, INITIAL_ITEMS);
-  const hasMore = filteredProducts.length > INITIAL_ITEMS;
+  const visibleCount = visibleRows * ITEMS_PER_ROW;
+  const visibleProducts = filteredProducts.slice(0, visibleCount);
+  const remainingProducts = filteredProducts.length - visibleCount;
+  const hasMore = remainingProducts > 0;
+  const totalRows = Math.ceil(filteredProducts.length / ITEMS_PER_ROW);
+
+  const handleLoadMore = () => {
+    setVisibleRows(prev => Math.min(prev + ROWS_INCREMENT, totalRows));
+  };
+
+  const handleCollapse = () => {
+    setVisibleRows(2);
+  };
 
   return (
     <section id="catalog" className="py-24 md:py-32 bg-background relative">
@@ -153,6 +165,7 @@ const ProductCatalog = () => {
               activeCategory={activeCategory}
               onCategoryChange={(cat) => {
                 setActiveCategory(cat);
+                setVisibleRows(2);
                 setShowMobileFilters(false);
               }}
             />
@@ -183,33 +196,86 @@ const ProductCatalog = () => {
               </AnimatePresence>
             </div>
 
-            {/* Show More / Show Less Button */}
-            {hasMore && (
+            {/* Elegant Load More Section */}
+            {(hasMore || visibleRows > 2) && (
               <motion.div 
-                className="mt-10 text-center"
+                className="mt-16 relative"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
               >
-                <button
-                  onClick={() => setIsExpanded(!isExpanded)}
-                  className="group inline-flex items-center gap-3 px-8 py-4 border border-primary/30 rounded-full text-foreground hover:border-primary hover:bg-primary/5 transition-all duration-300"
-                >
-                  <span className="font-medium tracking-wide">
-                    {isExpanded 
-                      ? (language === 'en' ? 'Show Less' : 'Mostrar Menos')
-                      : (language === 'en' 
-                          ? `View All ${filteredProducts.length} Products` 
-                          : `Ver los ${filteredProducts.length} Productos`)
-                    }
-                  </span>
-                  <motion.div
-                    animate={{ rotate: isExpanded ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    <ChevronDown className="w-5 h-5 text-primary" />
-                  </motion.div>
-                </button>
+                {/* Decorative line */}
+                <div className="absolute left-0 right-0 top-1/2 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+                
+                <div className="relative flex justify-center">
+                  {hasMore ? (
+                    <motion.button
+                      onClick={handleLoadMore}
+                      className="group relative px-10 py-4 bg-background border border-primary/20 rounded-none overflow-hidden"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      {/* Hover gradient effect */}
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                      
+                      <div className="relative flex flex-col items-center gap-2">
+                        <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground">
+                          {language === 'en' ? 'Discover More' : 'Descubrir Más'}
+                        </span>
+                        <span className="font-display text-lg text-foreground">
+                          +{Math.min(remainingProducts, ITEMS_PER_ROW * ROWS_INCREMENT)} {language === 'en' ? 'Products' : 'Productos'}
+                        </span>
+                        <motion.div
+                          animate={{ y: [0, 5, 0] }}
+                          transition={{ repeat: Infinity, duration: 1.5 }}
+                        >
+                          <ChevronDown className="w-5 h-5 text-primary" />
+                        </motion.div>
+                      </div>
+                    </motion.button>
+                  ) : (
+                    <motion.button
+                      onClick={handleCollapse}
+                      className="group relative px-10 py-4 bg-background border border-primary/20 rounded-none overflow-hidden"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                      
+                      <div className="relative flex flex-col items-center gap-2">
+                        <span className="text-xs tracking-[0.3em] uppercase text-muted-foreground">
+                          {language === 'en' ? 'Collapse' : 'Colapsar'}
+                        </span>
+                        <span className="font-display text-lg text-foreground">
+                          {language === 'en' ? 'Show Less' : 'Mostrar Menos'}
+                        </span>
+                        <motion.div
+                          animate={{ y: [0, -5, 0] }}
+                          transition={{ repeat: Infinity, duration: 1.5 }}
+                        >
+                          <ChevronUp className="w-5 h-5 text-primary" />
+                        </motion.div>
+                      </div>
+                    </motion.button>
+                  )}
+                </div>
+                
+                {/* Progress indicator */}
+                {filteredProducts.length > ITEMS_PER_ROW * 2 && (
+                  <div className="mt-6 flex justify-center items-center gap-3">
+                    <span className="text-xs text-muted-foreground">
+                      {visibleProducts.length} / {filteredProducts.length}
+                    </span>
+                    <div className="w-32 h-0.5 bg-border rounded-full overflow-hidden">
+                      <motion.div 
+                        className="h-full bg-primary"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${(visibleProducts.length / filteredProducts.length) * 100}%` }}
+                        transition={{ duration: 0.5 }}
+                      />
+                    </div>
+                  </div>
+                )}
               </motion.div>
             )}
 
