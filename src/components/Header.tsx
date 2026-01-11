@@ -39,35 +39,35 @@ const Header = () => {
 
   return (
     <TooltipProvider>
-      <header className="fixed top-0 left-0 right-0 z-50">
+      <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6">
         <motion.div 
-          className="mx-4 mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/80"
+          className="mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/80"
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="flex items-center justify-between px-6 py-3">
-            {/* Logo */}
+          <div className="flex items-center justify-between px-4 sm:px-6 py-3">
+            {/* Logo - Prevent squashing */}
             <motion.a 
               href="/" 
-              className="flex items-center gap-2"
+              className="flex-shrink-0 flex items-center gap-2"
               whileHover={{ scale: 1.02 }}
             >
               <img src={logo} alt="LuxGyps" className="h-8 w-8" />
-              <span className="font-display text-xl tracking-wide">
+              <span className="font-display text-xl tracking-wide whitespace-nowrap">
                 <span className="text-foreground">Lux</span>
                 <span className="text-primary">Gyps</span>
               </span>
             </motion.a>
 
             {/* Desktop Navigation - Premium Artisan Style */}
-            <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+            <nav className="hidden xl:flex flex-1 items-center justify-center gap-x-3 2xl:gap-x-6">
               {navItems.map((item) => (
                 item.comingSoon ? (
                   <Tooltip key={item.label} delayDuration={0}>
                     <TooltipTrigger asChild>
                       <span
-                        className="font-display text-sm xl:text-base uppercase tracking-[0.2em] text-muted-foreground/50 cursor-not-allowed select-none"
+                        className="font-display text-sm 2xl:text-base uppercase tracking-[0.15em] 2xl:tracking-[0.2em] text-muted-foreground/50 cursor-not-allowed select-none whitespace-nowrap"
                       >
                         {item.label}
                       </span>
@@ -83,7 +83,7 @@ const Header = () => {
                   <motion.a
                     key={item.label}
                     href={item.href}
-                    className="font-display text-sm xl:text-base uppercase tracking-[0.2em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group"
+                    className="font-display text-sm 2xl:text-base uppercase tracking-[0.15em] 2xl:tracking-[0.2em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap"
                     whileHover={{ y: -1 }}
                   >
                     {item.label}
@@ -93,8 +93,8 @@ const Header = () => {
               ))}
             </nav>
 
-            {/* Actions */}
-            <div className="flex items-center gap-2 lg:gap-3">
+            {/* Actions - Prevent squashing */}
+            <div className="flex-shrink-0 flex items-center gap-2 lg:gap-3">
               {/* Language Toggle */}
               <motion.button
                 onClick={toggleLanguage}
@@ -143,17 +143,17 @@ const Header = () => {
               {/* Phone CTA */}
               <motion.a
                 href="tel:+17543001010"
-                className="hidden md:flex items-center gap-2 px-4 py-2 rounded-full btn-gold"
+                className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full btn-gold"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
                 <Phone className="w-3.5 h-3.5" />
-                <span className="font-sans text-xs font-medium tracking-wider">+1 (754) 300-1010</span>
+                <span className="font-sans text-xs font-medium tracking-wider whitespace-nowrap">+1 (754) 300-1010</span>
               </motion.a>
 
               {/* Mobile Menu Button */}
               <motion.button
-                className="lg:hidden p-2"
+                className="xl:hidden p-2"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                 whileTap={{ scale: 0.95 }}
               >
@@ -169,7 +169,7 @@ const Header = () => {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                className="lg:hidden border-t border-border/50 overflow-hidden"
+                className="xl:hidden border-t border-border/50 overflow-hidden"
               >
                 <nav className="flex flex-col p-6 gap-1">
                   {navItems.map((item, index) => (
