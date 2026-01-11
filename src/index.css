@@ -58,6 +58,11 @@
     --shadow-gold: 0 0 40px hsl(43 60% 52% / 0.15);
     --shadow-elevated: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
     
+    /* Footer Colors */
+    --footer-brand: 210 35% 25%;
+    --footer-contact: 45 25% 35%;
+    --footer-nav: 210 25% 20%;
+    
     /* Typography */
     --font-display: 'Playfair Display', Georgia, serif;
     --font-body: 'Inter', system-ui, sans-serif;
@@ -109,6 +114,11 @@
     
     --shadow-gold: 0 0 40px hsl(43 50% 45% / 0.1);
     --shadow-elevated: 0 25px 50px -12px hsl(0 0% 0% / 0.1);
+    
+    /* Footer Colors - Day Mode */
+    --footer-brand: 210 30% 30%;
+    --footer-contact: 45 20% 40%;
+    --footer-nav: 210 20% 25%;
   }
 }
 
