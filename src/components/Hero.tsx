@@ -126,13 +126,66 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
             </motion.p>
 
-            {/* Since Badge */}
+            {/* Since Badge - Elegant with Laurel */}
             <motion.div 
-              className="mb-10 inline-flex flex-col items-start"
+              className="mb-10 inline-flex flex-col items-center"
               variants={itemVariants}
             >
-              <span className="text-xs tracking-[0.3em] text-muted-foreground uppercase italic">since</span>
-              <span className="font-display text-4xl md:text-5xl text-primary font-semibold">2010</span>
+              {/* Top Laurel Branch */}
+              <svg 
+                viewBox="0 0 120 24" 
+                className="w-28 h-6 text-primary/60 mb-2"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
+                {/* Left branch */}
+                <path d="M60 20 Q50 18, 45 12 Q42 8, 38 6" strokeLinecap="round" />
+                <ellipse cx="36" cy="8" rx="4" ry="6" transform="rotate(-30 36 8)" className="fill-primary/20" />
+                <path d="M45 12 Q42 10, 38 10" strokeLinecap="round" />
+                <ellipse cx="35" cy="12" rx="3.5" ry="5" transform="rotate(-20 35 12)" className="fill-primary/20" />
+                <path d="M50 16 Q46 14, 42 14" strokeLinecap="round" />
+                <ellipse cx="39" cy="15" rx="3" ry="4.5" transform="rotate(-10 39 15)" className="fill-primary/20" />
+                
+                {/* Right branch (mirrored) */}
+                <path d="M60 20 Q70 18, 75 12 Q78 8, 82 6" strokeLinecap="round" />
+                <ellipse cx="84" cy="8" rx="4" ry="6" transform="rotate(30 84 8)" className="fill-primary/20" />
+                <path d="M75 12 Q78 10, 82 10" strokeLinecap="round" />
+                <ellipse cx="85" cy="12" rx="3.5" ry="5" transform="rotate(20 85 12)" className="fill-primary/20" />
+                <path d="M70 16 Q74 14, 78 14" strokeLinecap="round" />
+                <ellipse cx="81" cy="15" rx="3" ry="4.5" transform="rotate(10 81 15)" className="fill-primary/20" />
+              </svg>
+
+              {/* Since Text */}
+              <div className="flex flex-col items-center">
+                <span className="text-[10px] tracking-[0.4em] text-primary/50 uppercase font-light">since</span>
+                <span className="font-display text-4xl md:text-5xl text-primary font-light tracking-wide">2010</span>
+              </div>
+
+              {/* Bottom Laurel Branch (inverted) */}
+              <svg 
+                viewBox="0 0 120 24" 
+                className="w-28 h-6 text-primary/60 mt-2 rotate-180"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1"
+              >
+                {/* Left branch */}
+                <path d="M60 20 Q50 18, 45 12 Q42 8, 38 6" strokeLinecap="round" />
+                <ellipse cx="36" cy="8" rx="4" ry="6" transform="rotate(-30 36 8)" className="fill-primary/20" />
+                <path d="M45 12 Q42 10, 38 10" strokeLinecap="round" />
+                <ellipse cx="35" cy="12" rx="3.5" ry="5" transform="rotate(-20 35 12)" className="fill-primary/20" />
+                <path d="M50 16 Q46 14, 42 14" strokeLinecap="round" />
+                <ellipse cx="39" cy="15" rx="3" ry="4.5" transform="rotate(-10 39 15)" className="fill-primary/20" />
+                
+                {/* Right branch (mirrored) */}
+                <path d="M60 20 Q70 18, 75 12 Q78 8, 82 6" strokeLinecap="round" />
+                <ellipse cx="84" cy="8" rx="4" ry="6" transform="rotate(30 84 8)" className="fill-primary/20" />
+                <path d="M75 12 Q78 10, 82 10" strokeLinecap="round" />
+                <ellipse cx="85" cy="12" rx="3.5" ry="5" transform="rotate(20 85 12)" className="fill-primary/20" />
+                <path d="M70 16 Q74 14, 78 14" strokeLinecap="round" />
+                <ellipse cx="81" cy="15" rx="3" ry="4.5" transform="rotate(10 81 15)" className="fill-primary/20" />
+              </svg>
             </motion.div>
 
             {/* CTAs */}
