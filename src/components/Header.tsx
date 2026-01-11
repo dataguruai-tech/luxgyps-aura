@@ -92,8 +92,9 @@ const Header = () => {
             scale: 1.02
           }}>
               <img src={logo} alt="LuxGyps" className="h-14 sm:h-16 xl:h-[4.5rem] w-auto" />
-              <span className="font-display text-base sm:text-lg xl:text-xl uppercase tracking-[0.15em] xl:tracking-[0.2em] text-foreground whitespace-nowrap">
-                LuxGyps
+              <span className="font-display text-xl sm:text-2xl xl:text-[1.75rem] tracking-wide whitespace-nowrap">
+                <span className="text-foreground">Lux</span>
+                <span className="text-primary">Gyps</span>
               </span>
             </motion.a>
 
