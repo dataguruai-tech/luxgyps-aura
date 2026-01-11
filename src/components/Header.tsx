@@ -44,7 +44,7 @@ const Header = () => {
     gallery: { label: language === 'en' ? 'Gallery' : 'Galería', href: '#gallery' },
     services: { label: language === 'en' ? 'Services' : 'Servicios', href: '#process' },
     showroom: { label: 'Showroom', href: '#showroom', comingSoon: true },
-    contacts: { label: language === 'en' ? 'Contacts' : 'Contactos', href: '#contact' },
+    contacts: { label: language === 'en' ? 'Contacts' : 'Contactos', href: '#footer' },
   };
 
   const allNavItems = [

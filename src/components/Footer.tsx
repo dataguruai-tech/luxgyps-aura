@@ -40,7 +40,7 @@ const Footer = () => {
     { label: language === 'en' ? 'Facades' : 'Fachadas', href: '#portfolio' },
     { label: language === 'en' ? 'About' : 'Nosotros', href: '#about' },
     { label: language === 'en' ? 'Delivery' : 'Entrega', href: '#delivery' },
-    { label: language === 'en' ? 'Contact' : 'Contacto', href: '#contact' },
+    { label: language === 'en' ? 'Contact' : 'Contacto', href: '#footer' },
   ];
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
@@ -57,7 +57,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative">
+    <footer id="footer" className="relative">
       {/* Top Separator Line */}
       <div className="h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
       
