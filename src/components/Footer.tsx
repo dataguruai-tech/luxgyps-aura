@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
-import { Instagram, Phone, Mail, MapPin, ArrowUpRight } from 'lucide-react';
+import { Instagram, Phone, Mail, MapPin, FileText } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
+import columnImage from '@/assets/archive/interior-column.jpg';
 
 // Custom TikTok icon
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -26,12 +27,19 @@ const Footer = () => {
     { icon: FacebookIcon, href: 'https://facebook.com/luxgyps', label: 'Facebook' },
   ];
 
-  const navItems = [
-    { label: language === 'en' ? 'About' : 'Nosotros', href: '#about' },
-    { label: language === 'en' ? 'Portfolio' : 'Portafolio', href: '#portfolio' },
+  const navItemsLeft = [
     { label: language === 'en' ? 'Catalog' : 'Catálogo', href: '#catalog' },
     { label: language === 'en' ? 'Gallery' : 'Galería', href: '#gallery' },
     { label: language === 'en' ? 'Services' : 'Servicios', href: '#process' },
+    { label: language === 'en' ? 'Payment' : 'Pago', href: '#payment' },
+    { label: language === 'en' ? 'Documentation' : 'Documentación', href: '#docs' },
+  ];
+
+  const navItemsRight = [
+    { label: 'Showroom', href: '#showroom' },
+    { label: language === 'en' ? 'Facades' : 'Fachadas', href: '#portfolio' },
+    { label: language === 'en' ? 'About' : 'Nosotros', href: '#about' },
+    { label: language === 'en' ? 'Delivery' : 'Entrega', href: '#delivery' },
     { label: language === 'en' ? 'Contact' : 'Contacto', href: '#contact' },
   ];
 
@@ -49,153 +57,139 @@ const Footer = () => {
   };
 
   return (
-    <footer className="relative bg-card border-t border-border/20">
-      {/* Decorative top line */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-      
-      <div className="container mx-auto px-6 pt-20 pb-8">
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
-          
-          {/* Brand Column */}
-          <div className="lg:col-span-4">
+    <footer className="relative">
+      {/* Main Footer - Three Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-12">
+        
+        {/* Left Column - Brand (Dark Blue) */}
+        <div className="lg:col-span-3 bg-[hsl(var(--footer-brand))] px-8 py-12 flex flex-col justify-between">
+          <div>
             <motion.a 
               href="/" 
-              className="inline-flex items-center gap-3 mb-6"
+              className="inline-flex items-center gap-3 mb-8"
               whileHover={{ scale: 1.02 }}
             >
-              <img src={logo} alt="LuxGyps" className="h-14 w-auto" />
-              <span className="font-display text-3xl tracking-wide">
-                <span className="text-foreground">Lux</span>
-                <span className="text-primary">Gyps</span>
-              </span>
+              <img src={logo} alt="LuxGyps" className="h-16 w-auto brightness-0 invert opacity-90" />
             </motion.a>
             
-            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs mb-8">
-              {t.footer.desc}
-            </p>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-2">
-              {socialLinks.map((social) => (
-                <motion.a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full border border-border/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/50 transition-all duration-300"
-                  whileHover={{ scale: 1.1, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
-                  aria-label={social.label}
-                >
-                  <social.icon className="w-4 h-4" />
-                </motion.a>
-              ))}
+            <div className="font-display text-white/60 italic text-lg mb-2">
+              {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
+            </div>
+            
+            <div className="font-display text-white/40 text-sm tracking-[0.2em] uppercase mb-1">
+              since
+            </div>
+            <div className="font-display text-white text-5xl tracking-wider">
+              2015
             </div>
           </div>
-
-          {/* Navigation Column */}
-          <div className="lg:col-span-3">
-            <h4 className="font-display text-xs uppercase tracking-[0.25em] text-primary mb-6">
-              {language === 'en' ? 'Navigation' : 'Navegación'}
-            </h4>
-            <ul className="space-y-3">
-              {navItems.map((link) => (
-                <li key={link.label}>
-                  <motion.a 
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
-                    className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors group"
-                    whileHover={{ x: 4 }}
-                  >
-                    <span className="w-1 h-1 rounded-full bg-primary/50 group-hover:bg-primary transition-colors" />
-                    {link.label}
-                  </motion.a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Column */}
-          <div className="lg:col-span-3">
-            <h4 className="font-display text-xs uppercase tracking-[0.25em] text-primary mb-6">
-              {t.footer.contactTitle}
-            </h4>
-            <ul className="space-y-4">
-              <li>
-                <motion.a 
-                  href="tel:+17543001010"
-                  className="flex items-start gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors group"
-                  whileHover={{ x: 4 }}
-                >
-                  <Phone className="w-4 h-4 text-primary/70 mt-0.5 shrink-0" />
-                  <span>+1 (754) 300-1010</span>
-                </motion.a>
-              </li>
-              <li>
-                <motion.a 
-                  href="mailto:hello@luxgyps.com"
-                  className="flex items-start gap-3 text-sm text-muted-foreground hover:text-foreground transition-colors group"
-                  whileHover={{ x: 4 }}
-                >
-                  <Mail className="w-4 h-4 text-primary/70 mt-0.5 shrink-0" />
-                  <span>hello@luxgyps.com</span>
-                </motion.a>
-              </li>
-              <li>
-                <div className="flex items-start gap-3 text-sm text-muted-foreground">
-                  <MapPin className="w-4 h-4 text-primary/70 mt-0.5 shrink-0" />
-                  <span>{t.footer.location}<br />Florida, USA</span>
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          {/* CTA Column */}
-          <div className="lg:col-span-2">
-            <h4 className="font-display text-xs uppercase tracking-[0.25em] text-primary mb-6">
-              {language === 'en' ? 'Get Started' : 'Comenzar'}
-            </h4>
-            <motion.a 
-              href="tel:+17543001010"
-              className="inline-flex items-center gap-2 px-5 py-3 bg-primary text-primary-foreground rounded-full text-sm font-medium shadow-lg shadow-primary/25 hover:shadow-primary/40 hover:brightness-110 transition-all duration-300"
-              whileHover={{ scale: 1.02, y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <span>{language === 'en' ? 'Request Quote' : 'Solicitar Cotización'}</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </motion.a>
-            
-            <p className="mt-4 text-xs text-muted-foreground/70">
-              {language === 'en' ? '5-Year Guarantee on all projects' : 'Garantía de 5 años en todos los proyectos'}
-            </p>
-          </div>
+          
+          <p className="text-white/50 text-xs mt-8">
+            © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
+          </p>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="pt-8 border-t border-border/20">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            {/* Copyright */}
-            <p className="text-xs text-muted-foreground/70 order-2 md:order-1">
-              © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
-            </p>
+        {/* Middle Column - Contact (Olive/Gold) */}
+        <div className="lg:col-span-4 bg-[hsl(var(--footer-contact))] px-8 py-12">
+          {/* Contact Info */}
+          <div className="space-y-4 mb-8">
+            <div className="flex items-start gap-3 text-white/80">
+              <MapPin className="w-4 h-4 mt-1 shrink-0 text-white/50" />
+              <span className="text-sm">{t.footer.location}, Florida, USA</span>
+            </div>
+            
+            <motion.a 
+              href="mailto:hello@luxgyps.com"
+              className="flex items-center gap-3 text-white/60 hover:text-white transition-colors text-sm"
+              whileHover={{ x: 2 }}
+            >
+              <Mail className="w-4 h-4 shrink-0 text-white/50" />
+              hello@luxgyps.com
+            </motion.a>
+            
+            <motion.a 
+              href="tel:+17543001010"
+              className="flex items-center gap-3 text-white hover:text-white/80 transition-colors text-lg font-medium"
+              whileHover={{ x: 2 }}
+            >
+              <Phone className="w-4 h-4 shrink-0 text-white/50" />
+              +1 (754) 300-1010
+            </motion.a>
+          </div>
 
-            {/* Legal Links */}
-            <div className="flex items-center gap-6 order-1 md:order-2">
-              <motion.a 
-                href="#privacy" 
-                className="text-xs text-muted-foreground/70 hover:text-foreground transition-colors"
-                whileHover={{ y: -1 }}
+          {/* Social Links */}
+          <div className="flex items-center gap-3 mb-8">
+            {socialLinks.map((social) => (
+              <motion.a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-lg border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white/40 hover:bg-white/10 transition-all duration-300"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={social.label}
               >
-                {t.footer.privacy}
+                <social.icon className="w-4 h-4" />
               </motion.a>
-              <motion.a 
-                href="#terms" 
-                className="text-xs text-muted-foreground/70 hover:text-foreground transition-colors"
-                whileHover={{ y: -1 }}
-              >
-                {t.footer.terms}
-              </motion.a>
+            ))}
+          </div>
+
+          {/* Legal Links */}
+          <motion.a 
+            href="#terms"
+            className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors text-sm"
+            whileHover={{ x: 2 }}
+          >
+            <FileText className="w-4 h-4" />
+            <span>{t.footer.privacy} & {t.footer.terms}</span>
+          </motion.a>
+        </div>
+
+        {/* Right Column - Navigation with Image (Dark) */}
+        <div className="lg:col-span-5 bg-[hsl(var(--footer-nav))] relative overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute left-0 top-0 bottom-0 w-1/3 overflow-hidden">
+            <img 
+              src={columnImage} 
+              alt="" 
+              className="h-full w-full object-cover opacity-40"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[hsl(var(--footer-nav))]" />
+          </div>
+          
+          {/* Navigation Grid */}
+          <div className="relative z-10 px-8 py-12 pl-24 lg:pl-32">
+            <div className="grid grid-cols-2 gap-x-12 gap-y-4">
+              {/* Left Nav Column */}
+              <div className="space-y-4">
+                {navItemsLeft.map((link) => (
+                  <motion.a 
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="block text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
+                    whileHover={{ x: 4 }}
+                  >
+                    {link.label}
+                  </motion.a>
+                ))}
+              </div>
+              
+              {/* Right Nav Column */}
+              <div className="space-y-4">
+                {navItemsRight.map((link) => (
+                  <motion.a 
+                    key={link.label}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.href)}
+                    className="block text-white/70 hover:text-white transition-colors text-sm uppercase tracking-wider"
+                    whileHover={{ x: 4 }}
+                  >
+                    {link.label}
+                  </motion.a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
