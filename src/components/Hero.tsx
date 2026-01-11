@@ -18,54 +18,33 @@ interface HeroProps {
 }
 
 const carouselImages = [
-  { front: interior1, back: interior2 },
-  { front: interior2, back: interior3 },
-  { front: interior3, back: interior4 },
-  { front: interior4, back: interior5 },
-  { front: interior5, back: interior6 },
-  { front: interior6, back: interior1 },
+  interior1,
+  interior2,
+  interior3,
+  interior4,
+  interior5,
+  interior6,
 ];
 
 const Hero = ({ onSampleKitClick }: HeroProps) => {
   const { isGallery } = useMode();
   const { t } = useLanguage();
-  const [currentSet, setCurrentSet] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const [isPaused, setIsPaused] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  const [imageStack, setImageStack] = useState<number[]>([0]);
 
-  const SLIDE_DURATION = 6000; // 6 seconds per slide
+  const SLIDE_DURATION = 5000;
 
   const goToNext = useCallback(() => {
-    setCurrentSet((prev) => (prev + 1) % carouselImages.length);
-    setProgress(0);
-  }, []);
+    const nextIndex = (currentImage + 1) % carouselImages.length;
+    setCurrentImage(nextIndex);
+    setImageStack(prev => [...prev.slice(-3), nextIndex]); // Keep last 4 images in stack
+  }, [currentImage]);
 
-  const goToPrev = useCallback(() => {
-    setCurrentSet((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
-    setProgress(0);
-  }, []);
-
-  const goToSlide = useCallback((index: number) => {
-    setCurrentSet(index);
-    setProgress(0);
-  }, []);
-
-  // Auto-rotate with smooth progress
+  // Auto-rotate
   useEffect(() => {
-    if (isPaused) return;
-    
-    const progressInterval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          goToNext();
-          return 0;
-        }
-        return prev + (100 / (SLIDE_DURATION / 50));
-      });
-    }, 50);
-    
-    return () => clearInterval(progressInterval);
-  }, [isPaused, goToNext]);
+    const interval = setInterval(goToNext, SLIDE_DURATION);
+    return () => clearInterval(interval);
+  }, [goToNext]);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -88,6 +67,12 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
         ease: [0.22, 1, 0.36, 1] as const,
       },
     },
+  };
+
+  // Random rotation for photo stack effect
+  const getRandomRotation = (index: number) => {
+    const rotations = [-3, 2, -1.5, 3, -2, 1.5];
+    return rotations[index % rotations.length];
   };
 
   return (
@@ -201,133 +186,76 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Overlapping Images Carousel */}
-          <div 
-            className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center lg:justify-end"
-            onMouseEnter={() => setIsPaused(true)}
-            onMouseLeave={() => setIsPaused(false)}
-          >
-            {/* Back Image */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`back-${currentSet}`}
-                className="absolute right-0 top-[10%] w-[55%] h-[70%] z-10"
-                initial={{ opacity: 0, scale: 0.95, x: 30 }}
-                animate={{ opacity: 1, scale: 1, x: 0 }}
-                exit={{ opacity: 0, scale: 1.02, x: -20 }}
-                transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <motion.div 
-                  className="w-full h-full overflow-hidden shadow-2xl"
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                >
-                  <img
-                    src={carouselImages[currentSet].back}
-                    alt="Interior design"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Front Image */}
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={`front-${currentSet}`}
-                className="absolute left-0 lg:left-auto lg:right-[35%] bottom-[5%] w-[60%] h-[65%] z-20"
-                initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 1.02, y: -20 }}
-                transition={{ duration: 1.2, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <motion.div 
-                  className="w-full h-full overflow-hidden shadow-2xl"
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                >
-                  <img
-                    src={carouselImages[currentSet].front}
-                    alt="Interior design"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Stylish Navigation */}
-            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-30 flex items-center gap-6">
-              {/* Prev Arrow */}
-              <motion.button
-                onClick={goToPrev}
-                className="group relative w-10 h-10 flex items-center justify-center"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="absolute inset-0 rounded-full border border-primary/30 group-hover:border-primary/60 transition-colors" />
-                <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M15 18l-6-6 6-6" />
-                </svg>
-              </motion.button>
-
-              {/* Progress Indicators */}
-              <div className="flex items-center gap-1">
-                {carouselImages.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => goToSlide(index)}
-                    className="group relative h-8 flex items-center justify-center px-1"
-                  >
-                    {/* Background bar */}
-                    <div className={`h-[2px] transition-all duration-300 ${
-                      currentSet === index ? 'w-8 bg-primary/20' : 'w-4 bg-primary/10 group-hover:bg-primary/20'
-                    }`}>
-                      {/* Progress fill */}
-                      {currentSet === index && (
-                        <motion.div
-                          className="h-full bg-primary origin-left"
-                          style={{ width: `${progress}%` }}
-                          transition={{ duration: 0.05, ease: "linear" }}
-                        />
-                      )}
-                    </div>
-                  </button>
-                ))}
-              </div>
-
-              {/* Next Arrow */}
-              <motion.button
-                onClick={goToNext}
-                className="group relative w-10 h-10 flex items-center justify-center"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <span className="absolute inset-0 rounded-full border border-primary/30 group-hover:border-primary/60 transition-colors" />
-                <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M9 18l6-6-6-6" />
-                </svg>
-              </motion.button>
+          {/* Right Side - Photo Stack */}
+          <div className="relative h-[60vh] lg:h-[85vh] flex items-center justify-center">
+            {/* Photo Stack Container */}
+            <div className="relative w-[85%] max-w-md aspect-[3/4]">
+              {/* Static base shadows for depth */}
+              <div 
+                className="absolute inset-0 bg-background/20 rounded-sm shadow-2xl"
+                style={{ transform: 'rotate(-4deg) translate(-8px, 12px)' }}
+              />
+              <div 
+                className="absolute inset-0 bg-background/30 rounded-sm shadow-xl"
+                style={{ transform: 'rotate(2deg) translate(6px, 8px)' }}
+              />
+              
+              {/* Animated photo stack */}
+              <AnimatePresence>
+                {imageStack.map((imgIndex, stackIndex) => {
+                  const isTop = stackIndex === imageStack.length - 1;
+                  const depth = imageStack.length - 1 - stackIndex;
+                  
+                  return (
+                    <motion.div
+                      key={`${imgIndex}-${stackIndex}`}
+                      className="absolute inset-0"
+                      initial={isTop ? { 
+                        opacity: 0, 
+                        scale: 1.1, 
+                        y: -100,
+                        rotate: getRandomRotation(imgIndex) + 5
+                      } : false}
+                      animate={{ 
+                        opacity: Math.max(0, 1 - depth * 0.25),
+                        scale: 1 - depth * 0.03,
+                        y: depth * 8,
+                        x: depth * -4,
+                        rotate: getRandomRotation(imgIndex),
+                        zIndex: 10 - depth
+                      }}
+                      exit={{ 
+                        opacity: 0,
+                        scale: 0.95,
+                        transition: { duration: 0.3 }
+                      }}
+                      transition={{ 
+                        duration: 0.8, 
+                        ease: [0.22, 1, 0.36, 1]
+                      }}
+                      style={{ zIndex: 10 - depth }}
+                    >
+                      {/* Photo frame effect */}
+                      <div className="w-full h-full bg-cream p-2 rounded-sm shadow-2xl">
+                        <div className="w-full h-full overflow-hidden">
+                          <motion.img
+                            src={carouselImages[imgIndex]}
+                            alt="Interior design"
+                            className="w-full h-full object-cover"
+                            animate={isTop ? { scale: [1, 1.02, 1] } : {}}
+                            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                          />
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
             </div>
 
-            {/* Slide Counter */}
-            <motion.div 
-              className="absolute top-[5%] right-[5%] z-30 flex items-baseline gap-1"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.5 }}
-            >
-              <span className="font-display text-3xl text-primary font-light">
-                {String(currentSet + 1).padStart(2, '0')}
-              </span>
-              <span className="text-primary/40 text-sm">/</span>
-              <span className="text-primary/40 text-sm">
-                {String(carouselImages.length).padStart(2, '0')}
-              </span>
-            </motion.div>
-
             {/* Decorative corner elements */}
-            <div className="absolute top-[5%] right-[15%] w-16 h-16 border-t border-r border-primary/20 z-0" />
-            <div className="absolute bottom-[15%] left-[5%] lg:left-auto lg:right-[50%] w-16 h-16 border-b border-l border-primary/20 z-30" />
+            <div className="absolute top-[5%] right-[5%] w-16 h-16 border-t border-r border-primary/20 z-0" />
+            <div className="absolute bottom-[5%] left-[5%] w-16 h-16 border-b border-l border-primary/20 z-0" />
           </div>
         </div>
       </div>
