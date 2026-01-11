@@ -148,7 +148,7 @@ const Footer = () => {
         </div>
 
         {/* Column Divider */}
-        <div className="lg:col-span-2 relative hidden lg:flex items-center justify-center bg-background overflow-hidden">
+        <div className="lg:col-span-2 relative hidden lg:flex items-center justify-center bg-secondary overflow-hidden">
           <img 
             src={columnDivider} 
             alt="" 
