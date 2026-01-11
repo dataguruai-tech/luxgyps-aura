@@ -10,19 +10,16 @@ const Header = () => {
   const { language, setLanguage, t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const galleryNav = [
-    { label: t.nav.portfolio, href: '#portfolio' },
-    { label: t.nav.process, href: '#process' },
-    { label: t.nav.about, href: '#about' },
+  // New unified navigation structure
+  const navItems = [
+    { label: t.nav.aboutUs, href: '#about' },
+    { label: t.nav.interiorDecor, href: '#interior' },
+    { label: t.nav.facadeDecor, href: '#facade' },
+    { label: t.nav.gallery, href: '#portfolio' },
+    { label: t.nav.services, href: '#process' },
+    { label: t.nav.showroom, href: '#showroom', disabled: true, comingSoon: true },
+    { label: t.nav.contacts, href: '#contact' },
   ];
-
-  const proNav = [
-    { label: t.nav.catalog, href: '#catalog' },
-    { label: t.nav.specifications, href: '#specs' },
-    { label: t.nav.downloads, href: '#downloads' },
-  ];
-
-  const navItems = isGallery ? galleryNav : proNav;
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'es' : 'en');
@@ -51,16 +48,28 @@ const Header = () => {
           </motion.a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-6">
             {navItems.map((item) => (
               <motion.a
                 key={item.label}
-                href={item.href}
-                className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors relative group"
-                whileHover={{ y: -2 }}
+                href={item.disabled ? undefined : item.href}
+                className={`text-sm font-semibold uppercase tracking-[0.15em] relative group ${
+                  item.disabled 
+                    ? 'text-muted-foreground/50 cursor-not-allowed' 
+                    : 'text-muted-foreground hover:text-foreground transition-colors'
+                }`}
+                whileHover={item.disabled ? {} : { y: -2 }}
+                onClick={item.disabled ? (e) => e.preventDefault() : undefined}
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+                {item.comingSoon && (
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[9px] text-primary font-medium tracking-normal whitespace-nowrap">
+                    Coming Soon
+                  </span>
+                )}
+                {!item.disabled && (
+                  <span className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+                )}
               </motion.a>
             ))}
           </nav>
@@ -125,7 +134,7 @@ const Header = () => {
 
             {/* Mobile Menu Button */}
             <motion.button
-              className="md:hidden p-2"
+              className="lg:hidden p-2"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
             >
@@ -141,17 +150,32 @@ const Header = () => {
               initial={{ height: 0, opacity: 0 }}
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
-              className="md:hidden border-t border-border/50 overflow-hidden"
+              className="lg:hidden border-t border-border/50 overflow-hidden"
             >
               <nav className="flex flex-col p-4 gap-2">
                 {navItems.map((item) => (
                   <a
                     key={item.label}
-                    href={item.href}
-                    className="px-4 py-3 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors"
-                    onClick={() => setMobileMenuOpen(false)}
+                    href={item.disabled ? undefined : item.href}
+                    className={`px-4 py-3 rounded-lg uppercase tracking-wider text-sm font-semibold ${
+                      item.disabled 
+                        ? 'text-muted-foreground/50 cursor-not-allowed' 
+                        : 'text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition-colors'
+                    }`}
+                    onClick={(e) => {
+                      if (item.disabled) {
+                        e.preventDefault();
+                      } else {
+                        setMobileMenuOpen(false);
+                      }
+                    }}
                   >
                     {item.label}
+                    {item.comingSoon && (
+                      <span className="ml-2 text-[10px] text-primary font-medium tracking-normal">
+                        Coming Soon
+                      </span>
+                    )}
                   </a>
                 ))}
                 <a
