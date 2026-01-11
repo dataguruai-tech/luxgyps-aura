@@ -30,30 +30,24 @@ const Header = () => {
   const { totalItems, setIsOpen: setQuoteOpen } = useQuote();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navItems: NavItem[] = [{
-    label: 'About Us',
-    href: '#about'
-  }, {
-    label: 'Interior Decor',
-    href: '#portfolio'
-  }, {
-    label: 'Catalog',
-    href: '#catalog'
-  }, {
-    label: 'Gallery',
-    href: '#gallery'
-  }, {
-    label: 'Services',
-    href: '#process'
-  }, {
-    label: 'Showroom',
-    href: '#showroom',
-    disabled: true,
-    comingSoon: true
-  }, {
-    label: 'Contacts',
-    href: '#contact'
-  }];
+  // Grouped navigation items
+  const navGroups = {
+    main: [
+      { label: language === 'en' ? 'About' : 'Nosotros', href: '#about', comingSoon: false },
+      { label: language === 'en' ? 'Portfolio' : 'Portafolio', href: '#portfolio', comingSoon: false },
+    ],
+    products: [
+      { label: language === 'en' ? 'Catalog' : 'Catálogo', href: '#catalog', comingSoon: false },
+      { label: language === 'en' ? 'Gallery' : 'Galería', href: '#gallery', comingSoon: false },
+    ],
+    services: [
+      { label: language === 'en' ? 'Services' : 'Servicios', href: '#process', comingSoon: false },
+      { label: language === 'en' ? 'Showroom' : 'Showroom', href: '#showroom', comingSoon: true },
+      { label: language === 'en' ? 'Contact' : 'Contacto', href: '#contact', comingSoon: false },
+    ],
+  };
+
+  const allNavItems = [...navGroups.main, ...navGroups.products, ...navGroups.services];
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'es' : 'en');
@@ -100,27 +94,74 @@ const Header = () => {
               </span>
             </motion.a>
 
-            {/* Desktop Navigation - Premium Artisan Style */}
-            <nav className="hidden xl:flex flex-1 items-center justify-center gap-x-3 2xl:gap-x-6">
-              {navItems.map(item => item.comingSoon ? <Tooltip key={item.label} delayDuration={0}>
-                    <TooltipTrigger asChild>
-                      <span className="font-display text-sm 2xl:text-base uppercase tracking-[0.15em] 2xl:tracking-[0.2em] text-muted-foreground/50 cursor-not-allowed select-none whitespace-nowrap">
-                        {item.label}
-                      </span>
-                    </TooltipTrigger>
-                    <TooltipContent side="bottom" className="bg-primary text-primary-foreground font-sans text-xs tracking-wider uppercase px-3 py-1.5">
-                      Coming Soon
-                    </TooltipContent>
-                  </Tooltip> : <motion.a 
+            {/* Desktop Navigation - Grouped Style */}
+            <nav className="hidden xl:flex flex-1 items-center justify-center">
+              {/* Main Group */}
+              <div className="flex items-center gap-4 2xl:gap-5">
+                {navGroups.main.map(item => (
+                  <motion.a 
                     key={item.label} 
                     href={item.href} 
                     onClick={(e) => handleNavClick(e, item.href)}
-                    className="font-display text-sm 2xl:text-base uppercase tracking-[0.15em] 2xl:tracking-[0.2em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap" 
+                    className="font-display text-sm uppercase tracking-[0.12em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap" 
                     whileHover={{ y: -1 }}
                   >
                     {item.label}
                     <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full" />
-                  </motion.a>)}
+                  </motion.a>
+                ))}
+              </div>
+              
+              {/* Divider */}
+              <span className="mx-4 2xl:mx-6 w-px h-4 bg-border/50" />
+              
+              {/* Products Group */}
+              <div className="flex items-center gap-4 2xl:gap-5">
+                {navGroups.products.map(item => (
+                  <motion.a 
+                    key={item.label} 
+                    href={item.href} 
+                    onClick={(e) => handleNavClick(e, item.href)}
+                    className="font-display text-sm uppercase tracking-[0.12em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap" 
+                    whileHover={{ y: -1 }}
+                  >
+                    {item.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+                  </motion.a>
+                ))}
+              </div>
+              
+              {/* Divider */}
+              <span className="mx-4 2xl:mx-6 w-px h-4 bg-border/50" />
+              
+              {/* Services Group */}
+              <div className="flex items-center gap-4 2xl:gap-5">
+                {navGroups.services.map(item => 
+                  item.comingSoon ? (
+                    <Tooltip key={item.label} delayDuration={0}>
+                      <TooltipTrigger asChild>
+                        <span className="font-display text-sm uppercase tracking-[0.12em] text-muted-foreground/40 cursor-not-allowed select-none whitespace-nowrap">
+                          {item.label}
+                        </span>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom" className="bg-primary text-primary-foreground font-sans text-xs tracking-wider uppercase px-3 py-1.5">
+                        {language === 'en' ? 'Coming Soon' : 'Próximamente'}
+                      </TooltipContent>
+                    </Tooltip>
+                  ) : (
+                    <motion.a 
+                      key={item.label} 
+                      href={item.href} 
+                      onClick={(e) => handleNavClick(e, item.href)}
+                      className="font-display text-sm uppercase tracking-[0.12em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap" 
+                      whileHover={{ y: -1 }}
+                    >
+                      {item.label}
+                      <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+                    </motion.a>
+                  )
+                )}
+              </div>
             </nav>
 
             {/* Actions - Prevent squashing */}
@@ -225,12 +266,12 @@ const Header = () => {
             opacity: 0
           }} className="xl:hidden border-t border-border/50 overflow-hidden">
                 <nav className="flex flex-col p-6 gap-1">
-                  {navItems.map((item, index) => item.comingSoon ? <div key={item.label} className="flex items-center justify-between px-4 py-3 rounded-lg">
+                  {allNavItems.map((item, index) => item.comingSoon ? <div key={item.label} className="flex items-center justify-between px-4 py-3 rounded-lg">
                         <span className="font-display text-base uppercase tracking-[0.15em] text-muted-foreground/50">
                           {item.label}
                         </span>
                         <span className="font-sans text-[10px] uppercase tracking-wider text-primary bg-primary/10 px-2 py-1 rounded">
-                          Coming Soon
+                          {language === 'en' ? 'Coming Soon' : 'Próximamente'}
                         </span>
                       </div> : <motion.a 
                         key={item.label} 
