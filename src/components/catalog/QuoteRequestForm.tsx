@@ -64,20 +64,25 @@ const QuoteRequestForm = ({ isOpen, onClose }: QuoteRequestFormProps) => {
   return (
     <AnimatePresence>
       {isOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+        >
+          {/* Backdrop */}
+          <div 
+            className="absolute inset-0 bg-black/80 backdrop-blur-md"
             onClick={onClose}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[60]"
           />
           
+          {/* Modal */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[calc(100%-2rem)] max-w-lg bg-background border border-border rounded-2xl z-[60] overflow-hidden flex flex-col max-h-[90vh]"
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="relative w-full max-w-lg bg-background border border-primary/20 rounded-2xl shadow-2xl shadow-primary/10 overflow-hidden flex flex-col max-h-[85vh]"
           >
             {isSuccess ? (
               <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
@@ -250,7 +255,7 @@ const QuoteRequestForm = ({ isOpen, onClose }: QuoteRequestFormProps) => {
               </>
             )}
           </motion.div>
-        </>
+        </motion.div>
       )}
     </AnimatePresence>
   );
