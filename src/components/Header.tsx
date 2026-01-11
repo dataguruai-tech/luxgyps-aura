@@ -88,13 +88,12 @@ const Header = () => {
       }}>
           <div className="flex items-center justify-between px-4 sm:px-6 py-3">
             {/* Logo - Prevent squashing */}
-            <motion.a href="/" className="flex-shrink-0 flex items-center gap-2" whileHover={{
+            <motion.a href="/" className="flex-shrink-0 flex items-center gap-3" whileHover={{
             scale: 1.02
           }}>
-              <img src={logo} alt="LuxGyps" className="h-8 w-8" />
-              <span className="font-display text-xl tracking-wide whitespace-nowrap">
-                <span className="text-foreground"></span>
-                <span className="text-primary"></span>
+              <img src={logo} alt="LuxGyps" className="h-10 sm:h-11 xl:h-12 w-auto" />
+              <span className="font-display text-base sm:text-lg xl:text-xl uppercase tracking-[0.15em] xl:tracking-[0.2em] text-foreground whitespace-nowrap">
+                LuxGyps
               </span>
             </motion.a>
 
