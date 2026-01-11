@@ -24,20 +24,17 @@ const Footer = () => {
     { 
       icon: Instagram, 
       href: 'https://instagram.com/luxgyps', 
-      label: 'Instagram',
-      color: 'hover:bg-gradient-to-br hover:from-purple-500 hover:via-pink-500 hover:to-orange-400'
+      label: 'Instagram'
     },
     { 
       icon: TikTokIcon, 
       href: 'https://tiktok.com/@luxgyps', 
-      label: 'TikTok',
-      color: 'hover:bg-foreground hover:text-background'
+      label: 'TikTok'
     },
     { 
       icon: FacebookIcon, 
       href: 'https://facebook.com/luxgyps', 
-      label: 'Facebook',
-      color: 'hover:bg-[#1877F2]'
+      label: 'Facebook'
     },
   ];
 
@@ -98,8 +95,8 @@ const Footer = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group relative w-11 h-11 rounded-xl bg-muted/50 border border-border/50 flex items-center justify-center text-muted-foreground transition-all duration-300 ${social.color} hover:text-white hover:border-transparent hover:shadow-lg`}
-                  whileHover={{ scale: 1.1, y: -2 }}
+                  className="group relative w-11 h-11 rounded-xl bg-muted/50 border border-border/50 flex items-center justify-center text-muted-foreground transition-all duration-300 hover:bg-primary/10 hover:text-primary hover:border-primary/30"
+                  whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={social.label}
                 >
