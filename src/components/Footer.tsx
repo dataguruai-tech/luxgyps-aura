@@ -59,7 +59,7 @@ const Footer = () => {
   return (
     <footer className="relative bg-background">
       {/* Main Footer */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[280px]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[320px]">
         
         {/* Left Section - Brand & Contact */}
         <div className="lg:col-span-5 bg-secondary px-8 py-12 flex flex-col justify-between">
@@ -67,20 +67,42 @@ const Footer = () => {
             {/* Logo & Tagline */}
             <motion.a 
               href="/" 
-              className="inline-flex items-center gap-3 mb-8"
+              className="inline-flex items-center gap-3 mb-4"
               whileHover={{ scale: 1.02 }}
             >
               <img src={logo} alt="LuxGyps" className="h-10 w-auto" />
               <span className="font-display text-foreground text-xl tracking-wider">LuxGyps</span>
             </motion.a>
             
-            <div className="font-display text-primary/80 italic text-sm mb-8">
+            <div className="font-display text-primary/80 italic text-sm mb-6">
               {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
-              <span className="text-muted-foreground ml-2">• since 2015</span>
+            </div>
+
+            {/* Vintage Since Badge */}
+            <div className="inline-flex flex-col items-center px-6 py-4 border border-primary/30 rounded bg-primary/5">
+              {/* Top Ornament */}
+              <div className="flex items-center gap-1 text-primary/50 mb-1">
+                <span className="text-lg">❧</span>
+                <span className="text-[10px] text-primary/70">✦</span>
+                <span className="text-lg scale-x-[-1]">❧</span>
+              </div>
+              
+              {/* Since Text */}
+              <span className="text-primary/60 text-xs italic tracking-[0.2em]">since</span>
+              
+              {/* Year */}
+              <span className="font-display text-primary text-4xl font-light tracking-wider">2015</span>
+              
+              {/* Bottom Ornament */}
+              <div className="flex items-center gap-1 text-primary/50 mt-1">
+                <span className="text-lg scale-y-[-1]">❧</span>
+                <span className="text-[10px] text-primary/70">✦</span>
+                <span className="text-lg scale-[-1]">❧</span>
+              </div>
             </div>
 
             {/* Contact Info */}
-            <div className="space-y-4">
+            <div className="space-y-3 mt-6">
               <div className="flex items-start gap-3 text-muted-foreground">
                 <MapPin className="w-4 h-4 mt-0.5 shrink-0 text-primary/60" />
                 <span className="text-sm">{t.footer.location}, Florida, USA</span>
@@ -107,7 +129,7 @@ const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center gap-3 mt-8">
+          <div className="flex items-center gap-3 mt-6">
             {socialLinks.map((social) => (
               <motion.a
                 key={social.label}
@@ -188,7 +210,7 @@ const Footer = () => {
       </div>
 
       {/* Copyright Bar */}
-      <div className="bg-charcoal-deep border-t border-border/20 py-4 px-6">
+      <div className="bg-background border-t border-border/20 py-4 px-6">
         <p className="text-muted-foreground text-xs text-center tracking-wider">
           © {new Date().getFullYear()} LuxGyps. {t.footer.rights}
         </p>
