@@ -3,6 +3,7 @@ import { Instagram, Phone, Mail, MapPin, FileText } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import logo from '@/assets/luxgyps-logo.svg';
 import columnDivider from '@/assets/footer-column-divider.png';
+import laurelWreath from '@/assets/laurel-wreath.png';
 
 // Custom TikTok icon
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -80,9 +81,15 @@ const Footer = () => {
               </span>
             </motion.a>
             
-            <div className="font-display text-primary/80 italic text-sm mb-8">
-              {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
-              <span className="text-muted-foreground ml-2">• since 2015</span>
+            <div className="flex items-center gap-3 mb-8">
+              <span className="font-display text-primary/80 italic text-sm">
+                {language === 'en' ? 'Artisan Studio' : 'Estudio Artesanal'}
+              </span>
+              <span className="text-muted-foreground">•</span>
+              <div className="flex items-center gap-2">
+                <img src={laurelWreath} alt="" className="w-8 h-7 object-contain" />
+                <span className="font-display text-primary text-sm tracking-wide">2010</span>
+              </div>
             </div>
 
             {/* Contact Info */}

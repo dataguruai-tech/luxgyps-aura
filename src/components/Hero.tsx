@@ -101,6 +101,18 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             initial="hidden"
             animate="visible"
           >
+            {/* Since Badge with Laurel */}
+            <motion.div
+              className="flex items-center gap-3 mb-6"
+              variants={itemVariants}
+            >
+              <div className="relative w-10 h-9 flex items-center justify-center">
+                <img src={laurelWreath} alt="" className="absolute inset-0 w-full h-full object-contain" />
+                <span className="relative font-display text-xs text-primary font-medium z-10">10</span>
+              </div>
+              <span className="text-primary/60 text-xs tracking-[0.2em] uppercase">since 2010</span>
+            </motion.div>
+
             {/* Eyebrow */}
             <motion.p
               className="text-primary tracking-[0.3em] uppercase text-sm font-medium mb-6"
