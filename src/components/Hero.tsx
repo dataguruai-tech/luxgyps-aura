@@ -127,25 +127,6 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               {isGallery ? t.hero.subtitleGallery : t.hero.subtitlePro}
             </motion.p>
 
-            {/* Since Badge - Elegant with Laurel */}
-            <motion.div 
-              className="mb-10 flex justify-center w-full"
-              variants={itemVariants}
-            >
-              <div className="relative w-32 h-28 md:w-40 md:h-36 flex items-center justify-center">
-                {/* Laurel Wreath Background */}
-                <img 
-                  src={laurelWreath} 
-                  alt="Laurel wreath" 
-                  className="absolute inset-0 w-full h-full object-contain"
-                />
-                {/* Text overlay */}
-                <div className="relative flex flex-col items-center justify-center z-10 pt-1">
-                  <span className="text-[8px] md:text-[10px] tracking-[0.25em] text-primary uppercase font-medium">since</span>
-                  <span className="font-display text-2xl md:text-3xl text-primary font-semibold tracking-wide leading-none">2010</span>
-                </div>
-              </div>
-            </motion.div>
 
             {/* CTAs */}
             <motion.div
