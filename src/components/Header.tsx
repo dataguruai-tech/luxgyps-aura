@@ -198,84 +198,93 @@ const Header = () => {
               </motion.a>
             </nav>
 
-            {/* Actions - Prevent squashing */}
-            <div className="flex-shrink-0 flex items-center gap-2 lg:gap-3">
-              {/* Language Toggle */}
-              <motion.button onClick={toggleLanguage} className="flex items-center gap-1.5 px-2.5 py-2 rounded-full border border-border/50 font-sans text-xs font-medium hover:border-primary/50 transition-colors" whileHover={{
-              scale: 1.02
-            }} whileTap={{
-              scale: 0.98
-            }}>
-                <Globe className="w-3.5 h-3.5 text-primary" />
-                <span className="uppercase text-muted-foreground tracking-wider">{language}</span>
+            {/* Actions */}
+            <div className="flex-shrink-0 flex items-center gap-1.5 sm:gap-2">
+              {/* Language Toggle - Minimal */}
+              <motion.button 
+                onClick={toggleLanguage} 
+                className="relative w-9 h-9 rounded-full flex items-center justify-center text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <span className="font-display text-[11px] uppercase tracking-wider font-medium">{language}</span>
               </motion.button>
 
-              {/* Mode Toggle */}
-              <motion.button onClick={toggleMode} className="flex items-center gap-2 px-3 py-2 rounded-full border border-border/50 font-sans text-xs font-medium hover:border-primary/50 transition-colors" whileHover={{
-              scale: 1.02
-            }} whileTap={{
-              scale: 0.98
-            }}>
+              {/* Divider */}
+              <div className="hidden sm:block w-px h-5 bg-border/60" />
+
+              {/* Mode Toggle - Icon Only */}
+              <motion.button 
+                onClick={toggleMode} 
+                className="relative w-9 h-9 rounded-full flex items-center justify-center text-foreground/70 hover:text-primary hover:bg-primary/5 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
                 <AnimatePresence mode="wait">
-                  {isGallery ? <motion.div key="gallery" initial={{
-                  opacity: 0,
-                  rotate: -90
-                }} animate={{
-                  opacity: 1,
-                  rotate: 0
-                }} exit={{
-                  opacity: 0,
-                  rotate: 90
-                }} className="flex items-center gap-1.5">
-                      <Moon className="w-3.5 h-3.5 text-primary" />
-                      <span className="hidden sm:inline text-muted-foreground tracking-wide uppercase">{t.nav.gallery}</span>
-                    </motion.div> : <motion.div key="pro" initial={{
-                  opacity: 0,
-                  rotate: -90
-                }} animate={{
-                  opacity: 1,
-                  rotate: 0
-                }} exit={{
-                  opacity: 0,
-                  rotate: 90
-                }} className="flex items-center gap-1.5">
-                      <Sun className="w-3.5 h-3.5 text-primary" />
-                      <span className="hidden sm:inline text-muted-foreground tracking-wide uppercase">{t.nav.pro}</span>
-                    </motion.div>}
+                  {isGallery ? (
+                    <motion.div 
+                      key="gallery" 
+                      initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                      exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Moon className="w-4 h-4" />
+                    </motion.div>
+                  ) : (
+                    <motion.div 
+                      key="pro" 
+                      initial={{ opacity: 0, rotate: -90, scale: 0.5 }}
+                      animate={{ opacity: 1, rotate: 0, scale: 1 }}
+                      exit={{ opacity: 0, rotate: 90, scale: 0.5 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <Sun className="w-4 h-4" />
+                    </motion.div>
+                  )}
                 </AnimatePresence>
               </motion.button>
 
               {/* Quote Basket Button */}
               <AnimatePresence>
                 {totalItems > 0 && (
-                  <motion.button
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0, opacity: 0 }}
-                    onClick={() => setQuoteOpen(true)}
-                    className="relative flex items-center gap-2 px-3 py-2 rounded-full border border-primary/50 bg-primary/10 hover:bg-primary/20 transition-colors"
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                  >
-                    <FileText className="w-4 h-4 text-primary" />
-                    <span className="hidden sm:inline font-sans text-xs font-medium text-foreground tracking-wide">
-                      {language === 'en' ? 'Quote' : 'Cotización'}
-                    </span>
-                    <span className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-primary text-primary-foreground text-xs font-bold rounded-full flex items-center justify-center">
-                      {totalItems}
-                    </span>
-                  </motion.button>
+                  <>
+                    <div className="hidden sm:block w-px h-5 bg-border/60" />
+                    <motion.button
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      onClick={() => setQuoteOpen(true)}
+                      className="relative w-9 h-9 rounded-full flex items-center justify-center text-primary hover:bg-primary/10 transition-all duration-300"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FileText className="w-4 h-4" />
+                      <motion.span 
+                        className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] bg-primary text-primary-foreground text-[10px] font-bold rounded-full flex items-center justify-center px-1"
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                      >
+                        {totalItems}
+                      </motion.span>
+                    </motion.button>
+                  </>
                 )}
               </AnimatePresence>
 
-              {/* Phone CTA */}
-              <motion.a href="tel:+17543001010" className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full btn-gold" whileHover={{
-              scale: 1.02
-            }} whileTap={{
-              scale: 0.98
-            }}>
+              {/* Divider */}
+              <div className="hidden lg:block w-px h-5 bg-border/60" />
+
+              {/* Phone CTA - Elegant Button */}
+              <motion.a 
+                href="tel:+17543001010" 
+                className="hidden lg:flex items-center gap-2 px-4 py-2 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/20 hover:shadow-primary/30 hover:brightness-110 transition-all duration-300"
+                whileHover={{ scale: 1.02, y: -1 }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Phone className="w-3.5 h-3.5" />
-                <span className="font-sans text-xs font-medium tracking-wider whitespace-nowrap">+1 (754) 300-1010</span>
+                <span className="font-sans text-xs font-semibold tracking-wide whitespace-nowrap">+1 (754) 300-1010</span>
               </motion.a>
 
               {/* Mobile Menu Button */}
