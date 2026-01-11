@@ -129,7 +129,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
             {/* Since Badge - Elegant with Laurel */}
             <motion.div 
-              className="mb-10 flex justify-center w-full"
+              className="mb-10 flex justify-start w-full"
               variants={itemVariants}
             >
               <div className="relative w-32 h-28 md:w-40 md:h-36 flex items-center justify-center">
