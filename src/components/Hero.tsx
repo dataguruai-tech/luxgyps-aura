@@ -79,10 +79,10 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Split Background - Rose Relief Left, Carousel Right with smooth blend */}
+      {/* Split Background - Rose Relief Left, Carousel Right */}
       <div className="absolute inset-0 flex">
         {/* Left Side - Rose Relief (Gypsum Flower) */}
-        <div className="w-full lg:w-[55%] relative">
+        <div className="w-full lg:w-1/2 relative">
           <motion.img
             src={roseRelief}
             alt="Gypsum Rose Relief"
@@ -91,12 +91,11 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             animate={{ scale: 1 }}
             transition={{ duration: 1.5, ease: [0.25, 0.46, 0.45, 0.94] }}
           />
-          {/* Gradient overlay for left - fades to right edge */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/40 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/60 to-background/90" />
         </div>
         
         {/* Right Side - Carousel Images */}
-        <div className="hidden lg:block w-[45%] relative -ml-[10%]">
+        <div className="hidden lg:block w-1/2 relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentImage}
@@ -113,14 +112,8 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
               />
             </motion.div>
           </AnimatePresence>
-          {/* Gradient overlay for right - blends from left edge */}
-          <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-background/80" />
         </div>
-      </div>
-      
-      {/* Center blend overlay for seamless transition */}
-      <div className="absolute inset-0 hidden lg:block pointer-events-none">
-        <div className="absolute top-0 bottom-0 left-[40%] w-[20%] bg-gradient-to-r from-transparent via-background/20 to-transparent" />
       </div>
       
       {/* Top & Bottom gradient overlays */}
