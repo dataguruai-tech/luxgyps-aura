@@ -107,7 +107,7 @@ const Footer = () => {
           </div>
 
           {/* Social Links */}
-          <div className="flex items-center justify-center gap-3 mt-8">
+          <div className="flex items-center justify-start gap-3 mt-8">
             {socialLinks.map((social) => (
               <motion.a
                 key={social.label}
