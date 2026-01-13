@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Play, Package, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
+import OptimizedImage from '@/components/OptimizedImage';
 import roseRelief from '@/assets/rose-relief.jpg';
 import since2000Badge from '@/assets/since-2000-badge.png';
 
@@ -27,6 +28,13 @@ const carouselImages = [
   interior6,
 ];
 
+// Preload next images for smooth transitions
+const preloadImage = (src: string) => {
+  const img = new Image();
+  img.src = src;
+};
+
+
 const Hero = ({ onSampleKitClick }: HeroProps) => {
   const { isGallery } = useMode();
   const { t } = useLanguage();
@@ -34,7 +42,21 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
   const [imageStack, setImageStack] = useState<number[]>([0]);
   const [showSwipeHint, setShowSwipeHint] = useState(false);
 
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set([0]));
+
   const SLIDE_DURATION = 5000;
+
+  // Preload adjacent images for smooth transitions
+  useEffect(() => {
+    const nextIndex = (currentImage + 1) % carouselImages.length;
+    const prevIndex = (currentImage - 1 + carouselImages.length) % carouselImages.length;
+    
+    preloadImage(carouselImages[nextIndex]);
+    preloadImage(carouselImages[prevIndex]);
+    
+    // Mark as loaded
+    setLoadedImages(prev => new Set([...prev, nextIndex, prevIndex]));
+  }, [currentImage]);
 
   // Check if swipe hint should be shown (first visit only)
   useEffect(() => {
@@ -300,13 +322,11 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                       {/* Photo frame effect */}
                       <div className="w-full h-full bg-cream p-1.5 sm:p-2 md:p-2 rounded-sm shadow-2xl">
                         <div className="w-full h-full overflow-hidden">
-                          <motion.img
+                          <OptimizedImage
                             src={carouselImages[imgIndex]}
-                            alt="Interior design"
-                            className="w-full h-full object-cover"
-                            initial={isTop ? { scale: 1.1 } : false}
-                            animate={isTop ? { scale: 1 } : {}}
-                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                            alt={`Interior design ${imgIndex + 1}`}
+                            className="w-full h-full"
+                            priority={imgIndex === 0 || loadedImages.has(imgIndex)}
                           />
                         </div>
                       </div>
