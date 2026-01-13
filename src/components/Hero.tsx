@@ -203,8 +203,8 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                 style={{ transform: 'rotate(2deg) translate(6px, 8px)' }}
               />
               
-              {/* Animated photo stack */}
-              <AnimatePresence>
+              {/* Animated photo stack - overlay effect on mobile */}
+              <AnimatePresence mode="popLayout">
                 {imageStack.map((imgIndex, stackIndex) => {
                   const isTop = stackIndex === imageStack.length - 1;
                   const depth = imageStack.length - 1 - stackIndex;
@@ -214,29 +214,33 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                       key={`${imgIndex}-${stackIndex}`}
                       className="absolute inset-0"
                       initial={isTop ? { 
-                        opacity: 0, 
-                        scale: 1.1, 
-                        y: -100,
-                        rotate: getRandomRotation(imgIndex) + 5
+                        opacity: 1, 
+                        scale: 1.05, 
+                        y: 0,
+                        x: 0,
+                        rotate: 0,
+                        zIndex: 20
                       } : false}
                       animate={{ 
-                        opacity: Math.max(0, 1 - depth * 0.25),
-                        scale: 1 - depth * 0.03,
-                        y: depth * 8,
-                        x: depth * -4,
+                        opacity: isTop ? 1 : Math.max(0, 1 - depth * 0.3),
+                        scale: 1 - depth * 0.02,
+                        y: depth * 6,
+                        x: depth * -3,
                         rotate: getRandomRotation(imgIndex),
                         zIndex: 10 - depth
                       }}
                       exit={{ 
                         opacity: 0,
-                        scale: 0.95,
-                        transition: { duration: 0.3 }
+                        scale: 0.98,
+                        y: 15,
+                        zIndex: 0,
+                        transition: { duration: 0.5, ease: "easeOut" }
                       }}
                       transition={{ 
-                        duration: 0.8, 
+                        duration: 0.7, 
                         ease: [0.22, 1, 0.36, 1]
                       }}
-                      style={{ zIndex: 10 - depth }}
+                      style={{ zIndex: isTop ? 20 : 10 - depth }}
                     >
                       {/* Photo frame effect */}
                       <div className="w-full h-full bg-cream p-1.5 sm:p-2 md:p-2 rounded-sm shadow-2xl">
@@ -245,8 +249,9 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                             src={carouselImages[imgIndex]}
                             alt="Interior design"
                             className="w-full h-full object-cover"
-                            animate={isTop ? { scale: [1, 1.02, 1] } : {}}
-                            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+                            initial={isTop ? { scale: 1.1 } : false}
+                            animate={isTop ? { scale: 1 } : {}}
+                            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                           />
                         </div>
                       </div>
