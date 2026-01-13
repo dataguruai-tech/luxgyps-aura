@@ -41,6 +41,24 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
     setImageStack(prev => [...prev.slice(-3), nextIndex]); // Keep last 4 images in stack
   }, [currentImage]);
 
+  const goToPrev = useCallback(() => {
+    const prevIndex = (currentImage - 1 + carouselImages.length) % carouselImages.length;
+    setCurrentImage(prevIndex);
+    setImageStack(prev => [...prev.slice(-3), prevIndex]);
+  }, [currentImage]);
+
+  // Swipe handlers
+  const handleDragEnd = useCallback((event: any, info: { offset: { x: number }; velocity: { x: number } }) => {
+    const swipeThreshold = 50;
+    const velocityThreshold = 500;
+    
+    if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
+      goToNext();
+    } else if (info.offset.x > swipeThreshold || info.velocity.x > velocityThreshold) {
+      goToPrev();
+    }
+  }, [goToNext, goToPrev]);
+
   // Auto-rotate
   useEffect(() => {
     const interval = setInterval(goToNext, SLIDE_DURATION);
@@ -190,9 +208,16 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
           {/* Right Side - Photo Stack */}
           {/* Mobile: smaller below, Tablet: elegant side placement, Desktop: large right */}
-          <div className="relative h-[55vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] flex items-center justify-center md:justify-center lg:justify-end lg:pr-8 order-2 z-40 pb-8 sm:pb-0">
+          <motion.div 
+            className="relative h-[55vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] flex items-center justify-center md:justify-center lg:justify-end lg:pr-8 order-2 z-40 pb-8 sm:pb-0 touch-pan-y"
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={handleDragEnd}
+            whileDrag={{ cursor: "grabbing" }}
+          >
             {/* Photo Stack Container - Tablet: centered elegantly */}
-            <div className="relative w-[75%] sm:w-[75%] md:w-[90%] lg:w-[85%] max-w-[280px] sm:max-w-sm md:max-w-[280px] lg:max-w-md aspect-[3/4]">
+            <div className="relative w-[75%] sm:w-[75%] md:w-[90%] lg:w-[85%] max-w-[280px] sm:max-w-sm md:max-w-[280px] lg:max-w-md aspect-[3/4] pointer-events-none">
               {/* Static base shadows for depth */}
               <div 
                 className="absolute inset-0 bg-background/20 rounded-sm shadow-2xl hidden sm:block"
@@ -264,7 +289,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
             {/* Decorative corner elements - Show on tablet+ */}
             <div className="absolute top-[5%] right-[5%] md:top-[8%] md:right-[8%] w-12 sm:w-16 md:w-12 h-12 sm:h-16 md:h-12 border-t border-r border-primary/20 z-0 hidden md:block" />
             <div className="absolute bottom-[5%] left-[5%] md:bottom-[8%] md:left-[8%] w-12 sm:w-16 md:w-12 h-12 sm:h-16 md:h-12 border-b border-l border-primary/20 z-0 hidden md:block" />
-          </div>
+          </motion.div>
         </div>
       </div>
 
