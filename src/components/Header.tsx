@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Menu, X, Sun, Moon, Globe, FileText, ChevronDown } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
@@ -6,7 +6,6 @@ import { useLanguage } from '@/context/LanguageContext';
 import { useQuote } from '@/context/QuoteContext';
 import logo from '@/assets/luxgyps-logo.svg';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
 interface NavItem {
   label: string;
   href: string;
@@ -30,6 +29,18 @@ const Header = () => {
   const { totalItems, setIsOpen: setQuoteOpen } = useQuote();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [decorDropdownOpen, setDecorDropdownOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Check initial state
+    
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Navigation items based on the sitemap
   const navItems = {
@@ -83,7 +94,11 @@ const Header = () => {
       <header className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6">
         {/* Main Header Bar */}
         <motion.div 
-          className="mt-4 rounded-full border border-border/50 backdrop-blur-xl bg-background/95"
+          className={`mt-4 rounded-full border transition-all duration-500 ease-out ${
+            isScrolled 
+              ? 'border-border/30 backdrop-blur-2xl bg-background/60 shadow-lg shadow-black/5' 
+              : 'border-border/50 backdrop-blur-xl bg-background/95'
+          }`}
           initial={{ y: -100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
