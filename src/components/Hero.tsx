@@ -77,7 +77,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden z-0">
+    <section className="relative min-h-screen flex items-center z-30">
       {/* Full Screen Background - Rose Relief */}
       <div className="absolute inset-0">
         <motion.img
@@ -190,9 +190,9 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
           {/* Right Side - Photo Stack */}
           {/* Mobile: smaller below, Tablet: elegant side placement, Desktop: large right */}
-          <div className="relative h-[50vh] sm:h-[55vh] md:h-[70vh] lg:h-[85vh] flex items-center justify-center md:justify-center lg:justify-end lg:pr-8 order-2 z-20">
+          <div className="relative h-[55vh] sm:h-[60vh] md:h-[70vh] lg:h-[85vh] flex items-center justify-center md:justify-center lg:justify-end lg:pr-8 order-2 z-40 pb-8 sm:pb-0">
             {/* Photo Stack Container - Tablet: centered elegantly */}
-            <div className="relative w-[70%] sm:w-[75%] md:w-[90%] lg:w-[85%] max-w-[260px] sm:max-w-sm md:max-w-[280px] lg:max-w-md aspect-[3/4]">
+            <div className="relative w-[75%] sm:w-[75%] md:w-[90%] lg:w-[85%] max-w-[280px] sm:max-w-sm md:max-w-[280px] lg:max-w-md aspect-[3/4]">
               {/* Static base shadows for depth */}
               <div 
                 className="absolute inset-0 bg-background/20 rounded-sm shadow-2xl hidden sm:block"
