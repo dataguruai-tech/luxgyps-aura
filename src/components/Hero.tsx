@@ -77,7 +77,7 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden z-0">
       {/* Full Screen Background - Rose Relief */}
       <div className="absolute inset-0">
         <motion.img
