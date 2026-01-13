@@ -190,9 +190,9 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
 
           {/* Right Side - Photo Stack */}
           {/* Mobile: smaller below, Tablet: elegant side placement, Desktop: large right */}
-          <div className="relative h-[45vh] sm:h-[50vh] md:h-[70vh] lg:h-[85vh] flex items-center justify-center md:justify-center lg:justify-end lg:pr-8 order-2">
+          <div className="relative h-[40vh] sm:h-[50vh] md:h-[70vh] lg:h-[85vh] flex items-center justify-center md:justify-center lg:justify-end lg:pr-8 order-2 overflow-hidden">
             {/* Photo Stack Container - Tablet: centered elegantly */}
-            <div className="relative w-[70%] sm:w-[75%] md:w-[90%] lg:w-[85%] max-w-xs sm:max-w-sm md:max-w-[280px] lg:max-w-md aspect-[3/4]">
+            <div className="relative w-[65%] sm:w-[75%] md:w-[90%] lg:w-[85%] max-w-[240px] sm:max-w-sm md:max-w-[280px] lg:max-w-md aspect-[3/4]">
               {/* Static base shadows for depth */}
               <div 
                 className="absolute inset-0 bg-background/20 rounded-sm shadow-2xl hidden sm:block"
