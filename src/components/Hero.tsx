@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Play, Package } from 'lucide-react';
+import { ArrowRight, Play, Package, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import roseRelief from '@/assets/rose-relief.jpg';
@@ -32,8 +32,27 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
   const { t } = useLanguage();
   const [currentImage, setCurrentImage] = useState(0);
   const [imageStack, setImageStack] = useState<number[]>([0]);
+  const [showSwipeHint, setShowSwipeHint] = useState(false);
 
   const SLIDE_DURATION = 5000;
+
+  // Check if swipe hint should be shown (first visit only)
+  useEffect(() => {
+    const hasSeenSwipeHint = localStorage.getItem('luxgyps-swipe-hint-seen');
+    if (!hasSeenSwipeHint) {
+      // Delay showing hint for better UX
+      const timer = setTimeout(() => {
+        setShowSwipeHint(true);
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Hide hint after user interaction or timeout
+  const dismissSwipeHint = useCallback(() => {
+    setShowSwipeHint(false);
+    localStorage.setItem('luxgyps-swipe-hint-seen', 'true');
+  }, []);
 
   const goToNext = useCallback(() => {
     const nextIndex = (currentImage + 1) % carouselImages.length;
@@ -52,12 +71,23 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
     const swipeThreshold = 50;
     const velocityThreshold = 500;
     
+    // Dismiss hint on any swipe
+    dismissSwipeHint();
+    
     if (info.offset.x < -swipeThreshold || info.velocity.x < -velocityThreshold) {
       goToNext();
     } else if (info.offset.x > swipeThreshold || info.velocity.x > velocityThreshold) {
       goToPrev();
     }
-  }, [goToNext, goToPrev]);
+  }, [goToNext, goToPrev, dismissSwipeHint]);
+
+  // Auto-hide swipe hint after 5 seconds
+  useEffect(() => {
+    if (showSwipeHint) {
+      const timer = setTimeout(dismissSwipeHint, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [showSwipeHint, dismissSwipeHint]);
 
   // Auto-rotate
   useEffect(() => {
@@ -285,6 +315,44 @@ const Hero = ({ onSampleKitClick }: HeroProps) => {
                 })}
               </AnimatePresence>
             </div>
+
+            {/* Swipe Hint Animation - Mobile only, first visit */}
+            <AnimatePresence>
+              {showSwipeHint && (
+                <motion.div
+                  className="absolute inset-0 flex items-center justify-center pointer-events-none lg:hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Animated swipe indicator */}
+                  <motion.div
+                    className="flex items-center gap-3 px-5 py-3 rounded-full bg-background/80 backdrop-blur-md border border-primary/30 shadow-lg"
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.9, opacity: 0 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <motion.div
+                      animate={{ x: [-3, 3, -3] }}
+                      transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <ChevronLeft className="w-4 h-4 text-primary" />
+                    </motion.div>
+                    <span className="text-xs uppercase tracking-widest text-foreground/80 font-medium">
+                      Swipe
+                    </span>
+                    <motion.div
+                      animate={{ x: [3, -3, 3] }}
+                      transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <ChevronRight className="w-4 h-4 text-primary" />
+                    </motion.div>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Decorative corner elements - Show on tablet+ */}
             <div className="absolute top-[5%] right-[5%] md:top-[8%] md:right-[8%] w-12 sm:w-16 md:w-12 h-12 sm:h-16 md:h-12 border-t border-r border-primary/20 z-0 hidden md:block" />
