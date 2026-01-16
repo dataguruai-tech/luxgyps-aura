@@ -38,7 +38,7 @@ const Footer = () => {
 
   const navItemsRight = [
     { label: 'Showroom', href: '#showroom' },
-    { label: language === 'en' ? 'Facades' : 'Fachadas', href: '#portfolio' },
+    { label: language === 'en' ? 'Facades' : 'Fachadas', href: '#gallery' },
     { label: language === 'en' ? 'About' : 'Nosotros', href: '#about' },
     { label: language === 'en' ? 'Delivery' : 'Entrega', href: '#delivery' },
     { label: language === 'en' ? 'Contact' : 'Contacto', href: '#footer' },
