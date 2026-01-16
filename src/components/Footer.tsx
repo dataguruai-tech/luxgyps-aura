@@ -23,9 +23,9 @@ const Footer = () => {
   const { language, t } = useLanguage();
 
   const socialLinks = [
-    { icon: Instagram, href: 'https://instagram.com/luxgyps', label: 'Instagram' },
-    { icon: TikTokIcon, href: 'https://tiktok.com/@luxgyps', label: 'TikTok' },
-    { icon: FacebookIcon, href: 'https://facebook.com/luxgyps', label: 'Facebook' },
+    { icon: Instagram, href: 'https://www.instagram.com/luxgyps?utm_source=qr', label: 'Instagram' },
+    { icon: TikTokIcon, href: 'https://www.tiktok.com/@luxgyps?_r=1&_t=ZP-937eI07Wixq', label: 'TikTok' },
+    { icon: FacebookIcon, href: 'https://www.facebook.com/profile.php?id=61579767850641#', label: 'Facebook' },
   ];
 
   const navItemsLeft = [
