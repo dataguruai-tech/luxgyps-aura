@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Phone, Menu, X, Sun, Moon, Globe, FileText, ChevronDown } from 'lucide-react';
+import { Phone, Menu, X, Sun, Moon, FileText } from 'lucide-react';
 import { useMode } from '@/context/ModeContext';
 import { useLanguage } from '@/context/LanguageContext';
 import { useQuote } from '@/context/QuoteContext';
@@ -28,7 +28,6 @@ const Header = () => {
   } = useLanguage();
   const { totalItems, setIsOpen: setQuoteOpen } = useQuote();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [decorDropdownOpen, setDecorDropdownOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -45,13 +44,7 @@ const Header = () => {
   // Navigation items based on the sitemap
   const navItems = {
     about: { label: language === 'en' ? 'About Us' : 'Nosotros', href: '#about' },
-    decor: {
-      label: language === 'en' ? 'Decor' : 'Decoración',
-      items: [
-        { label: language === 'en' ? 'Interior Decor' : 'Decoración Interior', href: '#portfolio' },
-        { label: language === 'en' ? 'Facade Decor' : 'Decoración Fachada', href: '#catalog' },
-      ]
-    },
+    catalog: { label: language === 'en' ? 'Catalog' : 'Catálogo', href: '#catalog' },
     gallery: { label: language === 'en' ? 'Gallery' : 'Galería', href: '#gallery' },
     services: { label: language === 'en' ? 'Services' : 'Servicios', href: '#process' },
     showroom: { label: 'Showroom', href: '#showroom', comingSoon: true },
@@ -60,7 +53,7 @@ const Header = () => {
 
   const allNavItems = [
     navItems.about,
-    ...navItems.decor.items,
+    navItems.catalog,
     navItems.gallery,
     navItems.services,
     navItems.showroom,
@@ -87,7 +80,6 @@ const Header = () => {
     }
     
     setMobileMenuOpen(false);
-    setDecorDropdownOpen(false);
   }, []);
 
   return <TooltipProvider>
@@ -128,41 +120,16 @@ const Header = () => {
                 <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full" />
               </motion.a>
 
-              {/* Decor Dropdown */}
-              <div 
-                className="relative"
-                onMouseEnter={() => setDecorDropdownOpen(true)}
-                onMouseLeave={() => setDecorDropdownOpen(false)}
+              {/* Catalog */}
+              <motion.a 
+                href={navItems.catalog.href} 
+                onClick={(e) => handleNavClick(e, navItems.catalog.href)}
+                className="font-display text-sm uppercase tracking-[0.12em] text-foreground/80 hover:text-primary transition-colors duration-300 relative group whitespace-nowrap" 
+                whileHover={{ y: -1 }}
               >
-                <button className="flex items-center gap-1.5 font-display text-sm uppercase tracking-[0.12em] text-foreground/80 hover:text-primary transition-colors duration-300 whitespace-nowrap">
-                  {navItems.decor.label}
-                  <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${decorDropdownOpen ? 'rotate-180' : ''}`} />
-                </button>
-                
-                <AnimatePresence>
-                  {decorDropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 min-w-[200px] py-2 bg-card border border-border rounded-xl shadow-xl z-50"
-                    >
-                      {navItems.decor.items.map((item) => (
-                        <motion.a
-                          key={item.label}
-                          href={item.href}
-                          onClick={(e) => handleNavClick(e, item.href)}
-                          className="block px-4 py-2.5 font-display text-sm uppercase tracking-[0.1em] text-foreground/80 hover:text-primary hover:bg-primary/5 transition-all duration-200"
-                          whileHover={{ x: 4 }}
-                        >
-                          {item.label}
-                        </motion.a>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                {navItems.catalog.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-primary transition-all duration-300 ease-out group-hover:w-full" />
+              </motion.a>
 
               {/* Gallery */}
               <motion.a 
