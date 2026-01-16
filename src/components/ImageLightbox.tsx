@@ -1,7 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, ChevronLeft, ChevronRight } from 'lucide-react';
-import { useEffect, useCallback, useRef, useState } from 'react';
-import TextureLoupe from './TextureLoupe';
+import { useEffect, useCallback } from 'react';
 
 interface Work {
   id: number;
@@ -23,8 +22,6 @@ const ImageLightbox = ({ isOpen, onClose, work, works, onNavigate }: ImageLightb
   const currentIndex = work ? works.findIndex(w => w.id === work.id) : -1;
   const hasPrev = currentIndex > 0;
   const hasNext = currentIndex < works.length - 1;
-  const imageContainerRef = useRef<HTMLDivElement>(null);
-  const [isHoveringImage, setIsHoveringImage] = useState(false);
 
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     if (e.key === 'Escape') onClose();
@@ -119,12 +116,7 @@ const ImageLightbox = ({ isOpen, onClose, work, works, onNavigate }: ImageLightb
               onClick={(e) => e.stopPropagation()}
             >
               {/* Gold Frame */}
-              <div 
-                ref={imageContainerRef}
-                className="relative rounded-lg overflow-hidden border-2 border-primary/30 shadow-2xl cursor-none"
-                onMouseEnter={() => setIsHoveringImage(true)}
-                onMouseLeave={() => setIsHoveringImage(false)}
-              >
+              <div className="relative rounded-lg overflow-hidden border-2 border-primary/30 shadow-2xl">
                 {/* Corner Accents */}
                 <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-primary z-10 pointer-events-none" />
                 <div className="absolute top-0 right-0 w-12 h-12 border-r-2 border-t-2 border-primary z-10 pointer-events-none" />
@@ -141,19 +133,6 @@ const ImageLightbox = ({ isOpen, onClose, work, works, onNavigate }: ImageLightb
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 />
-
-                {/* Texture Loupe - smaller size, higher zoom */}
-                <AnimatePresence>
-                  {isHoveringImage && (
-                    <TextureLoupe
-                      imageSrc={work.image}
-                      isActive={true}
-                      containerRef={imageContainerRef}
-                      size={120}
-                      zoom={7}
-                    />
-                  )}
-                </AnimatePresence>
               </div>
 
               {/* Info Panel */}
