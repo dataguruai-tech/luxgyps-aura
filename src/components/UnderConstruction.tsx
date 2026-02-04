@@ -7,12 +7,10 @@ const UnderConstruction = () => {
 
   const content = {
     en: {
-      subtitle: "Miami's Premier Artisan Stucco Studio",
-      comingSoon: 'Coming Soon'
+      subtitle: 'Website Under Development'
     },
     es: {
-      subtitle: 'Estudio de Estuco Artesanal Premier de Miami',
-      comingSoon: 'Próximamente'
+      subtitle: 'Sitio Web en Desarrollo'
     }
   };
 
@@ -23,52 +21,40 @@ const UnderConstruction = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-2xl"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-3xl overflow-hidden"
     >
-      {/* Subtle Decorative Lines */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <div className="absolute top-1/2 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary to-transparent" />
-        <div className="absolute top-0 left-1/2 w-px h-full bg-gradient-to-b from-transparent via-primary to-transparent" />
-      </div>
-
       {/* Center Frame */}
       <motion.div
         initial={{ opacity: 0, y: 20, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="relative w-full max-w-md md:max-w-lg lg:max-w-xl"
+        className="relative w-full max-w-sm md:max-w-md"
       >
-        {/* Corner Accents */}
-        <div className="absolute -top-4 -left-4 w-10 h-10 border-l border-t border-primary/80" />
-        <div className="absolute -top-4 -right-4 w-10 h-10 border-r border-t border-primary/80" />
-        <div className="absolute -bottom-4 -left-4 w-10 h-10 border-l border-b border-primary/80" />
-        <div className="absolute -bottom-4 -right-4 w-10 h-10 border-r border-b border-primary/80" />
-
         {/* Main Card */}
-        <div className="relative border border-primary bg-neutral-900/40 backdrop-blur-lg p-10 md:p-14 lg:p-16 text-center">
-          {/* Logo */}
+        <div className="relative border border-primary/40 bg-neutral-950/50 p-10 md:p-14 text-center flex flex-col items-center">
+          {/* Logo - Top */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="mb-10"
+            className="mb-12"
           >
             <img 
               src={logo} 
               alt="LuxGyps" 
-              className="h-10 md:h-12 mx-auto"
+              className="h-8 md:h-10 mx-auto"
             />
           </motion.div>
 
-          {/* Title - Font 1: Cinzel */}
+          {/* COMING SOON - Font 1: Cinzel - Massive */}
           <motion.h1
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-2xl md:text-3xl lg:text-4xl text-primary tracking-[0.2em] uppercase mb-3"
+            className="text-5xl md:text-6xl lg:text-7xl text-primary tracking-[0.3em] uppercase mb-6"
             style={{ fontFamily: "'Cinzel', serif" }}
           >
-            LUXGYPS AURA
+            COMING SOON
           </motion.h1>
           
           {/* Subtitle - Font 2: Inter */}
@@ -76,36 +62,17 @@ const UnderConstruction = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.7 }}
-            className="font-sans text-sm md:text-base text-zinc-400 tracking-wide mb-10"
+            className="font-sans text-lg md:text-xl text-zinc-300 font-light tracking-wide mb-14"
           >
             {t.subtitle}
           </motion.p>
 
-          {/* Divider */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
-            className="w-20 h-px bg-primary/60 mx-auto mb-10"
-          />
-
-          {/* Coming Soon - Font 1: Cinzel */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.9 }}
-            className="text-lg md:text-xl text-white/90 tracking-[0.2em] uppercase mb-12"
-            style={{ fontFamily: "'Cinzel', serif" }}
-          >
-            {t.comingSoon}
-          </motion.p>
-
-          {/* Language Selector - Font 2: Inter */}
+          {/* Language Selector - Font 2: Inter - Bottom of frame */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.0 }}
-            className="flex items-center justify-center gap-6"
+            transition={{ delay: 0.8 }}
+            className="flex items-center justify-center gap-5"
           >
             <button
               onClick={() => setLanguage('en')}
@@ -144,18 +111,6 @@ const UnderConstruction = () => {
             </button>
           </motion.div>
         </div>
-      </motion.div>
-
-      {/* Bottom Branding - Font 2: Inter */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-8 left-0 right-0 text-center"
-      >
-        <p className="font-sans text-zinc-600 text-[10px] tracking-[0.15em] uppercase">
-          Since 2000 - Miami, FL
-        </p>
       </motion.div>
     </motion.div>
   );
