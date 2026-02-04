@@ -14,12 +14,16 @@ import Chatbot from '@/components/Chatbot';
 import SampleKitModal from '@/components/SampleKitModal';
 import LookbookPopup from '@/components/LookbookPopup';
 import Archive from '@/components/Archive';
+import UnderConstruction from '@/components/UnderConstruction';
 
 const Index = () => {
   const [isSampleKitOpen, setIsSampleKitOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Under Construction Overlay */}
+      <UnderConstruction />
+      
       <Header />
       <main>
         <Hero onSampleKitClick={() => setIsSampleKitOpen(true)} />
