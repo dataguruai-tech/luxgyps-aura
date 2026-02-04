@@ -62,7 +62,7 @@ const UnderConstruction = () => {
             <img 
               src={logo} 
               alt="LuxGyps" 
-              className="h-12 md:h-16 mx-auto brightness-0 invert opacity-90"
+              className="h-12 md:h-16 mx-auto"
             />
           </motion.div>
 
