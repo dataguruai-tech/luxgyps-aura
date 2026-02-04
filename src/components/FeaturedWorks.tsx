@@ -146,7 +146,7 @@ const FeaturedWorks = () => {
   }, [selectedWork]);
 
   return (
-    <section id="gallery" className="py-24 md:py-32 bg-background relative overflow-hidden">
+    <section id="portfolio" className="py-24 md:py-32 bg-background relative overflow-hidden">
       {/* Decorative background elements */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-primary/20 to-transparent" />
